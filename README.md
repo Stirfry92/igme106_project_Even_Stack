@@ -8,7 +8,7 @@ _This README contains basic information about the project and its artifacts. If 
 - MEMBER1
 - MEMBER2
 - MEMBER3
-- MEMBER4
+- Sterling Wynham
 
 ### High Concept
 _Write a *brief* summary of the game. Who is the player? What is their objective? What is the core mechanic that helps them progress?_
