@@ -6,7 +6,7 @@ _This README contains basic information about the project and its artifacts. If 
 ## Overview
 ### Team Members
 - MEMBER1
-- MEMBER2
+- Calvin Duffer
 - MEMBER3
 - Sterling Wynham
 
