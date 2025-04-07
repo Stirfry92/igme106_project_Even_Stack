@@ -5,7 +5,7 @@ _This README contains basic information about the project and its artifacts. If 
 
 ## Overview
 ### Team Members
-- MEMBER1
+- Eason Smith
 - Calvin Duffer
 - Zach Ayers
 - Sterling Wynham
