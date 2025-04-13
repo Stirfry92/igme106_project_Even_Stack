@@ -19,7 +19,11 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        _graphics.PreferredBackBufferWidth = 1920;
+        _graphics.PreferredBackBufferHeight = 1080;
+        _graphics.IsFullScreen = true;
 
+        _graphics.ApplyChanges();
         base.Initialize();
     }
 
@@ -42,7 +46,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
         // TODO: Add your drawing code here
 
