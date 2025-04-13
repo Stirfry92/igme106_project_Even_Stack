@@ -93,18 +93,6 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// The internal bounds of the game object. This represents the 2D space covered by this object. 
-        /// This cannot be changed, instead you can change the object's <see cref="Position"/> and <see cref="Size"/>.
-        /// </summary>
-        internal Rectangle Bounds
-        {
-            get
-            {
-                return new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint());
-            }
-        }
-
-        /// <summary>
         /// Creates a new game object.
         /// </summary>
         /// <param name="position"></param>
@@ -113,17 +101,6 @@ namespace ASTRA
         {
             Position = position;
             Origin = origin;
-        }
-
-        /// <summary>
-        /// Whether the game object is colliding with any other objects.
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        internal bool CollidesWith(GameObject other)
-        {
-            return
-                Bounds.Intersects(other.Bounds);
         }
 
         /// <summary>
