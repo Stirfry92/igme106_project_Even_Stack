@@ -104,17 +104,15 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// Renders the game object.
-        /// </summary>
-        /// <param name="batch"></param>
-        internal abstract void Render(SpriteBatch batch);
-
-
-        /// <summary>
         /// Updates the game object. Many classes might not use this and might update based on a dependency with another class (like a button and a door).
         /// </summary>
         /// <param name="gameTime"></param>
         internal abstract void Update(GameTime gameTime);
+
+        /// <summary>
+        /// Resets the object's attributes.
+        /// </summary>
+        internal virtual void Reset() { }
 
     }
 }

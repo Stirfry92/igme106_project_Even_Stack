@@ -11,7 +11,7 @@ namespace ASTRA
     /// <summary>
     /// Represents an object that can be collided with.
     /// </summary>
-    internal interface ICollidable
+    public interface ICollidable
     {
 
         /// <summary>
