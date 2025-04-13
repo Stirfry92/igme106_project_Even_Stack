@@ -40,6 +40,8 @@ namespace ASTRA
             {
                 switch (Origin)
                 {
+
+                    
                     case ComponentOrigin.TopLeft:
                         {
                             return Position;
@@ -91,7 +93,8 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// The internal bounds of the game object. This represents the 2D space covered by this object.
+        /// The internal bounds of the game object. This represents the 2D space covered by this object. 
+        /// This cannot be changed, instead you can change the object's <see cref="Position"/> and <see cref="Size"/>.
         /// </summary>
         internal Rectangle Bounds
         {
