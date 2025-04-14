@@ -83,6 +83,30 @@ namespace ASTRA
         public void Collide(ICollidable other)
         {
             //TODO: add in base logic for collision (like walls).
+            Rectangle intersection = Rectangle.Intersect(CollisionBounds, other.CollisionBounds);
+
+            if (intersection.Height > intersection.Width && CollisionBounds.X <= other.CollisionBounds.X)
+            {
+                Position = new Vector2(Position.X - intersection.Width, Position.Y);
+                velocity = Vector2.Zero;
+            }
+            else if (intersection.Height > intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
+            {
+                Position = new Vector2(Position.X + intersection.Width, Position.Y);
+                velocity = Vector2.Zero;
+            }
+
+            if (intersection.Height <= intersection.Width && CollisionBounds.Y <= other.CollisionBounds.Y)
+            {
+                Position = new Vector2(Position.X, Position.Y - intersection.Height);
+                velocity = Vector2.Zero;
+            }
+            else if (intersection.Height <= intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
+            {
+                Position = new Vector2(Position.X , Position.Y + intersection.Height);
+                velocity = Vector2.Zero;
+            }
+
         }
 
         /// <summary>
@@ -108,7 +132,6 @@ namespace ASTRA
 
                 velocity = velocity + dir * speed;
             }
-
             
             Position = Position + velocity;
 

@@ -15,6 +15,7 @@ public class Game1 : Game
     //Using this variable to test player movement
     //-Sterling
     private Player player;
+    private Player player2;
 
     public Game1()
     {
@@ -41,6 +42,7 @@ public class Game1 : Game
         //but preferably integrate it elsewhere.
         LocalContentManager.Shared.Add<Texture2D>("blank", Content.Load<Texture2D>("blank"));
         player = new Player(new Vector2(400, 400));
+        player2 = new Player(new Vector2(200, 200));
         // TODO: use this.Content to load your game content here
     }
 
@@ -52,6 +54,7 @@ public class Game1 : Game
         // TODO: Add your update logic here
         player.Update(gameTime);
 
+
         base.Update(gameTime);
     }
 
@@ -62,6 +65,8 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
         IDrawable i = (IDrawable)player;
+        i.Draw(_spriteBatch);
+        i = (IDrawable)player2;
         i.Draw(_spriteBatch);
         _spriteBatch.End();
 
