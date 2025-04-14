@@ -54,6 +54,7 @@ namespace ASTRA
             
             //TODO: Change this, this is temporary for testing purposes.
             this.Size = new Vector2(50, 50);
+            this.speed = 5f;
             this.velocity = new Vector2(0, 0);
         }
 
@@ -104,9 +105,12 @@ namespace ASTRA
             {
                 dir = (currentMState.Position.ToVector2()) - Position;
                 dir.Normalize();
+
+                velocity = velocity + dir * speed;
             }
+
             
-            Position = Position + speed * dir;
+            Position = Position + velocity;
 
             //Perform necessary "clean up" tasks.
             //Set Previous states
