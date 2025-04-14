@@ -9,6 +9,13 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
+    /*********************
+     *     TEST ZONE     *
+     * *******************/
+    //Using this variable to test player movement
+    //-Sterling
+    //private Player player = new Player(new Vector2(400, 400));
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
