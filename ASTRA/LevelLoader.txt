@@ -1,6 +1,18 @@
 ﻿Key: Wall (X), Hole (!), Button (b), Door (d for closed, D for open), Obstacle (O), Blank (-), End (E), Start (S)
-Format: Level Name, Level #, Timer, Level Layout
-//DemoLevel,1,0:00,
+Format: Level Name, Level #, Timer, Dimensions, Level Layout
+Notes: Reference another file as a character
+//SquareLevel,0,0:00,8x8,
+XXXXXXXX
+X------X
+X------X
+X------X
+X------X
+X------X
+X------X
+XXXXXXXX
+//
+
+//DemoLevel,1,0:00,8x21,
 XXXXX!!XXXX!!!XXXXXXX
 X--b-----X-----d-O-bX
 X--------X-----X----X
