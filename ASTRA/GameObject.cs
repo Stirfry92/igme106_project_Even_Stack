@@ -18,8 +18,9 @@ namespace ASTRA
         /// <summary>
         /// The size of the game object.<br></br>
         /// FROM ZACH: This is being set with the required keyword as this needs to be set in the constructor. If there are errors being thrown about this variable, get rid of the required keyword.
+        /// FROM STERLING: I got rid of it :(
         /// </summary>
-        internal required Vector2 Size { get; set; }
+        internal Vector2 Size { get; set; }
 
         /// <summary>
         /// The current position of the game object. When rendering, use <see cref="TopLeftCorner"/> instead.

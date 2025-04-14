@@ -14,7 +14,7 @@ public class Game1 : Game
      * *******************/
     //Using this variable to test player movement
     //-Sterling
-    //private Player player = new Player(new Vector2(400, 400));
+    private Player player;
 
     public Game1()
     {
@@ -37,7 +37,10 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+        //FROM STERLING: Testing basic player requires a texture, I made a temporary texture right here: Remove if needed
+        //but preferably integrate it elsewhere.
+        LocalContentManager.Shared.Add<Texture2D>("blank", Content.Load<Texture2D>("blank"));
+        player = new Player(new Vector2(400, 400));
         // TODO: use this.Content to load your game content here
     }
 
@@ -47,6 +50,7 @@ public class Game1 : Game
             Exit();
 
         // TODO: Add your update logic here
+        player.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -56,6 +60,10 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
 
         // TODO: Add your drawing code here
+        _spriteBatch.Begin();
+        IDrawable i = (IDrawable)player;
+        i.Draw(_spriteBatch);
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }

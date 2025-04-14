@@ -27,13 +27,14 @@ namespace ASTRA
     {
         //Fields:
         private Vector2 dir;                            //Represents the direction the player "faces".
-        private float speed;                            //Represents the speed of the player
+        private float speed;                            //Represents the speed added to the direction when the player "pushes"
+        private Vector2 velocity;                       //Represents the velocity of the player
 
         private MouseState currentMState;               //Current state of the mouse (stored for input)
         private MouseState previousMState;              //Previous state of the mouse (stored for input)
 
-        private KeyboardState currentKBState;
-        private KeyboardState previousKBState;
+        private KeyboardState currentKBState;           //Current state of the keyboard (stored for input)
+        private KeyboardState previousKBState;          //Previous state of the keyboard (stored for input)
         
         /// <summary>
         /// Creates a new player object at the current position.
@@ -45,14 +46,15 @@ namespace ASTRA
             LocalContentManager lcm = LocalContentManager.Shared;
 
             //TODO: get a player asset. Comment this out if need be.
-            /*Image = lcm.GetTexture("player");
+            Image = lcm.GetTexture("blank");
 
 
-            Size = new Vector2(Image.Width, Image.Height);
-            */
-
+            //Size = new Vector2(Image.Width, Image.Height);
+            
+            
             //TODO: Change this, this is temporary for testing purposes.
             this.Size = new Vector2(50, 50);
+            this.velocity = new Vector2(0, 0);
         }
 
         /// <summary>
@@ -92,14 +94,24 @@ namespace ASTRA
 
             //Three Phases.
             //Collect Input:
-
+            //Set current states
+            currentKBState = Keyboard.GetState();
+            currentMState = Mouse.GetState();
+            
             //Execute movement:
             //Update the direction the player faces:
-            dir = (currentMState.Position.ToVector2()) - Position;
-            dir.Normalize(); 
+            if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+            {
+                dir = (currentMState.Position.ToVector2()) - Position;
+                dir.Normalize();
+            }
+            
+            Position = Position + speed * dir;
 
             //Perform necessary "clean up" tasks.
-
+            //Set Previous states
+            previousKBState = currentKBState;
+            previousMState = currentMState;
         }
 
         /// <summary>
@@ -108,7 +120,7 @@ namespace ASTRA
         /// <param name="batch"></param>
         void IDrawable.Draw(SpriteBatch batch)
         {
-            batch.Draw(Image, TopLeftCorner, Color.White);
+            batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
         }
     }
 }
