@@ -1,0 +1,5 @@
+﻿Key: Health (*)
+Starting Health: 4
+//
+Health: ****
+//

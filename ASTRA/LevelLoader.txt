@@ -1,0 +1,12 @@
+﻿Key: Wall (X), Hole (!), Button (b), Door (d for closed, D for open), Obstacle (O), Blank (-), End (E), Start (S)
+Format: Level Name, Level #, Timer, Level Layout
+//DemoLevel,1,0:00,
+XXXXX!!XXXX!!!XXXXXXX
+X--b-----X-----d-O-bX
+X--------X-----X----X
+S--------D--O!-X!XX!X
+X---O----X-----D----E
+X---O----X--O--XXXXXX
+X--------X--OO-d---bX
+XXX!!XXX!X!XOXXX!!!XX
+//
