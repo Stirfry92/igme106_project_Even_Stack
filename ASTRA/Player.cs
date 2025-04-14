@@ -83,30 +83,63 @@ namespace ASTRA
         public void Collide(ICollidable other)
         {
             //TODO: add in base logic for collision (like walls).
+            //Use an intersection rectangle to determine logic, in combination with the bounds of collision.
             Rectangle intersection = Rectangle.Intersect(CollisionBounds, other.CollisionBounds);
 
+            //In each of the below instances, if the player is holding down space they will bounce, otherwise they will grab onto the wall and lose their velocity.
+            //Instance where the player is to the left of the collidable surface
             if (intersection.Height > intersection.Width && CollisionBounds.X <= other.CollisionBounds.X)
             {
                 Position = new Vector2(Position.X - intersection.Width, Position.Y);
-                velocity = Vector2.Zero;
+                if (currentKBState.IsKeyDown(Keys.Space))
+                {
+                    velocity = new Vector2(-0.5f * velocity.X, velocity.Y);
+                }
+                else
+                {
+                    velocity = Vector2.Zero;
+                }
+                
             }
+            //Instance where the player is to the right of the collidable surface
             else if (intersection.Height > intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
             {
                 Position = new Vector2(Position.X + intersection.Width, Position.Y);
-                velocity = Vector2.Zero;
+                if (currentKBState.IsKeyDown(Keys.Space))
+                {
+                    velocity = new Vector2(-0.5f * velocity.X, velocity.Y);
+                }
+                else
+                {
+                    velocity = Vector2.Zero;
+                }
             }
-
+            //Instance where the player is above the collidable surface
             if (intersection.Height <= intersection.Width && CollisionBounds.Y <= other.CollisionBounds.Y)
             {
                 Position = new Vector2(Position.X, Position.Y - intersection.Height);
-                velocity = Vector2.Zero;
+                if (currentKBState.IsKeyDown(Keys.Space))
+                {
+                    velocity = new Vector2(velocity.X, -0.5f * velocity.Y);
+                }
+                else
+                {
+                    velocity = Vector2.Zero;
+                }
             }
-            else if (intersection.Height <= intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
+            //Instance where the player is below the collidable surface
+            else if (intersection.Height <= intersection.Width && CollisionBounds.Y > other.CollisionBounds.Y)
             {
                 Position = new Vector2(Position.X , Position.Y + intersection.Height);
-                velocity = Vector2.Zero;
+                if (currentKBState.IsKeyDown(Keys.Space))
+                {
+                    velocity = new Vector2(velocity.X, -0.5f * velocity.Y);
+                }
+                else
+                {
+                    velocity = Vector2.Zero;
+                }
             }
-
         }
 
         /// <summary>
@@ -135,7 +168,9 @@ namespace ASTRA
             
             Position = Position + velocity;
 
-            //Perform necessary "clean up" tasks.
+            
+
+            //Perform necessary "clean up" tasks:
             //Set Previous states
             previousKBState = currentKBState;
             previousMState = currentMState;

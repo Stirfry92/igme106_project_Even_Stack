@@ -54,6 +54,12 @@ public class Game1 : Game
         // TODO: Add your update logic here
         player.Update(gameTime);
 
+        IDrawable i = (IDrawable)player;
+        if (player.CollisionBounds.Intersects(player2.CollisionBounds))
+        {
+            player.Collide(player2);
+        }
+
 
         base.Update(gameTime);
     }
