@@ -9,42 +9,61 @@ using System.Threading.Tasks;
 
 namespace ASTRA.Scenes
 {
-    internal class Scene
+    internal abstract class Scene
     {
+        /// <summary>
+        /// The ID of the scene, which should be added to the Scene Manager once the scene has been created.
+        /// </summary>
+        internal const string ID = "base";
+
+
+        /// <summary>
+        /// This is a delegate for when scenes should be switched. This would be for stuff like:<br></br>
+        /// Pressing escape during gameplay to pull up the pause menu.<br></br>
+        /// Pressing the start button on the home screen.<br></br>
+        /// Pressing the continue button on the pause screen.<br></br>
+        /// Stuff like that.
+        /// </summary>
+        internal SetSceneDelegate SetScene;
+
+        internal GetSceneDelegate GetScene;
+
         /// <summary>
         /// The list of game objects that are within this scene.
         /// </summary>
-        private List<GameObject> GameObjects;
+        protected List<GameObject> GameObjects;
 
         /// <summary>
         /// The collidables that are contained within this scene.
         /// </summary>
-        private List<ICollidable> Collidables;
+        protected List<ICollidable> Collidables;
 
         /// <summary>
         /// The drawables that are contains within this scene.
         /// </summary>
-        private List<IDrawable> Drawables;
+        protected List<IDrawable> Drawables;
 
         /// <summary>
-        /// The player object.
+        /// Objects to remove at the end of every update cycle.
         /// </summary>
-        private Player? Player;
+        private Queue<GameObject> ObjectsToRemove;
 
         /// <summary>
         /// The UI present during this scene.
         /// </summary>
-        internal UI UI;
+        protected UI UI { get; }
 
         /// <summary>
         /// Creates a new scene and initializes all the storage variables.
         /// </summary>
-        internal Scene()
+        protected Scene()
         {
             GameObjects = new List<GameObject>();
             Collidables = new List<ICollidable>();
             Drawables = new List<IDrawable>();
             UI = new UI();
+
+            ObjectsToRemove = new Queue<GameObject>();
         }
 
 
@@ -52,7 +71,7 @@ namespace ASTRA.Scenes
         /// Adds in a game object.
         /// </summary>
         /// <param name="obj"></param>
-        internal void Add(GameObject obj)
+        protected virtual void Add(GameObject obj)
         {
             GameObjects.Add(obj);
 
@@ -65,43 +84,21 @@ namespace ASTRA.Scenes
             {
                 Drawables.Add(drawable);
             }
-
-            if (obj is Player p && Player == null)
-            {
-                Player = p;
-            }
         }
 
         /// <summary>
-        /// Removes an object from the game objects.
+        /// Removes an object from the game objects. This should be called during frame update (collisions, removal of data, etc...)
         /// </summary>
         /// <param name="obj"></param>
-        internal void Remove(GameObject obj)
+        protected virtual void Remove(GameObject obj)
         {
-
             ArgumentNullException.ThrowIfNull(obj);
 
-
-            GameObjects.Remove(obj);
-
-            if (obj is ICollidable collidable && obj is not ASTRA.Player)
-            {
-                Collidables.Remove(collidable);
-            }
-
-            if (obj is IDrawable drawable)
-            {
-                Drawables.Remove(drawable);
-            }
-
-            if (obj is Player p)
-            {
-                Player = null;
-            }
+            ObjectsToRemove.Enqueue(obj);
         }
 
         /// <summary>
-        /// Draws out scene.
+        /// Draws out the scene.
         /// </summary>
         /// <param name="batch"></param>
         internal void Draw(SpriteBatch batch)
@@ -110,40 +107,45 @@ namespace ASTRA.Scenes
             {
                 Drawables[i].Draw(batch);
             }
+
+            UI.Draw(batch);
         }
 
-        internal void Update(GameTime gameTime)
+        /// <summary>
+        /// Updates the scene. This should be overwritten if any logic is required for collisions!<br></br>
+        /// If overwriting Update() and need to get rid of objects, please call <see cref="Clean"/>.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        internal virtual void Update(GameTime gameTime)
         {
-            
-
             for (int i = 0; i < GameObjects.Count; i++)
             {
                 GameObjects[i].Update(gameTime);
             }
-
-            //only the player collides with the level for now, so if no player is present there's no more logic to go through
-            if (Player == null)
-                return;
-
-            for (int i = 0; i < Collidables.Count; i++)
-            {
-                if (Player.CollidesWith(Collidables[i]))
-                {
-                    Player.Collide(Collidables[i]);
-                }
-            }
-
-
-
         }
 
+        /// <summary>
+        /// Clears out all objects that should be deleted. This should be called if Update() ever needs to delete objects!
+        /// </summary>
+        protected void Clean()
+        {
+            while (ObjectsToRemove.Count > 0)
+            {
+                GameObject obj = ObjectsToRemove.Dequeue();
 
+                GameObjects.Remove(obj);
 
+                if (obj is ICollidable collidable)
+                {
+                    Collidables.Remove(collidable);
+                }
 
-
-
-
-
+                if (obj is IDrawable drawable)
+                {
+                    Drawables.Remove(drawable);
+                }
+            }
+        }
 
     }
 }

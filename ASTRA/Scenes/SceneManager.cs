@@ -17,7 +17,7 @@ namespace ASTRA.Scenes
         /// <summary>
         /// The scene currently being updated and drawn.
         /// </summary>
-        internal Scene CurrentScene { get; }
+        internal Scene CurrentScene { get; private set; }
 
 
         internal SceneManager()
@@ -30,14 +30,20 @@ namespace ASTRA.Scenes
         /// </summary>
         /// <param name="sceneName"></param>
         /// <returns></returns>
-        internal Scene GetScene(string sceneName)
+        private Scene GetScene(string sceneName)
         {
             if (LoadedScenes.TryGetValue(sceneName, out Scene potentialScene))
             {
                 return potentialScene;
             }
 
+            //get the scene and set default characteristics.
             Scene newScene = LoadScene(sceneName);
+
+            //this allows for better coupling since now a scene can handle scene change instead of having a reference to the parent inside the scene.
+            newScene.SetScene = SetScene;
+            newScene.GetScene = GetScene;
+
 
             return null; //TODO: Remove later
         }
@@ -49,7 +55,16 @@ namespace ASTRA.Scenes
         /// <returns></returns>
         private Scene LoadScene(string sceneName)
         {
-            return null; //TODO: Remove later
+            switch (sceneName)
+            {
+                case HomeScreen.ID:
+                    {
+                        return new HomeScreen();
+                    }
+            }
+
+
+            return null;
         }
 
 
@@ -57,9 +72,9 @@ namespace ASTRA.Scenes
         /// Sets the next scene for the game.
         /// </summary>
         /// <param name="sceneName"></param>
-        internal void SetScene(string sceneName)
+        private void SetScene(string sceneName)
         {
-
+            CurrentScene = GetScene(sceneName);
         }
 
 
