@@ -180,7 +180,7 @@ namespace ASTRA
         /// Draws out the asset
         /// </summary>
         /// <param name="batch"></param>
-        void IDrawable.Draw(SpriteBatch batch)
+        public void Draw(SpriteBatch batch)
         {
             batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
         }

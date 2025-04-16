@@ -54,7 +54,6 @@ public class Game1 : Game
         // TODO: Add your update logic here
         player.Update(gameTime);
 
-        IDrawable i = (IDrawable)player;
         if (player.CollisionBounds.Intersects(player2.CollisionBounds))
         {
             player.Collide(player2);
@@ -70,10 +69,10 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
-        IDrawable i = (IDrawable)player;
-        i.Draw(_spriteBatch);
-        i = (IDrawable)player2;
-        i.Draw(_spriteBatch);
+        
+        player.Draw(_spriteBatch);
+        
+        player2.Draw(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);
