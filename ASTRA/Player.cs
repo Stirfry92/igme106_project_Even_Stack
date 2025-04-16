@@ -184,5 +184,10 @@ namespace ASTRA
         {
             batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
         }
+
+        public bool CollidesWith(ICollidable other)
+        {
+            return CollisionBounds.Intersects(other.CollisionBounds);
+        }
     }
 }

@@ -47,10 +47,7 @@ namespace ASTRA
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        internal bool CollidesWith(ICollidable other)
-        {
-            return CollisionBounds.Intersects(other.CollisionBounds);
-        }
+        bool CollidesWith(ICollidable other);
 
         /// <summary>
         /// What should occur when a collidable collides with this collidable.
