@@ -1,4 +1,4 @@
-﻿DemoLevel,1,0:00,8x21
+﻿DemoLevel,1,0:00,8,21
 XXXXX!!XXXX!!!XXXXXXX
 X--b-----X-----d-O-bX
 X--------X-----X----X

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ASTRA.UserInterface;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.ExceptionServices;
@@ -19,50 +22,78 @@ namespace ASTRA
         private int x;
         private int y;
 
+        public void DrawLevel(SpriteBatch asd)
+        {
+            for (int i = 0; i < y; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    if (level[j, i] != null)
+                    {
+                        level[j, i].Draw(asd);
+                    }
+
+                }
+            }
+        }
 
         //level loading section
         /// <summary>
-        /// loades single level file
+        /// loads a single level file
         /// </summary>
         public void LoadLevel(string file)
         {
+            Player tempWall;
             Char[] asd;
             reader = new StreamReader(file);
             string[] data = reader.ReadLine().Split(',');
             name = data[0];
             LevelNum = int.Parse(data[1]);
-            Timer = int.Parse(data[2]);
-            x = int.Parse(data[3]);
-            y = int.Parse(data[4]);
-            for (int i = 5; i < y; i++) 
+            //Timer = int.Parse(data[2]);
+            y = int.Parse(data[3]);
+            x = int.Parse(data[4]);
+            level = new GameObject[x, y];
+            for (int i = 0; i < y; i++)
             {
                 asd = reader.ReadLine().ToCharArray();
-                for (int j = 0; j < x; j++) 
+                for (int j = 0; j < x; j++)
                 {
-                    switch (asd[x]) 
+                    switch (asd[j])
                     {
                         case 'X'://wall
+                            tempWall = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            level[j, i] = tempWall;
+                            //new Player(new Microsoft.Xna.Framework.Vector2(x*50,y*50));
                             break;
                         case '!'://hole
+                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
                             break;
                         case 'b'://button
+                            level[j, i] = new Button("ass","dasdas", new Microsoft.Xna.Framework.Vector2(j * 50, i * 50), new ComponentOrigin());
                             break;
                         case 'd'://closed door
+
                             break;
-                        case 'D'://oped door
+                        case 'D'://opened door
+
                             break;
                         case 'O'://obstacle
+                            tempWall = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            level[j, i] = tempWall;
                             break;
                         case '-'://open space
+                            
                             break;
                         case 'E'://end
+
                             break;
                         case 'S'://start
+
                             break;
                     }
                 }
             }
-
+            reader.Close();
         }
 
         /// <summary>
