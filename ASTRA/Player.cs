@@ -202,12 +202,17 @@ namespace ASTRA
                 dir = (currentMState.Position.ToVector2()) - Position;
                 dir.Normalize();
 
+                speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
                 velocity = velocity + dir * speed;
             }
-            else if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+            else if (currentKBState.IsKeyDown(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
             {
                 //TODO: Implement charging push mechanic.
                 pushChargeTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                pushChargeTime = 0;
             }
             
             Position = Position + velocity;

@@ -39,7 +39,7 @@ namespace ASTRA.Scenes
 
             Scene newScene = LoadScene(sceneName);
 
-            
+            return null; //TODO: Remove later
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace ASTRA.Scenes
         /// <returns></returns>
         private Scene LoadScene(string sceneName)
         {
-
+            return null; //TODO: Remove later
         }
 
 
