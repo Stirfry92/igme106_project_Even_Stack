@@ -110,7 +110,7 @@ namespace ASTRA.Scenes
         /// Draws out the scene.
         /// </summary>
         /// <param name="batch"></param>
-        internal void Draw(SpriteBatch batch)
+        internal virtual void Draw(SpriteBatch batch)
         {
             for (int i = 0; i < Drawables.Count; i++)
             {
