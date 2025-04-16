@@ -1,0 +1,14 @@
+﻿DemoLevel,1,0:00,8x21
+XXXXX!!XXXX!!!XXXXXXX
+X--b-----X-----d-O-bX
+X--------X-----X----X
+S--------D--O!-X!XX!X
+X---O----X-----D----E
+X---O----X--O--XXXXXX
+X--------X--OO-d---bX
+XXX!!XXX!X!XOXXX!!!XX
+// 
+4,1 + 10,3
+//
+nextLevel
+//

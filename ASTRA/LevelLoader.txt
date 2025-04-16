@@ -21,4 +21,8 @@ X---O----X-----D----E
 X---O----X--O--XXXXXX
 X--------X--OO-d---bX
 XXX!!XXX!X!XOXXX!!!XX
+//logic
+4,1 + 10,3
+//next file name
+nextLevel.Txt
 //

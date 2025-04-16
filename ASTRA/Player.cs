@@ -23,6 +23,14 @@ namespace ASTRA
     /// This class is currently FAR FROM COMPLETE.
     /// YOU HAVE BEEN WARNED!
     /// </summary>
+    /// 
+    ///
+    public enum PlayerState
+    {
+        Grounded,
+        Floating
+    }
+
     internal class Player : GameObject, ICollidable, IDrawable
     {
         //Fields:
@@ -35,6 +43,11 @@ namespace ASTRA
 
         private KeyboardState currentKBState;           //Current state of the keyboard (stored for input)
         private KeyboardState previousKBState;          //Previous state of the keyboard (stored for input)
+
+        private const float TotalTimeToReact = 0.5f;    //Maximum time the player has to react to a collision (seconds)
+        private float timeToReact;                      //Time left for the player to react to a collision.
+
+        private PlayerState state;                      //Current player state.
         
         /// <summary>
         /// Creates a new player object at the current position.
@@ -56,6 +69,8 @@ namespace ASTRA
             this.Size = new Vector2(50, 50);
             this.speed = 5f;
             this.velocity = new Vector2(0, 0);
+            this.timeToReact = TotalTimeToReact;
+            this.state = PlayerState.Grounded;
         }
 
         /// <summary>
@@ -69,6 +84,14 @@ namespace ASTRA
             }
         }
 
+        /// <summary>
+        /// The current player state.
+        /// </summary>
+        public PlayerState State
+        {
+            get { return state; }
+        }
+
 
         /// <summary>
         /// The image of the player.
@@ -78,6 +101,8 @@ namespace ASTRA
 
         /// <summary>
         /// Handles all collisions (without updating the other object's status!).
+        /// Should be called by a manager class which checks the collision between the player and all other objects.
+        /// This way, the player knows how to react when it collides with something, but does not handle checking collision.
         /// </summary>
         /// <param name="other"></param>
         public void Collide(ICollidable other)
@@ -98,6 +123,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
+                    state = PlayerState.Grounded;
                 }
                 
             }
@@ -112,6 +138,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
+                    state = PlayerState.Grounded;
                 }
             }
             //Instance where the player is above the collidable surface
@@ -125,6 +152,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
+                    state = PlayerState.Grounded;
                 }
             }
             //Instance where the player is below the collidable surface
@@ -138,8 +166,12 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
+                    state = PlayerState.Grounded;
                 }
             }
+
+            //Since the player collided, give them time to react to the collision (push off from the wall).
+            timeToReact = TotalTimeToReact;
         }
 
         /// <summary>
@@ -158,8 +190,10 @@ namespace ASTRA
             
             //Execute movement:
             //Update the direction the player faces:
-            if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+            if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space) && 
+                (state == PlayerState.Grounded || timeToReact > 0))
             {
+                state = PlayerState.Floating;
                 dir = (currentMState.Position.ToVector2()) - Position;
                 dir.Normalize();
 
@@ -174,6 +208,10 @@ namespace ASTRA
             //Set Previous states
             previousKBState = currentKBState;
             previousMState = currentMState;
+            if (state == PlayerState.Floating)
+            {
+                timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
         }
 
         /// <summary>
