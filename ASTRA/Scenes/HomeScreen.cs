@@ -15,10 +15,15 @@ namespace ASTRA.Scenes
         internal HomeScreen() : base()
         {
             Button start = new Button("start", "Start Game", new Vector2(0, 5), ComponentOrigin.TopLeft);
-
+            start.OnClick += () => { SetScene(GameScreen.ID); };
             UI.AddComponent(start);
 
+            Button exit = new Button("exit", "Exit", new Vector2(500, 500), ComponentOrigin.TopLeft);
+            exit.OnClick += () => { ExitGame(); };
+            UI.AddComponent(exit);
         }
+
+        
 
     }
 }

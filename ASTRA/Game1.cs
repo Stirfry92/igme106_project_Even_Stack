@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ASTRA.Scenes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,6 +9,15 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
+    //the scene manager that will be used throughout the application
+    private SceneManager sceneManager;
+
+    /// <summary>
+    /// The required textures for the game.
+    /// TODO: add any texture that is required up here!
+    /// </summary>
+    private string[] requiredTextures = { "blank", "button", "editedAstronaut" };
 
     /*********************
      *     TEST ZONE     *
@@ -27,9 +37,9 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        _graphics.PreferredBackBufferWidth = 1920;
-        _graphics.PreferredBackBufferHeight = 1080;
-        _graphics.IsFullScreen = true;
+        _graphics.PreferredBackBufferWidth = 700;
+        _graphics.PreferredBackBufferHeight = 700;
+        //_graphics.IsFullScreen = true;
 
         _graphics.ApplyChanges();
         base.Initialize();
@@ -37,20 +47,33 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+
+        LocalContentManager lcm = LocalContentManager.Shared;
+
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         //FROM STERLING: Testing basic player requires a texture, I made a temporary texture right here: Remove if needed
         //but preferably integrate it elsewhere.
-        LocalContentManager.Shared.Add<Texture2D>("blank", Content.Load<Texture2D>("blank"));
+
+        foreach (string texture in requiredTextures)
+        {
+            lcm.Add<Texture2D>(texture, Content.Load<Texture2D>(texture));
+        }
+
+
         player = new Player(new Vector2(400, 400));
         player2 = new Player(new Vector2(200, 200));
         // TODO: use this.Content to load your game content here
+
+        //after content has been loaded, the scenes can be loaded
+        sceneManager = new SceneManager(Exit);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
 
+        sceneManager.CurrentScene.Update(gameTime);
+
+        /*
         // TODO: Add your update logic here
         player.Update(gameTime);
 
@@ -58,8 +81,7 @@ public class Game1 : Game
         {
             player.Collide(player2);
         }
-
-
+        */
         base.Update(gameTime);
     }
 
@@ -67,12 +89,19 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.Black);
 
+        
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
-        
+
+        //ZACH - delete if need to test gameplay
+        sceneManager.CurrentScene.Draw(_spriteBatch);
+
+        /*
+
         player.Draw(_spriteBatch);
         
         player2.Draw(_spriteBatch);
+        */
         _spriteBatch.End();
 
         base.Draw(gameTime);

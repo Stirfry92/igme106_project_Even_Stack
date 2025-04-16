@@ -15,14 +15,23 @@ namespace ASTRA.Scenes
         private Dictionary<string, Scene> LoadedScenes;
 
         /// <summary>
+        /// The event that should occur when the user wants to exit the game.
+        /// </summary>
+        private UpdateDelegate OnExit;
+
+        /// <summary>
         /// The scene currently being updated and drawn.
         /// </summary>
         internal Scene CurrentScene { get; private set; }
 
 
-        internal SceneManager()
+        internal SceneManager(UpdateDelegate exit)
         {
             LoadedScenes = new Dictionary<string, Scene>();
+
+            OnExit = exit;
+            //start off on the home screen
+            SetScene(HomeScreen.ID);
         }
 
         /// <summary>
@@ -43,9 +52,10 @@ namespace ASTRA.Scenes
             //this allows for better coupling since now a scene can handle scene change instead of having a reference to the parent inside the scene.
             newScene.SetScene = SetScene;
             newScene.GetScene = GetScene;
+            newScene.ExitGame = OnExit;
 
 
-            return null; //TODO: Remove later
+            return newScene;
         }
 
         /// <summary>
@@ -61,6 +71,21 @@ namespace ASTRA.Scenes
                     {
                         return new HomeScreen();
                     }
+
+                case GameScreen.ID:
+                    {
+                        return new GameScreen();
+                    }
+
+                case PauseScreen.ID:
+                    {
+                        return new PauseScreen();
+                    }
+
+                case InfoScreen.ID:
+                    {
+                        return new InfoScreen();
+                    }
             }
 
 
@@ -75,6 +100,8 @@ namespace ASTRA.Scenes
         private void SetScene(string sceneName)
         {
             CurrentScene = GetScene(sceneName);
+            LoadedScenes.Add(sceneName, CurrentScene);
+            CurrentScene.Load();
         }
 
 

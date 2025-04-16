@@ -26,7 +26,16 @@ namespace ASTRA.Scenes
         /// </summary>
         internal SetSceneDelegate SetScene;
 
+        /// <summary>
+        /// This is a delegate for when scenes should be referenced, but not changed. This would be for stuff like:<br></br>
+        /// The pause menu which hides part of the underlying game.
+        /// </summary>
         internal GetSceneDelegate GetScene;
+
+        /// <summary>
+        /// Should be called whenever there is logic present to exit the game. This is set inside Scene Manager.
+        /// </summary>
+        internal UpdateDelegate ExitGame;
 
         /// <summary>
         /// The list of game objects that are within this scene.
@@ -122,7 +131,15 @@ namespace ASTRA.Scenes
             {
                 GameObjects[i].Update(gameTime);
             }
+
+            UI.Update(gameTime);
         }
+
+        /// <summary>
+        /// The events that should occur when the scene is loaded. Many scenes will not need to implement this, but the game screen will definitely need to implement this!
+        /// </summary>
+        internal virtual void Load()
+        {}
 
         /// <summary>
         /// Clears out all objects that should be deleted. This should be called if Update() ever needs to delete objects!
@@ -147,5 +164,9 @@ namespace ASTRA.Scenes
             }
         }
 
+        public override string ToString()
+        {
+            return ID;
+        }
     }
 }

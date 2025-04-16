@@ -83,7 +83,7 @@ namespace ASTRA
                 return value;
             }
 
-            throw new KeyNotFoundException($"No texture was found with the name {name} inside the local content manager.");
+            throw new KeyNotFoundException($"No texture was found with the name \"{name}\" inside the local content manager.");
         }
 
         /// <summary>

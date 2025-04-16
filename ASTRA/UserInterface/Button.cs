@@ -19,7 +19,7 @@ namespace ASTRA.UserInterface
         /// <summary>
         /// The background of the button texture.
         /// </summary>
-        public Texture2D Image { get; }
+        public new Texture2D Image { get; }
 
         /// <summary>
         /// The text that will be displayed on the image.
@@ -81,9 +81,11 @@ namespace ASTRA.UserInterface
             Image = lcm.GetTexture("button");
 
             //get the font for the button (COMMENT IF NOT WORKING)
-            Font = lcm.GetFont("blah");
+            //Font = lcm.GetFont("blah");
 
-            SetText(text);
+            //SetText(text);
+
+            Size = Image.Bounds.Size.ToVector2();
         }
 
         internal void SetText(string text)
@@ -101,7 +103,7 @@ namespace ASTRA.UserInterface
         public override void Draw(SpriteBatch batch)
         {
             batch.Draw(Image, TopLeftCorner, Color.White);
-            batch.DrawString(Font, Text, TextRenderPoint, Color.White);
+            //batch.DrawString(Font, Text, TextRenderPoint, Color.White);
         }
 
 
@@ -121,7 +123,7 @@ namespace ASTRA.UserInterface
                         if (buttonBounds.Contains(mouseState.Position))
                         {
                             State = ButtonState.Hovered;
-                            OnHover();
+                            OnHover?.Invoke();
                             break;
                         }
 
@@ -162,8 +164,8 @@ namespace ASTRA.UserInterface
                         if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
                         {
                             State = ButtonState.Hovered;
-                            OnClick();
-                            OnHover();
+                            OnClick?.Invoke();
+                            OnHover?.Invoke();
                             
                         }
 
