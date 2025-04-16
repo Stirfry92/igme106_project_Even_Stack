@@ -3,7 +3,7 @@
   <Comment CommentText="hi how are ya">
     <Position X="11.125" Y="0.5" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="ASTRA.UserInterface.Button">
+  <Class Name="ASTRA.UserInterface.Button" Collapsed="true">
     <Position X="0.5" Y="3" Width="1.5" />
     <NestedTypes>
       <Enum Name="ASTRA.UserInterface.Button.ButtonState" Collapsed="true">
@@ -16,7 +16,7 @@
       <HashCode>AAQAAAAAAAAAAgABAIAAAAACAAAAABABAAAADAACAAA=</HashCode>
       <FileName>UserInterface\Button.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="1.3" />
   </Class>
   <Class Name="ASTRA.UserInterface.UI" Collapsed="true">
     <Position X="7" Y="1.5" Width="1.5" />
@@ -31,12 +31,12 @@
       <HashCode>AAAAAAAAAAAAggAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>UserInterface\UIComponent.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Orientation="Bottom" Position="1.3" />
   </Class>
   <Class Name="ASTRA.Game1" Collapsed="true">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAQAAAAAAAAAgwAAgAAAAAAAAAAAAAADAIAABAAAAAQ=</HashCode>
+      <HashCode>QAQAAAAAAAAAAwAAgAAAAAAAAAAAAAADAIAABAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -67,7 +67,7 @@
       <HashCode>AIQAAAAAhCAASgAAAAAABAQAAAAAQRAEgAQEBBAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Orientation="Bottom" Position="0.571" />
   </Class>
   <Class Name="ASTRA.LevelLoader" Collapsed="true">
     <Position X="7" Y="3.5" Width="1.5" />

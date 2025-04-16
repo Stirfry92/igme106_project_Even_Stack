@@ -17,13 +17,15 @@ namespace ASTRA
         
         private GameObject[,] level;
         private StreamReader reader;
-
         private string name;
         private int LevelNum;
         private int Timer;
         private int x;
         private int y;
 
+        /// <summary>
+        /// draws level from level array
+        /// </summary>
         public void DrawLevel(SpriteBatch asd)
         {
             for (int i = 0; i < y; i++)
@@ -45,13 +47,12 @@ namespace ASTRA
         /// </summary>
         public void LoadLevel(string file)
         {
-            Player tempWall;
             Char[] asd;
             reader = new StreamReader(file);
             string[] data = reader.ReadLine().Split(',');
             name = data[0];
             LevelNum = int.Parse(data[1]);
-            //Timer = int.Parse(data[2]);
+            Timer = int.Parse(data[2]);
             y = int.Parse(data[3]);
             x = int.Parse(data[4]);
             level = new GameObject[x, y];
@@ -63,15 +64,13 @@ namespace ASTRA
                     switch (asd[j])
                     {
                         case 'X'://wall
-                            tempWall = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
-                            level[j, i] = tempWall;
+                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
                             //new Player(new Microsoft.Xna.Framework.Vector2(x*50,y*50));
                             break;
                         case '!'://hole
                             level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
                             break;
                         case 'b'://button
-                            level[j, i] = new Button("ass","dasdas", new Microsoft.Xna.Framework.Vector2(j * 50, i * 50), new ComponentOrigin());
                             break;
                         case 'd'://closed door
 
@@ -80,8 +79,7 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            tempWall = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
-                            level[j, i] = tempWall;
+                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 1, i * 50));
                             break;
                         case '-'://open space
                             
@@ -99,7 +97,7 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// connects a button with doors
+        /// connects a button with doors (not done)
         /// </summary>
         public void logic()
         {
