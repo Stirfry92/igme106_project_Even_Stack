@@ -81,17 +81,23 @@ namespace ASTRA.UserInterface
             Image = lcm.GetTexture("button");
 
             //get the font for the button (COMMENT IF NOT WORKING)
-            //Font = lcm.GetFont("blah");
-
-            //SetText(text);
+            Font = lcm.GetFont("Standard");
 
             Size = Image.Bounds.Size.ToVector2();
+
+            SetText(text);
+
+           
         }
 
+        /// <summary>
+        /// Sets the text inside the button.
+        /// </summary>
+        /// <param name="text"></param>
         internal void SetText(string text)
         {
             Text = text;
-            TextRenderPoint = TopLeftCorner + Size * 0.5f - Font.MeasureString(Text) * 0.5f;
+            TextRenderPoint = TopLeftCorner + Size * 0.5f - (Font.MeasureString(Text) * 0.5f);
         }
 
 
@@ -103,7 +109,7 @@ namespace ASTRA.UserInterface
         public override void Draw(SpriteBatch batch)
         {
             batch.Draw(Image, TopLeftCorner, Color.White);
-            //batch.DrawString(Font, Text, TextRenderPoint, Color.White);
+            batch.DrawString(Font, Text, TextRenderPoint, Color.White);
         }
 
 

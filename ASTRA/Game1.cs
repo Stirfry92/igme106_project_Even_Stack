@@ -37,9 +37,9 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        _graphics.PreferredBackBufferWidth = 700;
-        _graphics.PreferredBackBufferHeight = 700;
-        //_graphics.IsFullScreen = true;
+        _graphics.PreferredBackBufferWidth = 1920;
+        _graphics.PreferredBackBufferHeight = 1080;
+        _graphics.IsFullScreen = true;
 
         _graphics.ApplyChanges();
         base.Initialize();
@@ -58,6 +58,8 @@ public class Game1 : Game
         {
             lcm.Add<Texture2D>(texture, Content.Load<Texture2D>(texture));
         }
+
+        lcm.Add<SpriteFont>("Standard", Content.Load<SpriteFont>("Standard"));
 
 
         player = new Player(new Vector2(400, 400));

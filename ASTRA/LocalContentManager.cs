@@ -66,6 +66,7 @@ namespace ASTRA
             if (item is SpriteFont font)
             {
                 Fonts.Add(name, font);
+                return;
             }
 
             throw new ArgumentException("Argument is not a type that can be stored inside the local content manager.");
