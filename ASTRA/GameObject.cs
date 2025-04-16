@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ASTRA
 {
@@ -115,5 +117,6 @@ namespace ASTRA
         /// </summary>
         internal virtual void Reset() { }
 
+        public abstract void Draw(SpriteBatch sb);
     }
 }

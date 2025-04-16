@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Reflection.Emit;
 
 namespace ASTRA;
 
@@ -26,7 +27,8 @@ public class Game1 : Game
     //-Sterling
     private Player player;
     private Player player2;
-
+    //Eason
+    LevelLoader level = new LevelLoader();
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -68,6 +70,10 @@ public class Game1 : Game
 
         //after content has been loaded, the scenes can be loaded
         sceneManager = new SceneManager(Exit);
+        
+        //Eason LevelLoader testing 
+        //level.LoadLevel("../../../DemoLevel.txt");
+        //
     }
 
     protected override void Update(GameTime gameTime)
@@ -96,8 +102,11 @@ public class Game1 : Game
         _spriteBatch.Begin();
 
         //ZACH - delete if need to test gameplay
-        sceneManager.CurrentScene.Draw(_spriteBatch);
+        sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
 
+        //Eason levelLoader testing
+        //level.DrawLevel(_spriteBatch);
+        //
         /*
 
         player.Draw(_spriteBatch);

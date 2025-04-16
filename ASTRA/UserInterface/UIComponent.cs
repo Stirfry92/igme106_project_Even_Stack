@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ASTRA.UserInterface
 {
@@ -33,6 +34,7 @@ namespace ASTRA.UserInterface
         /// Draws the UI Component. As a base,
         /// </summary>
         /// <param name="batch"></param>
-        public abstract void Draw(SpriteBatch batch);
+        //public abstract void Draw(SpriteBatch batch); 
+        public override abstract void Draw(SpriteBatch batch);
     }
 }
