@@ -193,61 +193,83 @@ namespace ASTRA
             currentKBState = Keyboard.GetState();
             currentMState = Mouse.GetState();
             
+            
+            
             //Execute movement:
             //Update the direction the player faces:
             switch(state)
             {
                 case PlayerState.Grounded:
+                    //First, reduce the amount of time the player has to react to a collision:
+                    timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                    //Then, determine the keyboard state of the user and decide what to do from there:
+                    //Player releases spacebar:
                     if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
                     {
+                        //Set a direction to where the mouse is pointing.
                         dir = (currentMState.Position.ToVector2()) - Position;
                         dir.Normalize();
 
+                        //Determine speed and velocity based on how long the spacebar was held. 
                         speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
                         velocity = velocity + dir * speed;
-                        state = PlayerState.Floating;
+
+                        //Only switch to a different state if the time to react is over, and the player has pushed.
+                        if (timeToReact < 0)
+                        {
+                            state = PlayerState.Floating;
+                            timeToReact = TotalTimeToReact;
+                        }  
                     }
+                    //Player holds spacebar for maximum time alaughted:
                     else if (pushChargeTime > 1 )
                     {
+                        //Reset relevant fields.
                         pushChargeTime = 0;
                         speed = 0;
 
+                        //Set a direction to where the mouse is pointing.
                         dir = (currentMState.Position.ToVector2()) - Position;
                         dir.Normalize();
 
+                        //Determine velocity based on the Max speed.
                         velocity = velocity + dir * MaximumPushSpeed;
-                        state = PlayerState.Floating;
+
+                        //Only switch to a different state if the time to react is over, and the player has pushed.
+                        if (timeToReact < 0)
+                        {
+                            state = PlayerState.Floating;
+                            timeToReact = TotalTimeToReact;
+                        }
                     }
+                    //The player holds down spacebar:
                     else if (currentKBState.IsKeyDown(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
                     {
-                        //TODO: Implement charging push mechanic.
+                        //Increase the field tracking the amount of time the player has held the spacebar.
                         pushChargeTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     }
+                    //If the spacebar isn't pressed.
                     else if (currentKBState.IsKeyUp(Keys.Space))
                     {
+                        //Set the charge timer to zero, and the speed also to zero (No charge is being stored)
                         pushChargeTime = 0;
                         speed = 0;
                     }
                     break;
+
                 case PlayerState.Floating:
-                    
-                        
                     break;
             }
-            
-            
-            Position = Position + velocity;
 
-            
+            //Once the input handling is done, apply whatever motion to the player's position here:
+            Position = Position + velocity;
 
             //Perform necessary "clean up" tasks:
             //Set Previous states
             previousKBState = currentKBState;
             previousMState = currentMState;
-            if (state == PlayerState.Floating)
-            {
-                timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
+            
         }
 
         /// <summary>
