@@ -35,7 +35,10 @@ namespace ASTRA
     {
         //Fields:
         private Vector2 dir;                            //Represents the direction the player "faces".
+        private const float MaximumPushSpeed = 5f;      //Represents the maximum speed attainable by pushing.
+        private const float MinimumPushSpeed = 1f;      //Represents the minimum speed attainable by pushing.
         private float speed;                            //Represents the speed added to the direction when the player "pushes"
+        private float pushChargeTime;                   //Represents the amount of time charging the push.
         private Vector2 velocity;                       //Represents the velocity of the player
 
         private MouseState currentMState;               //Current state of the mouse (stored for input)
@@ -48,6 +51,8 @@ namespace ASTRA
         private float timeToReact;                      //Time left for the player to react to a collision.
 
         private PlayerState state;                      //Current player state.
+
+        
         
         /// <summary>
         /// Creates a new player object at the current position.
@@ -198,6 +203,11 @@ namespace ASTRA
                 dir.Normalize();
 
                 velocity = velocity + dir * speed;
+            }
+            else if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+            {
+                //TODO: Implement charging push mechanic.
+                pushChargeTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             
             Position = Position + velocity;
