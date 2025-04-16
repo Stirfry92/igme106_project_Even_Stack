@@ -49,3 +49,10 @@
 /processorParam:TextureFormat=Color
 /build:editedAstronaut.png
 
+#begin Standard.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Standard.spritefont
+

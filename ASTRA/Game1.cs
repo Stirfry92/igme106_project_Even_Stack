@@ -72,7 +72,6 @@ public class Game1 : Game
     {
 
         sceneManager.CurrentScene.Update(gameTime);
-
         /*
         // TODO: Add your update logic here
         player.Update(gameTime);
@@ -82,6 +81,7 @@ public class Game1 : Game
             player.Collide(player2);
         }
         */
+
         base.Update(gameTime);
     }
 

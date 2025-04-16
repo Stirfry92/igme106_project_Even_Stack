@@ -195,25 +195,46 @@ namespace ASTRA
             
             //Execute movement:
             //Update the direction the player faces:
-            if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space) && 
-                (state == PlayerState.Grounded || timeToReact > 0))
+            switch(state)
             {
-                state = PlayerState.Floating;
-                dir = (currentMState.Position.ToVector2()) - Position;
-                dir.Normalize();
+                case PlayerState.Grounded:
+                    if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+                    {
+                        dir = (currentMState.Position.ToVector2()) - Position;
+                        dir.Normalize();
 
-                speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
-                velocity = velocity + dir * speed;
+                        speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
+                        velocity = velocity + dir * speed;
+                        state = PlayerState.Floating;
+                    }
+                    else if (pushChargeTime > 1 )
+                    {
+                        pushChargeTime = 0;
+                        speed = 0;
+
+                        dir = (currentMState.Position.ToVector2()) - Position;
+                        dir.Normalize();
+
+                        velocity = velocity + dir * MaximumPushSpeed;
+                        state = PlayerState.Floating;
+                    }
+                    else if (currentKBState.IsKeyDown(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+                    {
+                        //TODO: Implement charging push mechanic.
+                        pushChargeTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    }
+                    else if (currentKBState.IsKeyUp(Keys.Space))
+                    {
+                        pushChargeTime = 0;
+                        speed = 0;
+                    }
+                    break;
+                case PlayerState.Floating:
+                    
+                        
+                    break;
             }
-            else if (currentKBState.IsKeyDown(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
-            {
-                //TODO: Implement charging push mechanic.
-                pushChargeTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-            else
-            {
-                pushChargeTime = 0;
-            }
+            
             
             Position = Position + velocity;
 
