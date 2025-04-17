@@ -117,7 +117,10 @@ namespace ASTRA
         /// </summary>
         internal virtual void Reset() { }
 
-        internal abstract void Draw(SpriteBatch sb);
+        //TODO: NOTE FROM STERLING: I commented this out as it gave multiple errors while testing my own code.
+        //I believe this is due to the GameObject class and IDrawable sharing a name of a method, so when classes inherit from both
+        //things get weird and evil. I suggest we just cut it from GameObject because we don't really need it here I don't believe.
+        //internal abstract void Draw(SpriteBatch sb);
 
 
     }
