@@ -30,19 +30,6 @@ namespace ASTRA
         public void Update( GameTime gt) 
         {
             player.Update(gt);
-            
-
-            for (int i = 0; i < y; i++)
-            {
-                for (int j = 0; j < x; j++)
-                {
-                    if (level[j, i] != null && player.CollisionBounds.Intersects(level[j,i].CollisionBounds))
-                    {
-                        player.Collide(player2);
-                    }
-
-                }
-            }
         }
         public void DrawLevel(SpriteBatch asd)
         {
@@ -118,7 +105,7 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// connects a button with doors (not done)
+        /// connects a button with doors (not done needs buttons)
         /// </summary>
         public void logic()
         {

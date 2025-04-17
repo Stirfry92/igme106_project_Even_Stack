@@ -105,7 +105,7 @@ public class Game1 : Game
         //sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
 
         //Eason levelLoader testing
-        level.DrawLevel(_spriteBatch, gameTime);
+        level.DrawLevel(_spriteBatch);
         //
         /*
 
