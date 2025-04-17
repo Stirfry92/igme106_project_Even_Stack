@@ -102,10 +102,10 @@ public class Game1 : Game
         _spriteBatch.Begin();
 
         //ZACH - delete if need to test gameplay
-        //sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
+        sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
 
         //Eason levelLoader testing
-        level.DrawLevel(_spriteBatch);
+        //level.DrawLevel(_spriteBatch);
         //
         /*
 

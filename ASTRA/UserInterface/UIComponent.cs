@@ -35,6 +35,6 @@ namespace ASTRA.UserInterface
         /// </summary>
         /// <param name="batch"></param>
         //public abstract void Draw(SpriteBatch batch); 
-        public override abstract void Draw(SpriteBatch batch);
+        public abstract void Draw(SpriteBatch batch);
     }
 }

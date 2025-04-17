@@ -117,7 +117,8 @@ namespace ASTRA
         /// </summary>
         internal virtual void Reset() { }
 
-        internal abstract void Draw(SpriteBatch sb);
+        
+        //internal abstract void Draw(SpriteBatch sb);
 
 
     }

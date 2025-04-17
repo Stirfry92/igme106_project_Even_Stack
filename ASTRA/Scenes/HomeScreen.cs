@@ -18,7 +18,7 @@ namespace ASTRA.Scenes
             start.OnClick += () => { SetScene(GameScreen.ID); };
             UI.AddComponent(start);
 
-            Button exit = new Button("exit", "Exit", new Vector2(500, 500), ComponentOrigin.TopLeft);
+            Button exit = new Button("exit", "Exit", new Vector2(200, 5), ComponentOrigin.TopLeft);
             exit.OnClick += () => { ExitGame(); };
             UI.AddComponent(exit);
         }

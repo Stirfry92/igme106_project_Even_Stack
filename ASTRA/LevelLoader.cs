@@ -110,6 +110,7 @@ namespace ASTRA
         public void logic()
         {
             //your mom
+            //lock IN
         }
     }
 }
