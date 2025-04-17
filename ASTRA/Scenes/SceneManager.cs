@@ -54,7 +54,7 @@ namespace ASTRA.Scenes
             newScene.GetScene = GetScene;
             newScene.ExitGame = OnExit;
 
-
+            LoadedScenes.Add(sceneName, newScene);
             return newScene;
         }
 
@@ -100,7 +100,6 @@ namespace ASTRA.Scenes
         private void SetScene(string sceneName)
         {
             CurrentScene = GetScene(sceneName);
-            LoadedScenes.Add(sceneName, CurrentScene);
             CurrentScene.Load();
         }
 

@@ -14,6 +14,8 @@ namespace ASTRA
 {
     internal class LevelLoader
     {
+
+        
         private GameObject[,] level;
         private StreamReader reader;
         private string name;
@@ -51,7 +53,7 @@ namespace ASTRA
                 {
                     if (level[j, i] != null)
                     {
-                        level[j, i].Draw(asd);
+                        //level[j, i].Draw(asd);
                     }
 
                 }
