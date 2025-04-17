@@ -130,6 +130,22 @@ namespace ASTRA.Scenes
             for (int i = 0; i < GameObjects.Count; i++)
             {
                 GameObjects[i].Update(gameTime);
+
+                //TODO: Very bad code right here: This should be shamed and exiled from the project forever.
+                //However, we are on a time crunch so it is here for the playtest build because it works.
+                if (GameObjects[i] is Player obj)
+                {
+                    Player p = (Player)obj;
+                    
+                    foreach (ICollidable collidable in Collidables)
+                    {
+                        if (p.CollidesWith(collidable) && !p.Equals(collidable))
+                        {
+                            p.Collide(collidable);
+                        }
+                            
+                    }
+                }
             }
 
             UI.Update(gameTime);

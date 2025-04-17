@@ -24,7 +24,20 @@ namespace ASTRA.Scenes
 
         internal GameScreen() : base()
         {
-            this.Add(new Player(new Vector2(500, 500)));
+            this.Add(new Player(new Vector2(800, 500)));
+            for (int i = 600; i <= 1600; i += 50)
+            {
+                this.Add(new CollidableWall(new Vector2(i, 200), new Vector2(50, 50)));
+                
+                this.Add(new CollidableWall(new Vector2(i, 800), new Vector2(50, 50)));
+                
+            }
+            for (int i = 200; i < 800; i += 50)
+            {
+                this.Add(new CollidableWall(new Vector2(1600, i), new Vector2(50, 50)));
+                this.Add(new CollidableWall(new Vector2(600, i), new Vector2(50, 50)));
+            }
+            
         }
 
         internal override void Update(GameTime gameTime)
