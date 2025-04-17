@@ -1,4 +1,5 @@
 ﻿using ASTRA.UserInterface;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,30 @@ namespace ASTRA
         private int Timer;
         private int x;
         private int y;
-
+        private Player player;
         /// <summary>
         /// draws level from level array
         /// </summary>
+        public void Update( GameTime gt) 
+        {
+            player.Update(gt);
+            
+
+            for (int i = 0; i < y; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    if (level[j, i] != null && player.CollisionBounds.Intersects(level[j,i].CollisionBounds))
+                    {
+                        player.Collide(player2);
+                    }
+
+                }
+            }
+        }
         public void DrawLevel(SpriteBatch asd)
         {
+            
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
@@ -50,10 +69,11 @@ namespace ASTRA
             string[] data = reader.ReadLine().Split(',');
             name = data[0];
             LevelNum = int.Parse(data[1]);
-            Timer = int.Parse(data[2]);
+            //Timer = int.Parse(data[2]);
             y = int.Parse(data[3]);
             x = int.Parse(data[4]);
             level = new GameObject[x, y];
+
             for (int i = 0; i < y; i++)
             {
                 asd = reader.ReadLine().ToCharArray();
@@ -77,7 +97,7 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 1, i * 50));
+                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
                             break;
                         case '-'://open space
                             
@@ -86,7 +106,8 @@ namespace ASTRA
 
                             break;
                         case 'S'://start
-
+                            player = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            level[j, i] = player;
                             break;
                     }
                 }

@@ -2,7 +2,7 @@
 XXXXX!!XXXX!!!XXXXXXX
 X--b-----X-----d-O-bX
 X--------X-----X----X
-S--------D--O!-X!XX!X
+XS-------D--O!-X!XX!X
 X---O----X-----D----E
 X---O----X--O--XXXXXX
 X--------X--OO-d---bX
