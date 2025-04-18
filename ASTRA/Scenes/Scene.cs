@@ -133,15 +133,15 @@ namespace ASTRA.Scenes
 
                 //TODO: Very bad code right here: This should be shamed and exiled from the project forever.
                 //However, we are on a time crunch so it is here for the playtest build because it works.
-                if (GameObjects[i] is Player obj)
+                if (GameObjects[i] is Player p)
                 {
-                    Player p = (Player)obj;
                     
                     foreach (ICollidable collidable in Collidables)
                     {
                         if (p.CollidesWith(collidable) && !p.Equals(collidable))
                         {
                             p.Collide(collidable);
+                            collidable.Collide(p);
                         }
                             
                     }
