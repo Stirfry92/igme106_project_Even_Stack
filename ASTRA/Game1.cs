@@ -18,7 +18,7 @@ public class Game1 : Game
     /// The required textures for the game.
     /// TODO: add any texture that is required up here!
     /// </summary>
-    private string[] requiredTextures = { "blank", "button", "editedAstronaut" };
+    private string[] requiredTextures = { "blank", "button", "editedAstronaut", "astralogo"};
 
     /*********************
      *     TEST ZONE     *
@@ -39,8 +39,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        _graphics.PreferredBackBufferWidth = 1920;
-        _graphics.PreferredBackBufferHeight = 1080;
+        _graphics.PreferredBackBufferWidth = GameDetails.GameWidth;
+        _graphics.PreferredBackBufferHeight = GameDetails.GameHeight;
         _graphics.IsFullScreen = true;
 
         _graphics.ApplyChanges();

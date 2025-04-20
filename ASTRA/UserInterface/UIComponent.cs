@@ -28,7 +28,7 @@ namespace ASTRA.UserInterface
             this.ID = ID;
         }
 
-        public Texture2D Image { get; }
+        public Texture2D Image { get; protected set; }
 
         /// <summary>
         /// Draws the UI Component. As a base,

@@ -61,6 +61,15 @@ namespace ASTRA.Scenes
             PreviousKeyboardState = kbstate;
             Clean();
         }
+
+        /// <summary>
+        /// Resets the game
+        /// TODO: Eventually add in the game logic to reset the player.
+        /// </summary>
+        internal override void Reset()
+        {
+            base.Reset();
+        }
     }
 
     

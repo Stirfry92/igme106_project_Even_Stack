@@ -22,6 +22,11 @@ namespace ASTRA.UserInterface
         public new Texture2D Image { get; }
 
         /// <summary>
+        /// The color of the button background.
+        /// </summary>
+        private Color ButtonColor;
+
+        /// <summary>
         /// The text that will be displayed on the image.
         /// </summary>
         internal string Text { get; private set; }
@@ -59,7 +64,12 @@ namespace ASTRA.UserInterface
         internal event UpdateDelegate OnHover;
 
         /// <summary>
-        /// The events that should occur when the button is clicked (mouse pressed then released).
+        /// The events that should occur when the button is clicked (mouse pressed).
+        /// </summary>
+        internal event UpdateDelegate OnStartClick;
+
+        /// <summary>
+        /// The events that should occur when the button is released.
         /// </summary>
         internal event UpdateDelegate OnClick;
 
@@ -87,6 +97,9 @@ namespace ASTRA.UserInterface
 
             SetText(text);
 
+            OnStartClick += () => ButtonColor = Color.Red;
+            OnHover += () => ButtonColor = Color.Gray;
+
            
         }
 
@@ -108,7 +121,7 @@ namespace ASTRA.UserInterface
         /// <param name="batch"></param>
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(Image, TopLeftCorner, Color.White);
+            batch.Draw(Image, TopLeftCorner, ButtonColor);
             batch.DrawString(Font, Text, TextRenderPoint, Color.White);
         }
 
@@ -125,6 +138,7 @@ namespace ASTRA.UserInterface
                 //nothing: can go to hover when mouse goes over element
                 case ButtonState.Nothing:
                     {
+                        ButtonColor = Color.White;
                         
                         if (buttonBounds.Contains(mouseState.Position))
                         {
@@ -150,6 +164,7 @@ namespace ASTRA.UserInterface
                         if (mouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                         {
                             State = ButtonState.Pressed;
+                            OnStartClick?.Invoke();
                             break;
                         }
 

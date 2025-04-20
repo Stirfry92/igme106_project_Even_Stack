@@ -26,12 +26,12 @@ namespace ASTRA.Scenes
         internal PauseScreen() : base()
         {
             Button cont = new Button("go_back", "Continue", new Vector2(5, 5), ComponentOrigin.TopLeft);
-            cont.OnClick += () => SetScene(GameScreen.ID);
+            cont.OnStartClick += () => SetScene(GameScreen.ID);
 
             UI.AddComponent(cont);
 
             Button mainmenu = new Button("menu", "Main Menu", new Vector2(200, 5), ComponentOrigin.TopLeft);
-            mainmenu.OnClick += () => SetScene(HomeScreen.ID);
+            mainmenu.OnStartClick += () => SetScene(HomeScreen.ID);
 
             UI.AddComponent(mainmenu);
         }

@@ -112,5 +112,15 @@ namespace ASTRA.UserInterface
             }
         }
 
+        /// <summary>
+        /// Resets each UI component in the components list.
+        /// </summary>
+        internal void Reset()
+        {
+            foreach (UIComponent component in Components)
+            {
+                component.Reset();
+            }
+        }
     }
 }

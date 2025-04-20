@@ -14,14 +14,22 @@ namespace ASTRA.Scenes
 
         internal HomeScreen() : base()
         {
-            Button start = new Button("start", "Start Game", new Vector2(0, 5), ComponentOrigin.TopLeft);
+            Vector2 differenceInCenter = new Vector2(10, 0);
+
+
+            Button start = new Button("start", "Start Game", GameDetails.CenterOfScreen - differenceInCenter, ComponentOrigin.TopRight);
             start.OnClick += () => { SetScene(GameScreen.ID); };
             UI.AddComponent(start);
 
-            Button exit = new Button("exit", "Exit", new Vector2(200, 5), ComponentOrigin.TopLeft);
+            Button exit = new Button("exit", "Exit", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);
             exit.OnClick += () => { ExitGame(); };
             UI.AddComponent(exit);
+
+            StaticImage logo = new StaticImage("logo", "astralogo", GameDetails.CenterOfScreen, ComponentOrigin.BottomCenter);
+            UI.AddComponent(logo);
         }
+
+        
 
         
 

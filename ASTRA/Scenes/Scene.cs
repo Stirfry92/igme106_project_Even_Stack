@@ -180,9 +180,21 @@ namespace ASTRA.Scenes
             }
         }
 
+        /// <summary>
+        /// Returns the ID of the scene.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return ID;
+        }
+
+        /// <summary>
+        /// Resets the scene.
+        /// </summary>
+        internal virtual void Reset()
+        {
+            UI.Reset();
         }
     }
 }

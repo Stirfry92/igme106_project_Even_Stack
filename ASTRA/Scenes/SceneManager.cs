@@ -101,6 +101,7 @@ namespace ASTRA.Scenes
         {
             CurrentScene = GetScene(sceneName);
             CurrentScene.Load();
+            CurrentScene.Reset();
         }
 
 
