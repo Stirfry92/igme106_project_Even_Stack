@@ -35,8 +35,8 @@ namespace ASTRA
     {
         //Fields:
         private Vector2 dir;                            //Represents the direction the player "faces".
-        private const float MaximumPushSpeed = 5f;      //Represents the maximum speed attainable by pushing.
-        private const float MinimumPushSpeed = 1f;      //Represents the minimum speed attainable by pushing.
+        private const float MaximumPushSpeed = 12f;     //Represents the maximum speed attainable by pushing.
+        private const float MinimumPushSpeed = 5f;      //Represents the minimum speed attainable by pushing.
         private float speed;                            //Represents the speed added to the direction when the player "pushes"
         private float pushChargeTime;                   //Represents the amount of time charging the push.
         private Vector2 velocity;                       //Represents the velocity of the player
@@ -47,7 +47,7 @@ namespace ASTRA
         private KeyboardState currentKBState;           //Current state of the keyboard (stored for input)
         private KeyboardState previousKBState;          //Previous state of the keyboard (stored for input)
 
-        private const float TotalTimeToReact = 0.5f;    //Maximum time the player has to react to a collision (seconds)
+        private const float TotalTimeToReact = 0.25f;   //Maximum time the player has to react to a collision (seconds)
         private float timeToReact;                      //Time left for the player to react to a collision.
 
         private PlayerState state;                      //Current player state.
@@ -123,7 +123,7 @@ namespace ASTRA
                 Position = new Vector2(Position.X - intersection.Width, Position.Y);
                 if (currentKBState.IsKeyDown(Keys.Space))
                 {
-                    velocity = new Vector2(-0.5f * velocity.X, velocity.Y);
+                    velocity = new Vector2(-velocity.X, velocity.Y);
                 }
                 else
                 {
@@ -138,7 +138,7 @@ namespace ASTRA
                 Position = new Vector2(Position.X + intersection.Width, Position.Y);
                 if (currentKBState.IsKeyDown(Keys.Space))
                 {
-                    velocity = new Vector2(-0.5f * velocity.X, velocity.Y);
+                    velocity = new Vector2(-velocity.X, velocity.Y);
                 }
                 else
                 {
@@ -152,7 +152,7 @@ namespace ASTRA
                 Position = new Vector2(Position.X, Position.Y - intersection.Height);
                 if (currentKBState.IsKeyDown(Keys.Space))
                 {
-                    velocity = new Vector2(velocity.X, -0.5f * velocity.Y);
+                    velocity = new Vector2(velocity.X, -velocity.Y);
                 }
                 else
                 {
@@ -166,7 +166,7 @@ namespace ASTRA
                 Position = new Vector2(Position.X , Position.Y + intersection.Height);
                 if (currentKBState.IsKeyDown(Keys.Space))
                 {
-                    velocity = new Vector2(velocity.X, -0.5f * velocity.Y);
+                    velocity = new Vector2(velocity.X, -velocity.Y);
                 }
                 else
                 {
@@ -176,6 +176,8 @@ namespace ASTRA
             }
 
             //Since the player collided, give them time to react to the collision (push off from the wall).
+            //TODO: Decide on whether we want the cyotye time. This currentl gives a major buff for when the player needs to react.
+            //state = PlayerState.Grounded; 
             timeToReact = TotalTimeToReact;
         }
 
