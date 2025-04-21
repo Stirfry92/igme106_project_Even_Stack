@@ -71,10 +71,13 @@ namespace ASTRA
         public Player(Vector2 position) : base(position, ComponentOrigin.Center)
         {
 
+            //get the local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
 
             //TODO: get a player asset. Comment this out if need be.
             Image = lcm.GetTexture("editedAstronaut");
+
+            //get the direction vector
             DirectionVectorImage = lcm.GetTexture("directionTriangle");
 
 
@@ -292,7 +295,7 @@ namespace ASTRA
         }
 
         /// <summary>
-        /// Draws out the asset
+        /// Draws out the asset.
         /// </summary>
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
@@ -300,6 +303,7 @@ namespace ASTRA
             batch.Draw(Image, TopLeftCorner, Color.White);
             //batch.Draw(Image, new Vector2(CollisionBounds.X, CollisionBounds.Y), Color.White);
 
+            //draw the arrow if the player is grounded and able to move.
             if (state == PlayerState.Grounded)
             {
                 batch.Draw(DirectionVectorImage, Position, null, Color.White, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 1);
@@ -307,6 +311,12 @@ namespace ASTRA
             
         }
 
+
+        /// <summary>
+        /// Whether the player collides with another collidable.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool CollidesWith(ICollidable other)
         {
             return CollisionBounds.Intersects(other.CollisionBounds);
