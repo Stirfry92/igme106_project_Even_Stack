@@ -33,12 +33,12 @@ namespace ASTRA.Scenes
 
 
             Button cont = new Button("go_back", "Continue", new Vector2(5, 5), ComponentOrigin.TopLeft);
-            cont.OnStartClick += () => SetScene(GameScreen.ID);
+            cont.OnClick += () => SetScene(GameScreen.ID);
 
             UI.AddComponent(cont);
 
             Button mainmenu = new Button("menu", "Main Menu", new Vector2(200, 5), ComponentOrigin.TopLeft);
-            mainmenu.OnStartClick += () => SetScene(HomeScreen.ID);
+            mainmenu.OnClick += () => SetScene(HomeScreen.ID);
 
             UI.AddComponent(mainmenu);
         }

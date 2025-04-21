@@ -52,6 +52,12 @@ namespace ASTRA
 
         private PlayerState state;                      //Current player state.
 
+        /// <summary>
+        /// The direction in which the player will move.
+        /// </summary>
+        private Vector2 DirectionVector;
+        private Texture2D DirectionVectorImage;
+
         
         
         /// <summary>
@@ -64,14 +70,15 @@ namespace ASTRA
             LocalContentManager lcm = LocalContentManager.Shared;
 
             //TODO: get a player asset. Comment this out if need be.
-            Image = lcm.GetTexture("blank");
+            Image = lcm.GetTexture("editedAstronaut");
+            DirectionVectorImage = lcm.GetTexture("directionTriangle");
 
 
             //Size = new Vector2(Image.Width, Image.Height);
-            
-            
+
+
             //TODO: Change this, this is temporary for testing purposes.
-            this.Size = new Vector2(50, 50);
+            this.Size = new Vector2(Image.Width, Image.Height);
             this.speed = 5f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
@@ -85,7 +92,7 @@ namespace ASTRA
         {
             get
             {
-                return new Rectangle(Position.ToPoint(), Size.ToPoint());
+                return new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint());
             }
         }
 
@@ -194,8 +201,11 @@ namespace ASTRA
             //Set current states
             currentKBState = Keyboard.GetState();
             currentMState = Mouse.GetState();
-            
-            
+
+            //update the direction vector each frame
+            DirectionVector = currentMState.Position.ToVector2() - Position;
+            DirectionVector.Normalize();
+
             
             //Execute movement:
             //Update the direction the player faces:
@@ -280,7 +290,14 @@ namespace ASTRA
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
+            batch.Draw(Image, TopLeftCorner, Color.White);
+
+            
+            if (state == PlayerState.Grounded)
+            {
+                batch.Draw(DirectionVectorImage, Position, null, Color.White, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 1);
+            }
+            
         }
 
         public bool CollidesWith(ICollidable other)
