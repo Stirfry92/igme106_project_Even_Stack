@@ -11,7 +11,10 @@ namespace ASTRA.UserInterface
     internal class StaticImage : UIComponent
     {
 
-
+        /// <summary>
+        /// The render color to use for this image.
+        /// </summary>
+        internal Color Color { get; set; } = Color.White;
 
         /// <summary>
         /// Creates a new static image to be placed on the UI.
@@ -29,7 +32,7 @@ namespace ASTRA.UserInterface
 
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(Image, TopLeftCorner, Color.White);
+            batch.Draw(Image, TopLeftCorner, Color);
         }
 
         internal override void Update(Microsoft.Xna.Framework.GameTime gameTime)

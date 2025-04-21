@@ -91,7 +91,7 @@ namespace ASTRA.Scenes
 
             return null;
         }
-
+        
 
         /// <summary>
         /// Sets the next scene for the game.

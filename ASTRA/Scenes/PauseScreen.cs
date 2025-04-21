@@ -25,6 +25,13 @@ namespace ASTRA.Scenes
 
         internal PauseScreen() : base()
         {
+
+            StaticImage gameplayOverlay = new StaticImage("overlay", "blackoverlay", Vector2.Zero, ComponentOrigin.TopLeft);
+            gameplayOverlay.Color = new Color(0xff, 0xff, 0xff, 0xb4);
+
+            UI.AddComponent(gameplayOverlay);
+
+
             Button cont = new Button("go_back", "Continue", new Vector2(5, 5), ComponentOrigin.TopLeft);
             cont.OnStartClick += () => SetScene(GameScreen.ID);
 
