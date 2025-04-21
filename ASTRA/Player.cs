@@ -56,6 +56,10 @@ namespace ASTRA
         /// The direction in which the player will move.
         /// </summary>
         private Vector2 DirectionVector;
+
+        /// <summary>
+        /// The arrow texture that will be used for indicating player movement.
+        /// </summary>
         private Texture2D DirectionVectorImage;
 
         
@@ -272,6 +276,8 @@ namespace ASTRA
                     break;
 
                 case PlayerState.Floating:
+
+                    //this is inherently handled in the collision marker since anytime there are collisions, the player will be floating.
                     break;
             }
 

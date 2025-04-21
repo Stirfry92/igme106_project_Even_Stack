@@ -35,7 +35,7 @@ namespace ASTRA.UserInterface
             batch.Draw(Image, TopLeftCorner, Color);
         }
 
-        internal override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {}
     }
 }

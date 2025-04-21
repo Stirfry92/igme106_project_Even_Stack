@@ -27,7 +27,7 @@ namespace ASTRA.Scenes
         {
 
             StaticImage gameplayOverlay = new StaticImage("overlay", "blackoverlay", Vector2.Zero, ComponentOrigin.TopLeft);
-            gameplayOverlay.Color = new Color(0xff, 0xff, 0xff, 0xb4);
+            gameplayOverlay.Color = new Color(0xff, 0xff, 0xff, 0xc0);
 
             UI.AddComponent(gameplayOverlay);
 
@@ -41,6 +41,8 @@ namespace ASTRA.Scenes
             mainmenu.OnClick += () => SetScene(HomeScreen.ID);
 
             UI.AddComponent(mainmenu);
+
+            
         }
 
         internal override void Load()

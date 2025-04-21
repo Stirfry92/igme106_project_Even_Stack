@@ -39,7 +39,7 @@ namespace ASTRA.UserInterface
         /// <summary>
         /// The font that the text is rendered from.
         /// </summary>
-        private SpriteFont Font;
+        private readonly SpriteFont Font;
 
 
 
