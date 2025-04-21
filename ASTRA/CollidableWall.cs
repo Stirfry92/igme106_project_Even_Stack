@@ -38,7 +38,7 @@ namespace ASTRA
         {
             get
             {
-                return new Rectangle(Position.ToPoint(), Size.ToPoint());
+                return new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint());
             }
         }
 

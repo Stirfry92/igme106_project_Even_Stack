@@ -79,6 +79,7 @@ namespace ASTRA
 
             //TODO: Change this, this is temporary for testing purposes.
             this.Size = new Vector2(Image.Width, Image.Height);
+            //this.Size = new Vector2(50, 50);
             this.speed = 5f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
@@ -291,8 +292,8 @@ namespace ASTRA
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(Image, TopLeftCorner, Color.White);
+            //batch.Draw(Image, new Vector2(CollisionBounds.X, CollisionBounds.Y), Color.White);
 
-            
             if (state == PlayerState.Grounded)
             {
                 batch.Draw(DirectionVectorImage, Position, null, Color.White, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 1);
