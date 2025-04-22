@@ -251,7 +251,7 @@ namespace ASTRA
 
                         //Determine speed and velocity based on how long the spacebar was held. 
                         speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
-                        velocity = velocity - dir * speed;
+                        velocity = velocity + dir * speed;
 
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
@@ -272,7 +272,7 @@ namespace ASTRA
                         dir.Normalize();
 
                         //Determine velocity based on the Max speed.
-                        velocity = velocity - dir * MaximumPushSpeed;
+                        velocity = velocity + dir * MaximumPushSpeed;
 
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
