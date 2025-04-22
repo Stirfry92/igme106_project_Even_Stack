@@ -52,6 +52,8 @@ namespace ASTRA
 
         private PlayerState state;                      //Current player state.
 
+        private int throwableCount;                     //Number of throwables the player has.
+
         /// <summary>
         /// The direction in which the player will move.
         /// </summary>
@@ -91,6 +93,7 @@ namespace ASTRA
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
             this.state = PlayerState.Grounded;
+            this.throwableCount = 3; //TODO: This is temporary and should be set to zero for the game.
         }
 
         /// <summary>
@@ -191,8 +194,6 @@ namespace ASTRA
             }
 
             //Since the player collided, give them time to react to the collision (push off from the wall).
-            //TODO: Decide on whether we want the cyotye time. This currentl gives a major buff for when the player needs to react.
-            //state = PlayerState.Grounded; 
             timeToReact = TotalTimeToReact;
         }
 
@@ -214,15 +215,13 @@ namespace ASTRA
             DirectionVector = currentMState.Position.ToVector2() - Position;
             DirectionVector.Normalize();
 
-            
+
             //Execute movement:
-            //Update the direction the player faces:
-            switch(state)
+            //First, reduce the amount of time the player has to react to a collision:
+            timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            switch (state)
             {
                 case PlayerState.Grounded:
-                    //First, reduce the amount of time the player has to react to a collision:
-                    timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
                     //Then, determine the keyboard state of the user and decide what to do from there:
                     //Player releases spacebar:
                     if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
@@ -233,7 +232,7 @@ namespace ASTRA
 
                         //Determine speed and velocity based on how long the spacebar was held. 
                         speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
-                        velocity = velocity + dir * speed;
+                        velocity = velocity - dir * speed;
 
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
@@ -254,7 +253,7 @@ namespace ASTRA
                         dir.Normalize();
 
                         //Determine velocity based on the Max speed.
-                        velocity = velocity + dir * MaximumPushSpeed;
+                        velocity = velocity - dir * MaximumPushSpeed;
 
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
@@ -276,11 +275,48 @@ namespace ASTRA
                         pushChargeTime = 0;
                         speed = 0;
                     }
+                    //Player throws something
+                    if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
+                    {
+                        //Decrement the amount of things the player has to throw:
+                        throwableCount--;
+                        //Set a direction to where the mouse is pointing.
+                        dir = (currentMState.Position.ToVector2()) - Position;
+                        dir.Normalize();
+
+                        velocity = velocity - dir * 2;
+
+                        if (timeToReact < 0)
+                        {
+                            state = PlayerState.Floating;
+                            timeToReact = TotalTimeToReact;
+                        }
+                    }
                     break;
-
+               
                 case PlayerState.Floating:
+                    //While the player is floating, we only want them to be able to push if the timeToReact is above zero seconds.
+                    if (timeToReact >= 0 && currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
+                    {
+                        //Set a direction to where the mouse is pointing.
+                        dir = (currentMState.Position.ToVector2()) - Position;
+                        dir.Normalize();
 
-                    //this is inherently handled in the collision marker since anytime there are collisions, the player will be floating.
+                        //Determine speed and velocity based on how long the spacebar was held. 
+                        speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
+                        velocity = velocity - dir * speed;
+                    }
+                    //Otherwise, the player can throw.
+                    else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
+                    {
+                        //Decrement the amount of things the player has to throw:
+                        throwableCount--;
+                        //Set a direction to where the mouse is pointing.
+                        dir = (currentMState.Position.ToVector2()) - Position;
+                        dir.Normalize();
+
+                        velocity = velocity - dir * 2;
+                    }
                     break;
             }
 
