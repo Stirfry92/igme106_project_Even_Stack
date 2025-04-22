@@ -93,7 +93,7 @@ namespace ASTRA
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
             this.state = PlayerState.Grounded;
-            this.throwableCount = 3; //TODO: This is temporary and should be set to zero for the game.
+            this.throwableCount = 0; //TODO: This is temporary and should be set to zero for the game.
         }
 
         /// <summary>
@@ -130,6 +130,25 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
+            if (other is Throwable t)
+            {
+                Collide(t);
+            }
+            else if (other is CollidableWall wall)
+            {
+                Collide(wall);
+            }
+        }
+        /// <summary>
+        /// Private method called by base Collide method. Determines behavior for specifcially throwable objects.
+        /// </summary>
+        /// <param name="other"></param>
+        private void Collide(Throwable other)
+        {
+            throwableCount++;
+        }
+        private void Collide(CollidableWall other)
+        {
             //TODO: add in base logic for collision (like walls).
             //Use an intersection rectangle to determine logic, in combination with the bounds of collision.
             Rectangle intersection = Rectangle.Intersect(CollisionBounds, other.CollisionBounds);
@@ -148,7 +167,7 @@ namespace ASTRA
                     velocity = Vector2.Zero;
                     state = PlayerState.Grounded;
                 }
-                
+
             }
             //Instance where the player is to the right of the collidable surface
             else if (intersection.Height > intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
@@ -165,7 +184,7 @@ namespace ASTRA
                 }
             }
             //Instance where the player is above the collidable surface
-            if (intersection.Height <= intersection.Width && CollisionBounds.Y <= other.CollisionBounds.Y)
+            else if (intersection.Height <= intersection.Width && CollisionBounds.Y <= other.CollisionBounds.Y)
             {
                 Position = new Vector2(Position.X, Position.Y - intersection.Height);
                 if (currentKBState.IsKeyDown(Keys.Space))
@@ -181,7 +200,7 @@ namespace ASTRA
             //Instance where the player is below the collidable surface
             else if (intersection.Height <= intersection.Width && CollisionBounds.Y > other.CollisionBounds.Y)
             {
-                Position = new Vector2(Position.X , Position.Y + intersection.Height);
+                Position = new Vector2(Position.X, Position.Y + intersection.Height);
                 if (currentKBState.IsKeyDown(Keys.Space))
                 {
                     velocity = new Vector2(velocity.X, -velocity.Y);

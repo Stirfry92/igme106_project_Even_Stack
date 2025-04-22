@@ -25,7 +25,7 @@ namespace ASTRA.Scenes
         internal GameScreen() : base()
         {
             this.Add(new Player(new Vector2(800, 500)));
-
+            this.Add(new Throwable(new Vector2(900, 750), new Vector2(0, -8)));
             for (int i = 600; i <= 1600; i += 50)
             {
                 this.Add(new CollidableWall(new Vector2(i, 200), new Vector2(50, 50)));
