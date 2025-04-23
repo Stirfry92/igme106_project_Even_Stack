@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +31,10 @@ namespace ASTRA.Scenes
             
         }
 
-        internal override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            loader.Update(gameTime);
+            Clean();
         }
-
-        internal override void Draw(SpriteBatch batch)
-        {
-            loader.DrawLevel(batch);
-            base.Draw(batch);
-        }
-
     }
 }

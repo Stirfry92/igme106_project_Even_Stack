@@ -111,7 +111,6 @@ namespace ASTRA
                             player.AddToParent = add;
                             player.RemoveFromParent = delete;
 
-
                             level[j, i] = player;
                             break;
                     }

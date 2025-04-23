@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -165,9 +166,10 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
+            
             if (other is Throwable t && !t.JustThrown)
             {
-
+                
                 //ensure that an object doesn't immediately collide
                 Collide(t);
                 KnownThrowables.Remove(t);
