@@ -18,7 +18,7 @@ public class Game1 : Game
     /// The required textures for the game.
     /// TODO: add any texture that is required up here!
     /// </summary>
-    private string[] requiredTextures = { "blank", "button", "editedAstronaut", "astralogo", "blackoverlay", "directionTriangle", "tile"};
+    private string[] requiredTextures = { "blank", "button", "editedAstronaut", "astralogo", "blackoverlay", "directionTriangle", "tile", "hammer"};
 
     /*********************
      *     TEST ZONE     *

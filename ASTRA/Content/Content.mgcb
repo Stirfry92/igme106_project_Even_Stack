@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:editedAstronaut.png
 
+#begin hammer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:hammer.png
+
 #begin Standard.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

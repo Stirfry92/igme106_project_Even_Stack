@@ -36,9 +36,9 @@ namespace ASTRA
             //get the local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
 
-            Image = lcm.GetTexture("blank");
+            Image = lcm.GetTexture("hammer");
 
-            this.Size = new Vector2(25, 25);
+            this.Size = new Vector2(64, 64);
             this.velocity = new Vector2(0, 0);
         }
 
@@ -47,9 +47,9 @@ namespace ASTRA
             //get the local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
 
-            Image = lcm.GetTexture("blank");
+            Image = lcm.GetTexture("hammer");
 
-            this.Size = new Vector2(25, 25);
+            this.Size = new Vector2(64, 64);
             this.velocity = velocity;
             //this.canPickup = true;
         }
@@ -86,6 +86,7 @@ namespace ASTRA
             {
                 Remove(this);
             }
+            
             
         }
         private void Collide(CollidableWall other)
