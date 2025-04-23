@@ -17,6 +17,8 @@ namespace ASTRA.Scenes
         /// </summary>
         internal new const string ID = "Game Screen";
 
+        internal bool ResetGame = false;
+
         /// <summary>
         ///The previous keyboard state.
         /// </summary>
@@ -113,7 +115,10 @@ namespace ASTRA.Scenes
         /// </summary>
         internal override void Reset()
         {
-            base.Reset();
+            if (ResetGame)
+                base.Reset();
+
+            ResetGame = false;
         }
     }
 

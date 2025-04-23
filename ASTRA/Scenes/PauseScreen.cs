@@ -25,6 +25,7 @@ namespace ASTRA.Scenes
 
         internal PauseScreen() : base()
         {
+            Vector2 differenceInCenter = new Vector2(10, 0);
 
             StaticImage gameplayOverlay = new StaticImage("overlay", "blackoverlay", Vector2.Zero, ComponentOrigin.TopLeft);
             gameplayOverlay.Color = new Color(0xff, 0xff, 0xff, 0xc0);
@@ -32,13 +33,17 @@ namespace ASTRA.Scenes
             UI.AddComponent(gameplayOverlay);
 
 
-            Button cont = new Button("go_back", "Continue", new Vector2(5, 5), ComponentOrigin.TopLeft);
+            Button cont = new Button("go_back", "Continue", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);
             cont.OnClick += () => SetScene(GameScreen.ID);
 
             UI.AddComponent(cont);
 
-            Button mainmenu = new Button("menu", "Main Menu", new Vector2(200, 5), ComponentOrigin.TopLeft);
-            mainmenu.OnClick += () => SetScene(HomeScreen.ID);
+            Button mainmenu = new Button("menu", "Main Menu", GameDetails.CenterOfScreen - differenceInCenter, ComponentOrigin.TopRight);
+            mainmenu.OnClick += () =>
+            {
+                SetScene(HomeScreen.ID);
+                GameScreen.ResetGame = true;
+            };
 
             UI.AddComponent(mainmenu);
 
