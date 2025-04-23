@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ASTRA.Scenes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -35,8 +36,8 @@ namespace ASTRA
     {
         //Fields:
         private Vector2 dir;                            //Represents the direction the player "faces".
-        private const float MaximumPushSpeed = 12f;     //Represents the maximum speed attainable by pushing.
-        private const float MinimumPushSpeed = 5f;      //Represents the minimum speed attainable by pushing.
+        private const float MaximumPushSpeed = 8f;     //Represents the maximum speed attainable by pushing.
+        private const float MinimumPushSpeed = 3f;      //Represents the minimum speed attainable by pushing.
         private float speed;                            //Represents the speed added to the direction when the player "pushes"
         private float pushChargeTime;                   //Represents the amount of time charging the push.
         private Vector2 velocity;                       //Represents the velocity of the player
@@ -62,7 +63,22 @@ namespace ASTRA
         /// <summary>
         /// The arrow texture that will be used for indicating player movement.
         /// </summary>
-        private Texture2D DirectionVectorImage;
+        private readonly Texture2D DirectionVectorImage;
+
+        /// <summary>
+        /// The event passed from the parent scene to the player in order for the player to handle its own object creation.
+        /// </summary>
+        internal GameObjectDelegate AddToParent;
+
+        /// <summary>
+        /// The event passed from the parent scene to the player in order for the player to further pass references to any object created.
+        /// </summary>
+        internal GameObjectDelegate RemoveFromParent;
+
+        /// <summary>
+        /// The known trowables to the player.
+        /// </summary>
+        private List<Throwable> KnownThrowables;
 
         
         
@@ -89,11 +105,13 @@ namespace ASTRA
             //TODO: Change this, this is temporary for testing purposes.
             this.Size = new Vector2(Image.Width, Image.Height);
             //this.Size = new Vector2(50, 50);
-            this.speed = 5f;
+            this.speed = 0f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
             this.state = PlayerState.Grounded;
-            this.throwableCount = 0; //TODO: This is temporary and should be set to zero for the game.
+            this.throwableCount = 2; //TODO: This is temporary and should be set to zero for the game.
+
+            KnownThrowables = new List<Throwable>();
         }
 
         /// <summary>
@@ -122,6 +140,23 @@ namespace ASTRA
         public Texture2D Image { get; }
 
 
+        internal override void Reset()
+        {
+            Position = GameDetails.CenterOfScreen;
+            velocity = Vector2.Zero;
+            state = PlayerState.Grounded;
+
+            foreach (Throwable throwable in KnownThrowables)
+            {
+                RemoveFromParent(throwable);
+            }
+
+            KnownThrowables.Clear();
+
+            throwableCount = 2;
+        }
+
+
         /// <summary>
         /// Handles all collisions (without updating the other object's status!).
         /// Should be called by a manager class which checks the collision between the player and all other objects.
@@ -130,11 +165,16 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
-            if (other is Throwable t)
+            if (other is Throwable t && !t.JustThrown)
             {
+
+                //ensure that an object doesn't immediately collide
                 Collide(t);
+                KnownThrowables.Remove(t);
+                
             }
-            else if (other is CollidableWall wall)
+            
+            if (other is CollidableWall wall)
             {
                 Collide(wall);
             }
@@ -294,9 +334,14 @@ namespace ASTRA
                         pushChargeTime = 0;
                         speed = 0;
                     }
+
+                    /*
                     //Player throws something
                     if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
                     {
+                        //create a new throwable
+                        Throwable newThrowable = new Throwable(Position);
+
                         //Decrement the amount of things the player has to throw:
                         throwableCount--;
                         //Set a direction to where the mouse is pointing.
@@ -311,6 +356,7 @@ namespace ASTRA
                             timeToReact = TotalTimeToReact;
                         }
                     }
+                    */
                     break;
                
                 case PlayerState.Floating:
@@ -328,11 +374,25 @@ namespace ASTRA
                     //Otherwise, the player can throw.
                     else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
                     {
-                        //Decrement the amount of things the player has to throw:
-                        throwableCount--;
+                        
                         //Set a direction to where the mouse is pointing.
                         dir = (currentMState.Position.ToVector2()) - Position;
                         dir.Normalize();
+
+                        
+
+                        //create the new throwable
+                        Throwable newThrowable = new Throwable(Position, dir * velocity.Length());
+                        newThrowable.Remove = this.RemoveFromParent;
+
+                        //add the throwable to the parent
+                        AddToParent(newThrowable);
+
+                        //add reference to the known throwables
+                        KnownThrowables.Add(newThrowable);
+
+                        //Decrement the amount of things the player has to throw:
+                        throwableCount--;
 
                         velocity = velocity - dir * 2;
                     }
@@ -346,6 +406,15 @@ namespace ASTRA
             //Set Previous states
             previousKBState = currentKBState;
             previousMState = currentMState;
+
+            //update the throwables
+            for (int i = 0; i < KnownThrowables.Count; i++)
+            {
+                if (KnownThrowables[i].JustThrown && !CollidesWith(KnownThrowables[i]))
+                {
+                    KnownThrowables[i].JustThrown = false;
+                }
+            }
             
         }
 

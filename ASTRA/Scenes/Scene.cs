@@ -127,9 +127,35 @@ namespace ASTRA.Scenes
         /// <param name="gameTime"></param>
         internal virtual void Update(GameTime gameTime)
         {
+            
+
+            //update each game object (which updates the position)
             for (int i = 0; i < GameObjects.Count; i++)
             {
                 GameObjects[i].Update(gameTime);
+            }
+
+            if (Collidables.Count == 0)
+            {
+                UI.Update(gameTime);
+                return;
+            }
+
+
+            //handle each collision with the new positions
+            for (int i = 0; i < Collidables.Count; i++)
+            {
+                for (int j = 0; j < Collidables.Count; j++)
+                {
+                    //this ensures that each collidable doesn't collide with itself
+                    
+                    //DO NOT ADD Collidables[j].Collide(Collidables[i]); This can cause doublecounting.
+                    if (i != j && Collidables[i].CollidesWith(Collidables[j]))
+                    {
+                        Collidables[i].Collide(Collidables[j]);
+                    }
+                }
+
             }
 
             UI.Update(gameTime);
@@ -178,6 +204,14 @@ namespace ASTRA.Scenes
         /// </summary>
         internal virtual void Reset()
         {
+            for (int i = 0; i < GameObjects.Count; i++)
+            {
+                GameObjects[i].Reset();
+            }
+
+            //if any objects are destroyed on reset, remove them from the queue.
+            Clean();
+
             UI.Reset();
         }
     }

@@ -26,5 +26,7 @@ namespace ASTRA
     /// <returns></returns>
     internal delegate Scene GetSceneDelegate(string sceneName);
 
+    internal delegate void GameObjectDelegate(GameObject obj);
+
 
 }

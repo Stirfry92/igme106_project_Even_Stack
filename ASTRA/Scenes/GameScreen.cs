@@ -24,8 +24,19 @@ namespace ASTRA.Scenes
 
         internal GameScreen() : base()
         {
-            this.Add(new Player(new Vector2(800, 500)));
-            this.Add(new Throwable(new Vector2(900, 750), new Vector2(0, -8)));
+            Player player = new Player(GameDetails.CenterOfScreen);
+            player.AddToParent = Add;
+            player.RemoveFromParent = Remove;
+
+            this.Add(player);
+
+            /*
+            Throwable test = new Throwable(new Vector2(900, 750), new Vector2(0, -8));
+            test.Remove = this.Remove;
+            test.JustThrown = false;
+            this.Add(test);
+            */
+
             for (int i = 600; i <= 1600; i += 50)
             {
                 this.Add(new CollidableWall(new Vector2(i, 200), new Vector2(50, 50)));
@@ -45,6 +56,7 @@ namespace ASTRA.Scenes
         {
             base.Update(gameTime);
 
+            /*
             for (int i = 0; i < GameObjects.Count; i++)
             {
                 //TODO: Very bad code right here: This should be shamed and exiled from the project forever.
@@ -77,6 +89,7 @@ namespace ASTRA.Scenes
                     }
                 }
             }
+            */
 
             KeyboardState kbstate = Keyboard.GetState();
 

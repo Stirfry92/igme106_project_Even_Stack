@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace ASTRA
 {
@@ -14,6 +15,16 @@ namespace ASTRA
         //Fields:
         private Vector2 velocity;                       //Represents the velocity of the object
         private bool canPickup;                         //Represents if the throwable is ready to be picked up.
+
+        /// <summary>
+        /// The logic passed from the parent scene so that a throwable has the ability to remove itself from the parent.
+        /// </summary>
+        internal GameObjectDelegate Remove;
+
+        /// <summary>
+        /// Whether the throwable was just thrown.
+        /// </summary>
+        internal bool JustThrown = true;
 
         /// <summary>
         /// Creates a new throwable object at the current position.
@@ -41,7 +52,7 @@ namespace ASTRA
 
             this.Size = new Vector2(25, 25);
             this.velocity = velocity;
-            this.canPickup = true;
+            //this.canPickup = true;
         }
         public bool CanPickup
         {
@@ -75,10 +86,12 @@ namespace ASTRA
             {
                 Collide(wall);
             }
-            else if (other is Player)
+
+            if (other is Player && !JustThrown)
             {
-                canPickup = false;
+                Remove(this);
             }
+            
         }
         private void Collide(CollidableWall other)
         {
@@ -108,8 +121,10 @@ namespace ASTRA
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
 
+            /*
             //Now that the object has struck a wall, we can pick it up again on the rebound:
             canPickup = true;
+            */
         }
 
         /// <summary>
