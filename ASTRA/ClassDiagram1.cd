@@ -5,13 +5,6 @@
   </Comment>
   <Class Name="ASTRA.UserInterface.Button" Collapsed="true">
     <Position X="0.5" Y="3" Width="1.5" />
-    <NestedTypes>
-      <Enum Name="ASTRA.UserInterface.Button.ButtonState" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>UserInterface\Button.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgABAICAAAACAAAAABABAAgADAACAAA=</HashCode>
       <FileName>UserInterface\Button.cs</FileName>
@@ -79,7 +72,7 @@
   <Class Name="ASTRA.Scenes.GameScreen" Collapsed="true">
     <Position X="7.25" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAhAEAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Scenes\GameScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,10 +136,17 @@
   <Class Name="ASTRA.Throwable" Collapsed="true">
     <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAAgABAQIAAAAQBAAAAQAAAQAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAAgABAQAAAAAQBAAAAQAAAQAAAA=</HashCode>
       <FileName>Throwable.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASTRA.Scenes.TestScene" Collapsed="true">
+    <Position X="1" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scenes\TestScene.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="ASTRA.ICollidable" Collapsed="true">
     <Position X="5.25" Y="2.5" Width="1.5" />
