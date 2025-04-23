@@ -34,7 +34,7 @@ namespace ASTRA.UserInterface
         /// Draws the UI Component. As a base,
         /// </summary>
         /// <param name="batch"></param>
-        public override void Draw(SpriteBatch batch) 
+        public virtual void Draw(SpriteBatch batch) 
         {
             //i hate my code
         }

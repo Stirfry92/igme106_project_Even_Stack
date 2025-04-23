@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -10,20 +11,35 @@ namespace ASTRA.Scenes
 {
     internal class TestScene : Scene
     {
-        internal Vector2 StartPosition = GameDetails.CenterOfScreen;
+
+        internal new string ID = "Test Scene";
+
+
+        /// <summary>
+        /// An instance of the level loader.
+        /// </summary>
+        LevelLoader loader;
         internal TestScene() : base()
         {
-            Player player = new Player(StartPosition);
-            player.AddToParent = Add;
-            player.RemoveFromParent = Remove;
-
-            //adds an object
-            Add(player);
-
             //Any object that needs to be in this scene should be added using this.Add(object).
-            
+
             //all collisions are handled for you and all updates are handled for you.
+
+            loader = new LevelLoader();
+            loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
             
+        }
+
+        internal override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            base.Update(gameTime);
+            loader.Update(gameTime);
+        }
+
+        internal override void Draw(SpriteBatch batch)
+        {
+            loader.DrawLevel(batch);
+            base.Draw(batch);
         }
 
     }

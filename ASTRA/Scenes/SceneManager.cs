@@ -31,7 +31,9 @@ namespace ASTRA.Scenes
 
             OnExit = exit;
             //start off on the home screen
-            SetScene(HomeScreen.ID);
+
+            CurrentScene = new TestScene();
+            //SetScene(HomeScreen.ID);
         }
 
         /// <summary>

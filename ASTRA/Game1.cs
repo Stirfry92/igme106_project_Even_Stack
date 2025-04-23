@@ -28,7 +28,7 @@ public class Game1 : Game
     private Player player;
     private Player player2;
     //Eason
-    LevelLoader level = new LevelLoader();
+    //LevelLoader level = new LevelLoader();
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -68,15 +68,18 @@ public class Game1 : Game
         sceneManager = new SceneManager(Exit);
         
         //Eason LevelLoader testing 
-        level.LoadLevel("../../../DemoLevel.txt");
+        //level.LoadLevel("../../../DemoLevel.txt");
         //
     }
 
     protected override void Update(GameTime gameTime)
     {
+        if (Keyboard.GetState().IsKeyDown(Keys.Escape)) 
+            Exit();
+
 
         sceneManager.CurrentScene.Update(gameTime);
-        level.Update(gameTime);
+        //level.Update(gameTime);
         /*
         // TODO: Add your update logic here
         player.Update(gameTime);
@@ -99,10 +102,10 @@ public class Game1 : Game
         _spriteBatch.Begin();
 
         //ZACH - delete if need to test gameplay
-        //sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
+        sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
 
         //Eason levelLoader testing
-        level.DrawLevel(_spriteBatch);
+        //level.DrawLevel(_spriteBatch);
         //
         /*
 

@@ -48,9 +48,9 @@ namespace ASTRA
             {
                 for (int j = 0; j < x; j++)
                 {
-                    if (level[j, i] != null)
+                    if (level[j, i] != null && level[j,i] is IDrawable drawable)
                     {
-                        level[j, i].Draw(asd);
+                        drawable.Draw(asd);
                     }
 
                 }
@@ -61,7 +61,7 @@ namespace ASTRA
         /// <summary>
         /// loads a single level file
         /// </summary>
-        public void LoadLevel(string file)
+        public void LoadLevel(string file, GameObjectDelegate add, GameObjectDelegate delete)
         {
             Char[] asd;
             reader = new StreamReader(file);
@@ -108,9 +108,15 @@ namespace ASTRA
                             break;
                         case 'S'://start
                             player = new Player(new Vector2(j * 50, i * 50));
+                            player.AddToParent = add;
+                            player.RemoveFromParent = delete;
+
+
                             level[j, i] = player;
                             break;
                     }
+
+                    add(level[j, i]);
                 }
             }
             reader.Close();

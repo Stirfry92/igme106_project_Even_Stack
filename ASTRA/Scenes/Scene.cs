@@ -82,6 +82,10 @@ namespace ASTRA.Scenes
         /// <param name="obj"></param>
         protected virtual void Add(GameObject obj)
         {
+            //TODO: swap this to a ThrowIfNull
+            if (obj == null) 
+                return;
+
             GameObjects.Add(obj);
 
             if (obj is ICollidable collidable)
