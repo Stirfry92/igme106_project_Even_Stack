@@ -146,7 +146,7 @@ namespace ASTRA
         /// Draws out the asset.
         /// </summary>
         /// <param name="batch"></param>
-        public void Draw(SpriteBatch batch)
+        public override void Draw(SpriteBatch batch)
         {
             //batch.Draw(Image, CollisionBounds, Color.White);
             batch.Draw(Image, TopLeftCorner, null, Color.White, Rotation, Size*0.5f, 1, SpriteEffects.None, 1);

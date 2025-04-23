@@ -34,7 +34,10 @@ namespace ASTRA.UserInterface
         /// Draws the UI Component. As a base,
         /// </summary>
         /// <param name="batch"></param>
-        public abstract void Draw(SpriteBatch batch); 
+        public override void Draw(SpriteBatch batch) 
+        {
+            //i hate my code
+        }
         // TODO: NOTE FROM STERLING: For the same reason I commented the code on GameObject (See GameObject's Draw method) I commented out below
         // and uncommented above.
         //public override abstract void Draw(SpriteBatch batch);

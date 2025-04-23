@@ -122,6 +122,6 @@ namespace ASTRA
         //things get weird and evil. I suggest we just cut it from GameObject because we don't really need it here I don't believe.
         //internal abstract void Draw(SpriteBatch sb);
 
-
+        public abstract void Draw(SpriteBatch SB);
     }
 }
