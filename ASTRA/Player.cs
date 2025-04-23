@@ -369,7 +369,7 @@ namespace ASTRA
 
                         //Determine speed and velocity based on how long the spacebar was held. 
                         speed = MathHelper.Clamp(MaximumPushSpeed * pushChargeTime, MinimumPushSpeed, MaximumPushSpeed);
-                        velocity = velocity - dir * speed;
+                        velocity = velocity + dir * speed;
                     }
                     //Otherwise, the player can throw.
                     else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)

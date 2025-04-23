@@ -40,7 +40,6 @@ namespace ASTRA
 
             this.Size = new Vector2(25, 25);
             this.velocity = new Vector2(0, 0);
-            this.canPickup = true;
         }
 
         public Throwable(Vector2 position, Vector2 velocity) : base(position, ComponentOrigin.Center)
@@ -53,10 +52,6 @@ namespace ASTRA
             this.Size = new Vector2(25, 25);
             this.velocity = velocity;
             //this.canPickup = true;
-        }
-        public bool CanPickup
-        {
-            get { return canPickup; }
         }
 
         /// <summary>

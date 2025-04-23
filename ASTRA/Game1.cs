@@ -18,7 +18,7 @@ public class Game1 : Game
     /// The required textures for the game.
     /// TODO: add any texture that is required up here!
     /// </summary>
-    private string[] requiredTextures = { "blank", "button", "editedAstronaut", "astralogo", "blackoverlay", "directionTriangle"};
+    private string[] requiredTextures = { "blank", "button", "editedAstronaut", "astralogo", "blackoverlay", "directionTriangle", "tile"};
 
     /*********************
      *     TEST ZONE     *
@@ -62,10 +62,6 @@ public class Game1 : Game
         }
 
         lcm.Add<SpriteFont>("Standard", Content.Load<SpriteFont>("Standard"));
-
-
-        player = new Player(new Vector2(400, 400));
-        player2 = new Player(new Vector2(200, 200));
         // TODO: use this.Content to load your game content here
 
         //after content has been loaded, the scenes can be loaded

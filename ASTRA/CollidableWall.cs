@@ -24,7 +24,7 @@ namespace ASTRA
             LocalContentManager lcm = LocalContentManager.Shared;
 
             //TODO: get a default asset. Comment this out if need be.
-            Image = lcm.GetTexture("blank");
+            Image = lcm.GetTexture("tile");
 
 
             //Size = new Vector2(Image.Width, Image.Height);
