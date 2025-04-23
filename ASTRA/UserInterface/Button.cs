@@ -16,6 +16,7 @@ namespace ASTRA.UserInterface
     /// </summary>
     internal class Button : UIComponent, IDrawable
     {
+
         /// <summary>
         /// The background of the button texture.
         /// </summary>

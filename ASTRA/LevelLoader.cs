@@ -29,18 +29,28 @@ namespace ASTRA
         /// </summary>
         public void Update( GameTime gt) 
         {
-            player.Update(gt);
+            foreach (var item in level)
+            {
+                if (item != null) 
+                { 
+                    item.Update(gt);
+                }
+            }
         }
+
+        /// <summary>
+        /// loops through level array and draws
+        /// </summary>
         public void DrawLevel(SpriteBatch asd)
         {
-            
+
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
                 {
                     if (level[j, i] != null)
                     {
-                        //level[j, i].Draw(asd);
+                        level[j, i].Draw(asd);
                     }
 
                 }
@@ -71,13 +81,15 @@ namespace ASTRA
                     switch (asd[j])
                     {
                         case 'X'://wall
-                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
-                            //new Player(new Microsoft.Xna.Framework.Vector2(x*50,y*50));
+                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50),new Vector2(50,50));
                             break;
                         case '!'://hole
-                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50), new Vector2(50, 50));
+
+                            // needs hole class
                             break;
                         case 'b'://button
+
                             break;
                         case 'd'://closed door
 
@@ -86,16 +98,16 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            level[j, i] = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50), new Vector2(50, 50));
                             break;
                         case '-'://open space
-                            
+                            // add floor class
                             break;
                         case 'E'://end
 
                             break;
                         case 'S'://start
-                            player = new Player(new Microsoft.Xna.Framework.Vector2(j * 50, i * 50));
+                            player = new Player(new Vector2(j * 50, i * 50));
                             level[j, i] = player;
                             break;
                     }
