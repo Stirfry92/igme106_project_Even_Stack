@@ -130,42 +130,6 @@ namespace ASTRA.Scenes
             for (int i = 0; i < GameObjects.Count; i++)
             {
                 GameObjects[i].Update(gameTime);
-
-                //TODO: Very bad code right here: This should be shamed and exiled from the project forever.
-                //However, we are on a time crunch so it is here for the playtest build because it works.
-                if (GameObjects[i] is Player || GameObjects[i] is Throwable)
-                {
-                    ICollidable actor = (ICollidable)GameObjects[i];
-
-                    foreach (ICollidable collidable in Collidables)
-                    {
-                        if (actor.CollidesWith(collidable) && collidable is CollidableWall wall)
-                        {
-                            actor.Collide(wall);
-                        }
-                        else if (actor.CollidesWith(collidable) && collidable is Throwable t)
-                        {
-                           
-                            if (actor is Player && t.CanPickup)
-                            {
-                                actor.Collide(t);
-                                t.Collide(actor);
-                                Remove(t);
-                            }
-                            else
-                            {
-                                actor.Collide(t);
-                                t.Collide(actor);
-                            }
-                        }
-                        else if (actor.CollidesWith(collidable) && !actor.Equals(collidable))
-                        {
-                            actor.Collide(collidable);
-                            collidable.Collide(actor);
-                        }
-                            
-                    }
-                }
             }
 
             UI.Update(gameTime);
