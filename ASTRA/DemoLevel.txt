@@ -1,7 +1,7 @@
 ﻿DemoLevel,1,0:00,8,21
 XXXXX!!XXXX!!!XXXXXXX
 X--b-----X-----d-O-bX
-X--------X-----X----X
+X------S-X-----X----X
 XS-------D--O!-X!XX!X
 X---O----X-----D----E
 X---O----X--O--XXXXXX

@@ -74,7 +74,7 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Escape)) 
+        if (GameDetails.TestingMode && Keyboard.GetState().IsKeyDown(Keys.Escape)) 
             Exit();
 
 
