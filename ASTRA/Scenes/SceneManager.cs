@@ -32,8 +32,18 @@ namespace ASTRA.Scenes
             OnExit = exit;
             //start off on the home screen
 
-            CurrentScene = new TestScene();
-            //SetScene(HomeScreen.ID);
+            if (GameDetails.TestingMode)
+            {
+                CurrentScene = new TestScene();
+            }
+
+            //THIS IS OK SINCE WE NEED TO CHANGE BOOL ANYWAYS TO ACCESS
+            else
+            {
+                SetScene(HomeScreen.ID);
+
+            }
+            
         }
 
         /// <summary>

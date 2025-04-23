@@ -10,6 +10,10 @@ namespace ASTRA.Scenes
     internal static class GameDetails
     {
 
+        internal const bool TestingMode = true;
+
+
+
         /// <summary>
         /// The relative game width.
         /// </summary>
