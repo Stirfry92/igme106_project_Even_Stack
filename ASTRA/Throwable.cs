@@ -27,6 +27,11 @@ namespace ASTRA
         internal bool JustThrown = true;
 
         /// <summary>
+        /// The amount that the hammer is rotated (in radians).
+        /// </summary>
+        private float Rotation;
+
+        /// <summary>
         /// Creates a new throwable object at the current position.
         /// </summary>
         /// <param name="position"></param>
@@ -40,6 +45,8 @@ namespace ASTRA
 
             this.Size = new Vector2(64, 64);
             this.velocity = new Vector2(0, 0);
+
+            Rotation = (float)(Random.Shared.NextDouble() * Math.PI * 2);
         }
 
         public Throwable(Vector2 position, Vector2 velocity) : base(position, ComponentOrigin.Center)
@@ -141,7 +148,8 @@ namespace ASTRA
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
-            batch.Draw(Image, CollisionBounds, Color.White);
+            //batch.Draw(Image, CollisionBounds, Color.White);
+            batch.Draw(Image, TopLeftCorner, null, Color.White, Rotation, Size*0.5f, 1, SpriteEffects.None, 1);
         }
 
 
