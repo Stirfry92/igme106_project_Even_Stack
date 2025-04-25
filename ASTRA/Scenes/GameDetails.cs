@@ -9,8 +9,11 @@ namespace ASTRA.Scenes
 {
     internal static class GameDetails
     {
-
-        internal const bool TestingMode = true;
+        
+        /// <summary>
+        /// Whether the game should be run in Testing Mode: A mode that only runs a sandbox scene for testing mechanics.
+        /// </summary>
+        internal const bool TestingMode = false;
 
 
 

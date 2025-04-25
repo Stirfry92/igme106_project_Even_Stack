@@ -52,9 +52,9 @@ namespace ASTRA
         private const float TotalTimeToReact = 0.25f;   //Maximum time the player has to react to a collision (seconds)
         private float timeToReact;                      //Time left for the player to react to a collision.
 
-        private PlayerState state;                      //Current player state.
+        private Listener<PlayerState> CurrentPlayerState;                      //Current player state.
 
-        private int throwableCount;                     //Number of throwables the player has.
+        internal Listener<int> ThrowableCount { get; }  //Number of throwables the player has.
 
         /// <summary>
         /// The direction in which the player will move.
@@ -80,6 +80,8 @@ namespace ASTRA
         /// The known trowables to the player.
         /// </summary>
         private List<Throwable> KnownThrowables;
+
+        private Color DirectionImageRenderColor = Color.White;
 
         
         
@@ -109,10 +111,41 @@ namespace ASTRA
             this.speed = 0f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
-            this.state = PlayerState.Grounded;
-            this.throwableCount = 2; //TODO: This is temporary and should be set to zero for the game.
+            this.CurrentPlayerState = new Listener<PlayerState>(PlayerState.Grounded);
+
+            ThrowableCount = new Listener<int>(2);
+            //TODO: This is temporary and should be set to zero for the game.
 
             KnownThrowables = new List<Throwable>();
+
+            CurrentPlayerState.OnValueChanged += UpdateDirectionColor;
+        }
+
+        /// <summary>
+        /// Updates the direction image render color.
+        /// </summary>
+        private void UpdateDirectionColor()
+        {
+            switch (CurrentPlayerState.Value)
+            {
+                case PlayerState.Floating:
+                    {
+                        DirectionImageRenderColor = Color.Blue;
+                        break;
+                    }
+
+                case PlayerState.Grounded:
+                    {
+                        DirectionImageRenderColor = Color.White;
+                        break;
+                    }
+
+                default:
+                    {
+                        DirectionImageRenderColor = Color.White;
+                        break;
+                    }
+            }
         }
 
         /// <summary>
@@ -126,14 +159,6 @@ namespace ASTRA
             }
         }
 
-        /// <summary>
-        /// The current player state.
-        /// </summary>
-        public PlayerState State
-        {
-            get { return state; }
-        }
-
 
         /// <summary>
         /// The image of the player.
@@ -145,7 +170,7 @@ namespace ASTRA
         {
             Position = GameDetails.CenterOfScreen;
             velocity = Vector2.Zero;
-            state = PlayerState.Grounded;
+            CurrentPlayerState.Value = ASTRA.PlayerState.Grounded;
 
             foreach (Throwable throwable in KnownThrowables)
             {
@@ -154,7 +179,7 @@ namespace ASTRA
 
             KnownThrowables.Clear();
 
-            throwableCount = 2;
+            ThrowableCount.Value = 2;
         }
 
 
@@ -187,7 +212,7 @@ namespace ASTRA
         /// <param name="other"></param>
         private void Collide(Throwable other)
         {
-            throwableCount++;
+            ThrowableCount.Value++;
         }
         private void Collide(CollidableWall other)
         {
@@ -207,7 +232,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
-                    state = PlayerState.Grounded;
+                    CurrentPlayerState.Value = PlayerState.Grounded;
                 }
 
             }
@@ -222,7 +247,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
-                    state = PlayerState.Grounded;
+                    CurrentPlayerState.Value = PlayerState.Grounded;
                 }
             }
             //Instance where the player is above the collidable surface
@@ -236,7 +261,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
-                    state = PlayerState.Grounded;
+                    CurrentPlayerState.Value = PlayerState.Grounded;
                 }
             }
             //Instance where the player is below the collidable surface
@@ -250,7 +275,7 @@ namespace ASTRA
                 else
                 {
                     velocity = Vector2.Zero;
-                    state = PlayerState.Grounded;
+                    CurrentPlayerState.Value = PlayerState.Grounded;
                 }
             }
 
@@ -280,7 +305,7 @@ namespace ASTRA
             //Execute movement:
             //First, reduce the amount of time the player has to react to a collision:
             timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            switch (state)
+            switch (CurrentPlayerState.Value)
             {
                 case PlayerState.Grounded:
                     //Then, determine the keyboard state of the user and decide what to do from there:
@@ -298,7 +323,7 @@ namespace ASTRA
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
                         {
-                            state = PlayerState.Floating;
+                            CurrentPlayerState.Value = PlayerState.Floating;
                             timeToReact = TotalTimeToReact;
                         }  
                     }
@@ -319,7 +344,7 @@ namespace ASTRA
                         //Only switch to a different state if the time to react is over, and the player has pushed.
                         if (timeToReact < 0)
                         {
-                            state = PlayerState.Floating;
+                            CurrentPlayerState.Value = PlayerState.Floating;
                             timeToReact = TotalTimeToReact;
                         }
                     }
@@ -374,14 +399,14 @@ namespace ASTRA
                         velocity = velocity + dir * speed;
                     }
                     //Otherwise, the player can throw.
-                    else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
+                    else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && ThrowableCount.Value > 0)
                     {
-                        
+
                         //Set a direction to where the mouse is pointing.
                         dir = (currentMState.Position.ToVector2()) - Position;
                         dir.Normalize();
 
-                        
+
 
                         //create the new throwable
                         Throwable newThrowable = new Throwable(Position, dir * velocity.Length());
@@ -394,7 +419,7 @@ namespace ASTRA
                         KnownThrowables.Add(newThrowable);
 
                         //Decrement the amount of things the player has to throw:
-                        throwableCount--;
+                        ThrowableCount.Value--;
 
                         velocity = velocity - dir * 2;
                     }
@@ -429,11 +454,8 @@ namespace ASTRA
             batch.Draw(Image, TopLeftCorner, Color.White);
             //batch.Draw(Image, new Vector2(CollisionBounds.X, CollisionBounds.Y), Color.White);
 
-            //draw the arrow if the player is grounded and able to move.
-            if (state == PlayerState.Grounded)
-            {
-                batch.Draw(DirectionVectorImage, Position, null, Color.White, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 1);
-            }
+            batch.Draw(DirectionVectorImage, Position, null, DirectionImageRenderColor, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 0);
+            
             
         }
 

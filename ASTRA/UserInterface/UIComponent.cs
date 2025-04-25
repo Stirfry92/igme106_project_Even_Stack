@@ -31,13 +31,10 @@ namespace ASTRA.UserInterface
         public Texture2D Image { get; protected set; }
 
         /// <summary>
-        /// Draws the UI Component. As a base,
+        /// Draws the UI Component. As a base, this shouldn't do anything, since in the future a UI element won't need to be drawn?
         /// </summary>
         /// <param name="batch"></param>
-        public virtual void Draw(SpriteBatch batch) 
-        {
-            //i hate my code
-        }
+        public abstract void Draw(SpriteBatch batch);
         // TODO: NOTE FROM STERLING: For the same reason I commented the code on GameObject (See GameObject's Draw method) I commented out below
         // and uncommented above.
         //public override abstract void Draw(SpriteBatch batch);

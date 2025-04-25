@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
+using ASTRA.UserInterface;
 
 namespace ASTRA.Scenes
 {
@@ -51,6 +52,24 @@ namespace ASTRA.Scenes
                 this.Add(new CollidableWall(new Vector2(1600, i), new Vector2(50, 50)));
                 this.Add(new CollidableWall(new Vector2(600, i), new Vector2(50, 50)));
             }
+
+            TextComponent throwableCount = new TextComponent("player_throwCount", $"# Throwables: {player.ThrowableCount.Value}.", new Vector2(100, 100), ComponentOrigin.TopLeft);
+
+            player.ThrowableCount.OnValueChanged += () =>
+            {
+                throwableCount.SetText($"# Throwables: {player.ThrowableCount.Value}.");
+
+                if (player.ThrowableCount.Value == 0)
+                {
+                    throwableCount.TextColor = Color.Red;
+                }
+                else
+                {
+                    throwableCount.TextColor = Color.White;
+                }
+            };
+
+            UI.AddComponent(throwableCount);
             
         }
 

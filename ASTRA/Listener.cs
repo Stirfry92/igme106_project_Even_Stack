@@ -29,7 +29,7 @@ namespace ASTRA
             set
             {
                 //only call any updates once the value changes.
-                if (Equals(value))
+                if (!Equals(value))
                 {
                     localValue = value;
                     OnValueChanged?.Invoke();
