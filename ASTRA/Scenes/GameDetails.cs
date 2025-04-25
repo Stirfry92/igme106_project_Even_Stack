@@ -15,7 +15,10 @@ namespace ASTRA.Scenes
         /// </summary>
         internal const bool TestingMode = true;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
