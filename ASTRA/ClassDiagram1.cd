@@ -29,14 +29,14 @@
   <Class Name="ASTRA.Game1" Collapsed="true">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAQAAAAAAAAAAwAAgAAAAAAAAAEAAAADAIAABAAAAAQ=</HashCode>
+      <HashCode>QAQAAAAAAAAAAwAAgAAAAAAAAAAAAAADAIAABAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.GameObject" Collapsed="true">
     <Position X="1.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAhgAgAAAIAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAhAAgAAAIAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,7 +57,7 @@
   <Class Name="ASTRA.Player" Collapsed="true">
     <Position X="2.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIQAAAAAhCAATgAAAACABAQARIAAQTAEgAQEBBAAAAI=</HashCode>
+      <HashCode>AIQAAAAAhCAATgAAAACABAQAQIAAQTAAgEQEABAABAI=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Orientation="Bottom" Position="0.571" />
@@ -70,51 +70,51 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.GameScreen" Collapsed="true">
-    <Position X="7.25" Y="5" Width="1.5" />
+    <Position X="7.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAhAEAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Scenes\GameScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.HomeScreen" Collapsed="true">
-    <Position X="9" Y="5" Width="1.5" />
+    <Position X="9.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Scenes\HomeScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.InfoScreen" Collapsed="true">
-    <Position X="11" Y="5" Width="1.5" />
+    <Position X="11.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Scenes\InfoScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.PauseScreen" Collapsed="true">
-    <Position X="12.75" Y="5" Width="1.5" />
+    <Position X="13" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAIAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Scenes\PauseScreen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.Scene" Collapsed="true">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="9.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAYAgQAEAQAAlgAEAAAABAAAAAAAAAAAiACAAAAAUAA=</HashCode>
       <FileName>Scenes\Scene.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.SceneManager" Collapsed="true">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Position X="12.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAICAAAAAAQAAAgCACAAAAAAAA=</HashCode>
       <FileName>Scenes\SceneManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASTRA.Scenes.GameDetails" Collapsed="true">
-    <Position X="12.75" Y="2.25" Width="1.5" />
+    <Position X="11" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Scenes\GameDetails.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,16 +136,23 @@
   <Class Name="ASTRA.Throwable" Collapsed="true">
     <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAAgABAQAAAAAQBAAAAQAAAQAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAoAAAAgABAQAAAAAQBAAAAQAAAQAAAA=</HashCode>
       <FileName>Throwable.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ASTRA.Scenes.TestScene" Collapsed="true">
-    <Position X="1" Y="5.25" Width="1.5" />
+    <Position X="5.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Scenes\TestScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ASTRA.UserInterface.TextComponent" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAIAIAAAAAAAAAAAAAIAAAACAACAAA=</HashCode>
+      <FileName>UserInterface\TextComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="ASTRA.ICollidable" Collapsed="true">
@@ -184,7 +191,7 @@
     </TypeIdentifier>
   </Delegate>
   <Delegate Name="ASTRA.SetSceneDelegate" Collapsed="true">
-    <Position X="11" Y="2.75" Width="1.5" />
+    <Position X="9" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Delegates.cs</FileName>
@@ -198,7 +205,7 @@
     </TypeIdentifier>
   </Delegate>
   <Delegate Name="ASTRA.GameObjectDelegate" Collapsed="true">
-    <Position X="12.75" Y="3.5" Width="1.5" />
+    <Position X="7" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Delegates.cs</FileName>

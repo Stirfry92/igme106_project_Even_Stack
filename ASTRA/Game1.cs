@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 
 namespace ASTRA;
 
@@ -13,7 +14,6 @@ public class Game1 : Game
 
     //the scene manager that will be used throughout the application
     private SceneManager sceneManager;
-
     /// <summary>
     /// The required textures for the game.
     /// TODO: add any texture that is required up here!
@@ -42,14 +42,12 @@ public class Game1 : Game
         _graphics.PreferredBackBufferWidth = GameDetails.GameWidth;
         _graphics.PreferredBackBufferHeight = GameDetails.GameHeight;
         _graphics.IsFullScreen = true;
-
         _graphics.ApplyChanges();
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-
         LocalContentManager lcm = LocalContentManager.Shared;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -66,7 +64,6 @@ public class Game1 : Game
 
         //after content has been loaded, the scenes can be loaded
         sceneManager = new SceneManager(Exit);
-        
         //Eason LevelLoader testing 
         //level.LoadLevel("../../../DemoLevel.txt");
         //
@@ -103,7 +100,6 @@ public class Game1 : Game
 
         //ZACH - delete if need to test gameplay
         sceneManager.CurrentScene.Draw(_spriteBatch);// un comment after testing 
-
         //Eason levelLoader testing
         //level.DrawLevel(_spriteBatch);
         //
