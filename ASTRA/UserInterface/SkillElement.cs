@@ -82,18 +82,22 @@ namespace ASTRA.UserInterface
 
             Size = new Vector2(Image.Width, Image.Height);
 
-            Learned.OnValueChanged += () =>
-            {
-                if (Learned.Value)
-                {
-                    BorderColor = Color.White;
-                }
-                else
-                {
-                    BorderColor = Color.Gray;
-                }
-            };
+            Learned.OnValueChanged += UpdateColor;
 
+            UpdateColor();
+
+        }
+
+        private void UpdateColor()
+        {
+            if (Learned.Value)
+            {
+                BorderColor = Color.White;
+            }
+            else
+            {
+                BorderColor = Color.Gray;
+            }
         }
 
         public override void Draw(SpriteBatch batch)

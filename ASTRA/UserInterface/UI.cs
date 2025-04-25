@@ -67,6 +67,19 @@ namespace ASTRA.UserInterface
         }
 
         /// <summary>
+        /// Moves an element to the top of the UI if it exists.
+        /// </summary>
+        /// <param name="ID"></param>
+        internal void MoveToTop(string ID)
+        {
+            if (TryGetComponent(ID, out UIComponent component))
+            {
+                Components.Remove(component);
+                Components.Add(component);
+            }
+        }
+
+        /// <summary>
         /// Gets all componenent that are of a particular subclass.
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -97,6 +97,9 @@ namespace ASTRA.Scenes
 
             rdr?.Close();
             ProperlyInitialized = true;
+
+            UI.MoveToTop("goback");
+
         }
 
         internal override void Draw(SpriteBatch batch)

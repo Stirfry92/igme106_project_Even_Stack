@@ -1,4 +1,4 @@
-Hammer,Throw while floating to change your direction slightly.,1
+Hammer,Throw mid-air to alter your direction.,1
 Jetpack,Consistently apply a force to change your direction mid-air.,0
 Jetpack2,Consistently apply a force to change your direction mid-air.,0
 Jetpack3,Consistently apply a force to change your direction mid-air.,0
