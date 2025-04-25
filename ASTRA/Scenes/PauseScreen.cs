@@ -32,9 +32,16 @@ namespace ASTRA.Scenes
 
             UI.AddComponent(gameplayOverlay);
 
+            TextComponent info = new TextComponent("info", "Keep playing?", GameDetails.CenterOfScreen - new Vector2(0, 50), ComponentOrigin.BottomCenter);
+            UI.AddComponent(info);
+
 
             Button cont = new Button("go_back", "Continue", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);
-            cont.OnClick += () => SetScene(GameScreen.ID);
+            cont.OnClick += () =>
+            {
+                SetScene(GameScreen.ID);
+                GameScreen.ResetGame = GameScreen.IsGameOver;
+            };
 
             UI.AddComponent(cont);
 
@@ -55,6 +62,17 @@ namespace ASTRA.Scenes
 
             //we already know this will be the game screen with this structure
             GameScreen = (GameScreen)GetScene(GameScreen.ID);
+
+            bool successfulGrab = UI.TryGetComponent("info", out UIComponent component);
+
+            if (GameScreen.IsGameOver && successfulGrab)
+            {
+                (component as TextComponent).SetText("Retry?");
+            }
+            else
+            {
+                (component as TextComponent).SetText("Continue?");
+            }
         }
 
         internal override void Draw(SpriteBatch batch)

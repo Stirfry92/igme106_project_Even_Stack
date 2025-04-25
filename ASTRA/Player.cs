@@ -57,6 +57,11 @@ namespace ASTRA
         internal Listener<int> ThrowableCount { get; }  //Number of throwables the player has.
 
         /// <summary>
+        /// The amount of lives the player has.
+        /// </summary>
+        internal Listener<int> Lives { get; }
+
+        /// <summary>
         /// The direction in which the player will move.
         /// </summary>
         private Vector2 DirectionVector;
@@ -111,7 +116,10 @@ namespace ASTRA
             this.speed = 0f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
+
+            //initialize all the listeners.
             this.CurrentPlayerState = new Listener<PlayerState>(PlayerState.Grounded);
+            this.Lives = new Listener<int>(1);
 
             ThrowableCount = new Listener<int>(2);
             //TODO: This is temporary and should be set to zero for the game.
@@ -180,6 +188,7 @@ namespace ASTRA
             KnownThrowables.Clear();
 
             ThrowableCount.Value = 2;
+            Lives.Value = 1;
         }
 
 

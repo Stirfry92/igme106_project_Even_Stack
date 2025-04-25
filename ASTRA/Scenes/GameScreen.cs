@@ -21,13 +21,29 @@ namespace ASTRA.Scenes
         internal bool ResetGame = false;
 
         /// <summary>
+        /// Whether the game should be considered "over".
+        /// </summary>
+        internal bool IsGameOver
+        {
+            get
+            {
+                return player.Lives.Value == 0;
+            }
+        }
+
+        /// <summary>
         ///The previous keyboard state.
         /// </summary>
         private KeyboardState PreviousKeyboardState;
 
+        /// <summary>
+        /// The instance of the player.
+        /// </summary>
+        private Player player;
+
         internal GameScreen() : base()
         {
-            Player player = new Player(GameDetails.CenterOfScreen);
+            player = new Player(GameDetails.CenterOfScreen);
             player.AddToParent = Add;
             player.RemoveFromParent = Remove;
 
@@ -116,7 +132,7 @@ namespace ASTRA.Scenes
 
 
             //single press of the escape keyboard
-            if (PreviousKeyboardState.IsKeyDown(Keys.Escape) && kbstate.IsKeyUp(Keys.Escape))
+            if (PreviousKeyboardState.IsKeyDown(Keys.Escape) && kbstate.IsKeyUp(Keys.Escape) || IsGameOver)
             {
                 SetScene(PauseScreen.ID);
             }
