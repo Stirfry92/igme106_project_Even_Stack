@@ -1,4 +1,5 @@
-﻿using ASTRA.UserInterface;
+﻿using ASTRA.Scenes;
+using ASTRA.UserInterface;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -81,10 +82,10 @@ namespace ASTRA
                     switch (asd[j])
                     {
                         case 'X'://wall
-                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50),new Vector2(50,50));
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize),new Vector2(GameDetails.TileSize, GameDetails.TileSize));
                             break;
                         case '!'://hole
-                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50), new Vector2(50, 50));
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize));
 
                             // needs hole class
                             break;
@@ -98,7 +99,7 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            level[j, i] = new CollidableWall(new Vector2(j * 50, i * 50), new Vector2(50, 50));
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize));
                             break;
                         case '-'://open space
                             // add floor class
@@ -107,7 +108,7 @@ namespace ASTRA
 
                             break;
                         case 'S'://start
-                            player = new Player(new Vector2(j * 50, i * 50));
+                            player = new Player(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize));
                             player.AddToParent = add;
                             player.RemoveFromParent = delete;
 

@@ -12,8 +12,6 @@ namespace ASTRA
     class CollidableWall : GameObject, IDrawable, ICollidable
     {
 
-
-
         /// <summary>
         /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
         /// </summary>

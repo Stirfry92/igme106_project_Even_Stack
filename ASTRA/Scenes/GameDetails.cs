@@ -14,8 +14,12 @@ namespace ASTRA.Scenes
         /// Whether the game should be run in Testing Mode: A mode that only runs a sandbox scene for testing mechanics.
         /// </summary>
         internal const bool TestingMode = true;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
+        internal const int TileSize = 50;
 
         /// <summary>
         /// The relative game width.
