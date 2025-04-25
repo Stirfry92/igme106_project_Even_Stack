@@ -16,13 +16,13 @@ namespace ASTRA
         /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
         /// </summary>
         /// <param name="position"></param>
-        public CollidableWall(Vector2 position, Vector2 size) : base(position, ComponentOrigin.Center)
+        public CollidableWall(Vector2 position, Vector2 size, string textureName) : base(position, ComponentOrigin.Center)
         {
 
             LocalContentManager lcm = LocalContentManager.Shared;
 
             //TODO: get a default asset. Comment this out if need be.
-            Image = lcm.GetTexture("tile");
+            Image = lcm.GetTexture(textureName);
 
 
             //Size = new Vector2(Image.Width, Image.Height);

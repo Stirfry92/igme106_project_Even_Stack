@@ -82,10 +82,11 @@ namespace ASTRA
                     switch (asd[j])
                     {
                         case 'X'://wall
-                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize),new Vector2(GameDetails.TileSize, GameDetails.TileSize));
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize),new Vector2(GameDetails.TileSize, GameDetails.TileSize), "tile");
                             break;
                         case '!'://hole
-                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize));
+                            //NOTE FROM STERLING: Commented out to represent actual holes.
+                            //level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "blank");
 
                             // needs hole class
                             break;
@@ -99,7 +100,7 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize));
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
                             break;
                         case '-'://open space
                             // add floor class
