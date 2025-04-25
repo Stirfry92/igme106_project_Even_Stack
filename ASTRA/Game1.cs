@@ -60,6 +60,7 @@ public class Game1 : Game
         }
 
         lcm.Add<SpriteFont>("Standard", Content.Load<SpriteFont>("Standard"));
+        lcm.Add<SpriteFont>("Mini", Content.Load<SpriteFont>("Mini"));
         // TODO: use this.Content to load your game content here
 
         //after content has been loaded, the scenes can be loaded

@@ -27,6 +27,10 @@ namespace ASTRA.Scenes
 
             StaticImage logo = new StaticImage("logo", "astralogo", GameDetails.CenterOfScreen, ComponentOrigin.BottomCenter);
             UI.AddComponent(logo);
+
+            Button skilltree = new Button("skilltree", "Skills", new Vector2(0, GameDetails.GameHeight - 5), ComponentOrigin.BottomLeft);
+            skilltree.OnClick += () => { SetScene(InfoScreen.ID); };
+            UI.AddComponent(skilltree);
         }
 
         
