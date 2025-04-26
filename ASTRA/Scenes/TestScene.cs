@@ -12,7 +12,7 @@ namespace ASTRA.Scenes
 {
     internal class TestScene : Scene
     {
-
+        public event EventHandler Buttons;
         internal new string ID = "Test Scene";
 
 
@@ -28,11 +28,12 @@ namespace ASTRA.Scenes
 
             loader = new LevelLoader();
             loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
-            
+            Buttons += loader.button;
         }
 
         internal override void Update(GameTime gameTime)
         {
+            Buttons.Invoke(this, EventArgs.Empty);
             base.Update(gameTime);
             Clean();
         }
