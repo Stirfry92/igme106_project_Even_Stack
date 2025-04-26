@@ -12,6 +12,9 @@ namespace ASTRA.Scenes
 {
     internal class TestScene : Scene
     {
+        /// <summary>
+        /// lets the button see whare the player is at
+        /// </summary>
         public event EventHandler Buttons;
         internal new string ID = "Test Scene";
 

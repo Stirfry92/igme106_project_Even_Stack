@@ -11,7 +11,9 @@ namespace ASTRA
 {
     class GameButton : GameObject, IDrawable, ICollidable
     {
-        // weather or not to draw the button
+        /// <summary>
+        /// tells weather or not to press button
+        /// </summary>
         bool DrawButton = true;
         public GameButton(Vector2 position,Vector2 size, string textureName) : base(position, ComponentOrigin.Center)
         {
@@ -20,6 +22,9 @@ namespace ASTRA
             Image = lcm.GetTexture(textureName);
         }
 
+        /// <summary>
+        /// tells doors that button is pressed by the player
+        /// </summary>
         public event EventHandler IsPressed;
 
         public Texture2D Image { get; }

@@ -26,6 +26,9 @@ namespace ASTRA
         private Player player;
         public Player Player { get { return player; } }
 
+        /// <summary>
+        /// tells the button whare the player is at
+        /// </summary>
         public event Action<Rectangle> playerLocation;
         /// <summary>
         /// draws level from level array
@@ -132,7 +135,10 @@ namespace ASTRA
             reader.Close();
         }
 
-        public void button(object a, EventArgs e) 
+        /// <summary>
+        /// calls player location event
+        /// </summary>
+        public void button(object a, EventArgs e)
         {
             playerLocation.Invoke(player.CollisionBounds);
         }

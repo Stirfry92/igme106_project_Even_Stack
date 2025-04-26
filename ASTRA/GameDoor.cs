@@ -11,6 +11,9 @@ namespace ASTRA
     class GameDoor : GameObject, IDrawable, ICollidable
     {
         // weather or not to draw the door
+        /// <summary>
+        /// tells weather or not to draw door/
+        /// </summary>
         bool DrawDoor = true;
         /// <summary>
         /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
