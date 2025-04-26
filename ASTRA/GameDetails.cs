@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASTRA.Scenes
+namespace ASTRA
 {
     internal static class GameDetails
     {

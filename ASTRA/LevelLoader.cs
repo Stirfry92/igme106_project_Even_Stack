@@ -1,5 +1,4 @@
-﻿using ASTRA.Scenes;
-using ASTRA.UserInterface;
+﻿using ASTRA.UserInterface;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace ASTRA
 {
     internal class LevelLoader
@@ -24,18 +24,11 @@ namespace ASTRA
         private int x;
         private int y;
         private Player player;
-        public Player Player { get { return player; } }
-
-        /// <summary>
-        /// tells the button whare the player is at
-        /// </summary>
-        public event Action<Rectangle> playerLocation;
         /// <summary>
         /// draws level from level array
         /// </summary>
         public void Update( GameTime gt) 
         {
-            playerLocation.Invoke(player.CollisionBounds);
             foreach (var item in level)
             {
                 if (item != null) 
@@ -50,6 +43,7 @@ namespace ASTRA
         /// </summary>
         public void DrawLevel(SpriteBatch asd)
         {
+
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
@@ -78,7 +72,7 @@ namespace ASTRA
             y = int.Parse(data[3]);
             x = int.Parse(data[4]);
             level = new GameObject[x, y];
-            // sets up the level
+
             for (int i = 0; i < y; i++)
             {
                 asd = reader.ReadLine().ToCharArray();
@@ -95,13 +89,13 @@ namespace ASTRA
 
                             // needs hole class
                             break;
-                        case 'B'://button
-                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                        case 'b'://button
+
                             break;
-                        case 'D'://closed door
-                            level[j,i] = new GameDoor(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                        case 'd'://closed door
+
                             break;
-                        case 'd'://opened door
+                        case 'D'://opened door
 
                             break;
                         case 'O'://obstacle
@@ -125,42 +119,16 @@ namespace ASTRA
                     add(level[j, i]);
                 }
             }
-            // sets up the level logic
-            data = reader.ReadLine().Split('+');
-            do
-            {
-                logic(data[0], data[1]);
-                data = reader.ReadLine().Split('+');
-            } while (data[0] != "//");
             reader.Close();
-        }
-
-        /// <summary>
-        /// calls player location event
-        /// </summary>
-        public void button(object a, EventArgs e)
-        {
-            playerLocation.Invoke(player.CollisionBounds);
         }
 
         /// <summary>
         /// connects a button with doors (not done needs buttons)
         /// </summary>
-        public void logic(string buttonSet, string doorSet)
+        public void logic()
         {
-            string[] Button = buttonSet.Split(',');
-            int buttonX = int.Parse(Button[0]);            
-            int buttonY = int.Parse(Button[1]);
-            Button = doorSet.Split(',');
-
-            int doorX = int.Parse(Button[0]);
-            int doorY = int.Parse(Button[1]);
-
-            if (level[buttonX, buttonY] is GameButton a && level[doorX, doorY] is GameDoor d) 
-            {
-                playerLocation += a.CollidesWithPlayer;
-                a.IsPressed += d.OpenDoor;
-            }
+            //your mom
+            //lock IN
         }
     }
 }
