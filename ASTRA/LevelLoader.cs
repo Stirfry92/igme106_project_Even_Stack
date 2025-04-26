@@ -153,6 +153,7 @@ namespace ASTRA
             if (level[buttonX, buttonY] is GameButton a && level[doorX, doorY] is GameDoor d)
             {
                 playerLocation += a.CollidesWithPlayer;
+                
                 a.IsPressed += d.OpenDoor;
             }
         }

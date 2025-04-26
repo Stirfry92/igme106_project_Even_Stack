@@ -14,7 +14,7 @@ namespace ASTRA
         /// <summary>
         /// tells weather or not to draw door/
         /// </summary>
-        bool DrawDoor = true;
+        internal bool Active = true;
         /// <summary>
         /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
         /// </summary>
@@ -56,6 +56,7 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
+            
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace ASTRA
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
-            if (DrawDoor)
+            if (Active)
             {
                 batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
             }
@@ -80,12 +81,12 @@ namespace ASTRA
 
         public bool CollidesWith(ICollidable other)
         {
-            return CollisionBounds.Intersects(other.CollisionBounds);
+            return Active && CollisionBounds.Intersects(other.CollisionBounds);
         }
 
         public void OpenDoor(object a, EventArgs e) 
         {
-            DrawDoor = false;
+            Active = false;
         }
     }
 }

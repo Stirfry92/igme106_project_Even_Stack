@@ -209,7 +209,7 @@ namespace ASTRA
                 
             }
             
-            if (other is CollidableWall || other is GameDoor)
+            if (other is CollidableWall || (other is GameDoor d && d.Active))
             {
                 StaticCollision(other);
             }
