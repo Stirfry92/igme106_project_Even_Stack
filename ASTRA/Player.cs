@@ -111,7 +111,7 @@ namespace ASTRA
 
 
             //TODO: Change this, this is temporary for testing purposes.
-            this.Size = new Vector2(GameDetails.TileSize, GameDetails.TileSize);
+            this.Size = new Vector2(GameDetails.TileSize * 0.8f, GameDetails.TileSize * 0.8f);
             //this.Size = new Vector2(50, 50);
             this.speed = 0f;
             this.velocity = new Vector2(0, 0);
@@ -393,6 +393,8 @@ namespace ASTRA
                         }
                     }
                     */
+
+                    
                     break;
                
                 case PlayerState.Floating:

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using ASTRA.Scenes;
 
 namespace ASTRA
 {
@@ -56,7 +57,7 @@ namespace ASTRA
 
             Image = lcm.GetTexture("hammer");
 
-            this.Size = new Vector2(64, 64);
+            this.Size = new Vector2(GameDetails.TileSize * 0.8f, GameDetails.TileSize * 0.8f);
             this.velocity = velocity;
             //this.canPickup = true;
         }
