@@ -209,9 +209,9 @@ namespace ASTRA
                 
             }
             
-            if (other is CollidableWall wall)
+            if (other is CollidableWall || other is GameDoor)
             {
-                Collide(wall);
+                StaticCollision(other);
             }
         }
         /// <summary>
@@ -222,7 +222,12 @@ namespace ASTRA
         {
             ThrowableCount.Value++;
         }
-        private void Collide(CollidableWall other)
+
+        /// <summary>
+        /// Handles all collisions between objects where the player must be knocked back slightly during the collision to get out of the other's collision box.
+        /// </summary>
+        /// <param name="other"></param>
+        private void StaticCollision(ICollidable other)
         {
             //TODO: add in base logic for collision (like walls).
             //Use an intersection rectangle to determine logic, in combination with the bounds of collision.
