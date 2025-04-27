@@ -28,12 +28,12 @@ namespace ASTRA.UserInterface
 
 
 
-        public TextComponent(string ID, string text, Vector2 position, ComponentOrigin origin) : base(ID, position, origin)
+        public TextComponent(string ID, string text, string font, Vector2 position, ComponentOrigin origin) : base(ID, position, origin)
         {
 
             LocalContentManager lcm = LocalContentManager.Shared;
 
-            Font = lcm.GetFont("Standard");
+            Font = lcm.GetFont(font);
             SetText(text);
         }
 

@@ -32,7 +32,7 @@ namespace ASTRA.Scenes
 
             UI.AddComponent(gameplayOverlay);
 
-            TextComponent info = new TextComponent("info", "Keep playing?", GameDetails.CenterOfScreen - new Vector2(0, 50), ComponentOrigin.BottomCenter);
+            TextComponent info = new TextComponent("info", "Keep playing?", "Standard", GameDetails.CenterOfScreen - new Vector2(0, 50), ComponentOrigin.BottomCenter);
             UI.AddComponent(info);
 
 

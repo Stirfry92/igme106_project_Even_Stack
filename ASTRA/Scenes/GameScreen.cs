@@ -80,8 +80,8 @@ namespace ASTRA.Scenes
                 this.Add(new CollidableWall(new Vector2(1600, i), new Vector2(50, 50), "tile"));
                 this.Add(new CollidableWall(new Vector2(600, i), new Vector2(50, 50), "tile"));
             }
-
-            TextComponent throwableCount = new TextComponent("player_throwCount", $"# Throwables: {player.ThrowableCount.Value}.", new Vector2(100, 100), ComponentOrigin.TopLeft);
+            */
+            TextComponent throwableCount = new TextComponent("player_throwCount", $"# Throwables: {player.ThrowableCount.Value}.", "Mini", new Vector2(0, 0), ComponentOrigin.TopLeft);
 
             player.ThrowableCount.OnValueChanged += () =>
             {
@@ -99,7 +99,7 @@ namespace ASTRA.Scenes
 
             UI.AddComponent(throwableCount);
 
-            */
+            
 
         }
 
