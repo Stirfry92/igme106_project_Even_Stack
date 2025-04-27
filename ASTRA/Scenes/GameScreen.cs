@@ -20,6 +20,8 @@ namespace ASTRA.Scenes
 
         internal bool ResetGame = false;
 
+        internal event EventHandler Buttons;
+
         /// <summary>
         /// Whether the game should be considered "over".
         /// </summary>
@@ -41,8 +43,18 @@ namespace ASTRA.Scenes
         /// </summary>
         private Player player;
 
+        LevelLoader loader;
+
         internal GameScreen() : base()
         {
+
+            //TODO: make this a little more seamless
+            loader = new LevelLoader();
+            loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
+            Buttons += loader.button;
+
+            player = loader.Player;
+            /*
             player = new Player(GameDetails.CenterOfScreen);
             player.AddToParent = Add;
             player.RemoveFromParent = Remove;
@@ -54,7 +66,7 @@ namespace ASTRA.Scenes
             test.Remove = this.Remove;
             test.JustThrown = false;
             this.Add(test);
-            */
+            
 
             for (int i = 600; i <= 1600; i += 50)
             {
@@ -86,11 +98,14 @@ namespace ASTRA.Scenes
             };
 
             UI.AddComponent(throwableCount);
-            
+
+            */
+
         }
 
         internal override void Update(GameTime gameTime)
         {
+            Buttons.Invoke(this, EventArgs.Empty);
             base.Update(gameTime);
 
             /*
