@@ -17,6 +17,12 @@ namespace ASTRA
         internal const bool TestingMode = false;
 
         /// <summary>
+        /// Whether the game should be run with the player in God Mode!
+        /// </summary>
+        internal const bool GodMode = false;
+
+
+        /// <summary>
         /// The size of each tile.
         /// </summary>
         internal const int TileSize = 50;

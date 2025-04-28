@@ -120,7 +120,7 @@ namespace ASTRA
 
             //initialize all the listeners.
             this.CurrentPlayerState = new Listener<PlayerState>(PlayerState.Grounded);
-            this.Lives = new Listener<int>(1);
+            this.Lives = new Listener<int>(GameDetails.GodMode ? int.MaxValue : 1);
 
             ThrowableCount = new Listener<int>(2);
             //TODO: This is temporary and should be set to zero for the game.
@@ -446,6 +446,13 @@ namespace ASTRA
             //Once the input handling is done, apply whatever motion to the player's position here:
             Position = Position + velocity;
 
+
+            if (GameDetails.GodMode && currentMState.RightButton == ButtonState.Released && previousMState.RightButton == ButtonState.Pressed)
+            {
+                Position = currentMState.Position.ToVector2();
+            }
+
+
             //Perform necessary "clean up" tasks:
             //Set Previous states
             previousKBState = currentKBState;
@@ -465,7 +472,9 @@ namespace ASTRA
             {
                 Lives.Value = 0;
             }
-            
+
+
+
         }
 
         /// <summary>
