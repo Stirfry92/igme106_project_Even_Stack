@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,9 @@ namespace ASTRA
                 return new Vector2(GameWidth*0.5f, GameHeight*0.5f);
             }
         }
+
+
+        internal readonly static Rectangle GameBounds = new Rectangle(0, 0, GameWidth, GameHeight);
 
 
 

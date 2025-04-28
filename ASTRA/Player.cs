@@ -88,6 +88,8 @@ namespace ASTRA
         private Color DirectionImageRenderColor = Color.White;
 
         
+
+        
         
         /// <summary>
         /// Creates a new player object at the current position.
@@ -456,6 +458,12 @@ namespace ASTRA
                 {
                     KnownThrowables[i].JustThrown = false;
                 }
+            }
+
+            //check if out of bounds and kill player if too far
+            if (!CollisionBounds.Intersects(GameDetails.GameBounds))
+            {
+                Lives.Value = 0;
             }
             
         }

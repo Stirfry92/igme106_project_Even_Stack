@@ -39,8 +39,11 @@ namespace ASTRA.Scenes
             Button cont = new Button("go_back", "Continue", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);
             cont.OnClick += () =>
             {
-                SetScene(GameScreen.ID);
+
+                //make sure this happens first, dont want to reload again
                 GameScreen.ResetGame = GameScreen.IsGameOver;
+                SetScene(GameScreen.ID);
+                
             };
 
             UI.AddComponent(cont);
