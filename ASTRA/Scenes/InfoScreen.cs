@@ -1,6 +1,7 @@
 ﻿using ASTRA.UserInterface;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,19 +16,33 @@ namespace ASTRA.Scenes
     {
         internal new const string ID = "Info Screen";
 
+        internal Listener<int> ScrollValue;
+
         private bool ProperlyInitialized = false;
 
         internal InfoScreen() : base()
         {
+            ScrollValue = new Listener<int>(0);
             Button goback = new Button("goback", "Go Back", GameDetails.CenterOfScreen * 2 - new Vector2(5, 5), ComponentOrigin.BottomRight);
             goback.OnClick += () => { SetScene(HomeScreen.ID); };
 
+            TextComponent scrollwheel = new TextComponent("scrollwheel", $"Scroll Value: {ScrollValue.Value}.", "Mini", new Vector2(5, 5), ComponentOrigin.TopLeft);
+
+
+            ScrollValue.OnValueChanged += () =>
+            {
+                scrollwheel.SetText($"Scroll Value: {ScrollValue.Value}.");
+            };
+
+
+            UI.AddComponent(scrollwheel);
             UI.AddComponent(goback);
         }
 
         internal override void Load()
         {
             // this is where file IO should occur.
+            //ScrollValue.Value = Mouse.GetState().ScrollWheelValue;
 
             LocalContentManager lcm = LocalContentManager.Shared;
 
@@ -74,14 +89,22 @@ namespace ASTRA.Scenes
                         }
 
                         (element as SkillElement).Learned.Value = args[2] == "1";
+                        UpdateSkillPosition(element as SkillElement);
                     }
                     else
                     {
                         element = new SkillElement(args[0], args[1], args[2] == "1", Position, ComponentOrigin.TopLeft);
+
+
+                        ScrollValue.OnValueChanged += () =>
+                        {
+                            UpdateSkillPosition((SkillElement)element);
+                        };
+
                         UI.AddComponent(element);
+
+                        
                     }
-
-
 
                     index.Value++;
                 }
@@ -98,19 +121,44 @@ namespace ASTRA.Scenes
             rdr?.Close();
             ProperlyInitialized = true;
 
+            UI.MoveToTop("scrollwheel");
             UI.MoveToTop("goback");
 
+
+        }
+
+        /// <summary>
+        /// Updates a singular skill's position
+        /// </summary>
+        /// <param name="element"></param>
+        private void UpdateSkillPosition(SkillElement element)
+        {
+            element.Position = element.DefaultPosition - new Vector2(0, ScrollValue.Value * 0.1f);
         }
 
         internal override void Draw(SpriteBatch batch)
         {
-            if (ProperlyInitialized)
-                base.Draw(batch);
+            if (!ProperlyInitialized)
+                return;
+            
+            base.Draw(batch);
         }
 
         internal override void Update(GameTime gameTime)
         {
+            int scrollWheelValue = Mouse.GetState().ScrollWheelValue;
+
+
+            ScrollValue.Value = scrollWheelValue;
             base.Update(gameTime);
+
+            
+
+        }
+
+        internal override void Reset()
+        {
+            
         }
     }
 }

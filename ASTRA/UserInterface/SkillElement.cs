@@ -52,6 +52,8 @@ namespace ASTRA.UserInterface
             }
         }
 
+        internal readonly Vector2 DefaultPosition;
+
 
         /// <summary>
         /// Represents a skill element that the player can learned.
@@ -86,6 +88,8 @@ namespace ASTRA.UserInterface
 
             UpdateColor();
 
+            DefaultPosition = Position;
+
         }
 
         private void UpdateColor()
@@ -113,5 +117,10 @@ namespace ASTRA.UserInterface
 
         internal override void Update(GameTime gameTime)
         {}
+
+        internal override void Reset()
+        {
+            Position = DefaultPosition;
+        }
     }
 }
