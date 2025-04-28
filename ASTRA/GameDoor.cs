@@ -14,7 +14,10 @@ namespace ASTRA
         /// <summary>
         /// tells weather or not to draw door/
         /// </summary>
-        internal bool Active = true;
+        internal Listener<bool> Active = new Listener<bool>(true);
+
+        internal Color DrawColor;
+
         /// <summary>
         /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
         /// </summary>
@@ -27,6 +30,18 @@ namespace ASTRA
             //TODO: get a default asset. Comment this out if need be.
             Image = lcm.GetTexture(textureName);
 
+            DrawColor = Color.White;
+            Active.OnValueChanged += () =>
+            {
+                if (Active.Value)
+                {
+                    DrawColor = Color.White;
+                }
+                else
+                {
+                    DrawColor = Color.Gray;
+                }
+            };
 
             //Size = new Vector2(Image.Width, Image.Height);
             this.Size = size;
@@ -73,25 +88,23 @@ namespace ASTRA
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
-            if (Active)
-            {
-                batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.White);
-            }
+            batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), DrawColor);
+            
         }
 
         public bool CollidesWith(ICollidable other)
         {
-            return Active && CollisionBounds.Intersects(other.CollisionBounds);
+            return Active.Value && CollisionBounds.Intersects(other.CollisionBounds);
         }
 
         public void OpenDoor(object a, EventArgs e) 
         {
-            Active = false;
+            Active.Value = false;
         }
 
         internal override void Reset()
         {
-            Active = true;
+            Active.Value = true;
         }
     }
 }
