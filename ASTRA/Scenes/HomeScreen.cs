@@ -18,7 +18,7 @@ namespace ASTRA.Scenes
 
 
             Button start = new Button("start", "Start Game", GameDetails.CenterOfScreen - differenceInCenter, ComponentOrigin.TopRight);
-            start.OnClick += () => { SetScene(GameScreen.ID); };
+            start.OnClick += () => { SetScene(MechanicsContextScreen.ID); };
             UI.AddComponent(start);
 
             Button exit = new Button("exit", "Exit", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);

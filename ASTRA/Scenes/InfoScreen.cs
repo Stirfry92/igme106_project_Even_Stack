@@ -30,7 +30,7 @@ namespace ASTRA.Scenes
             Button goback = new Button("goback", "Go Back", GameDetails.CenterOfScreen * 2 - new Vector2(5, 5), ComponentOrigin.BottomRight);
             goback.OnClick += () => { SetScene(HomeScreen.ID); };
 
-            TextComponent scrollwheel = new TextComponent("scrollwheel", $"Scroll Value: {ScrollValue.Value}.", "Mini", new Vector2(5, 5), ComponentOrigin.TopLeft);
+            //TextComponent scrollwheel = new TextComponent("scrollwheel", $"Scroll Value: {ScrollValue.Value}.", "Mini", new Vector2(5, 5), ComponentOrigin.TopLeft);
 
 
             ScrollValue.OnValueChanged += () =>
@@ -44,12 +44,12 @@ namespace ASTRA.Scenes
                 {
                     ScrollValue.Value = MaxScrollDistance;
                 }
-                scrollwheel.SetText($"Scroll Value: {ScrollValue.Value}.");
+                //scrollwheel.SetText($"Scroll Value: {ScrollValue.Value}.");
             };
 
             ScrollValue.OnValueChanged += UpdateSkillPosition;
 
-            UI.AddComponent(scrollwheel);
+            //UI.AddComponent(scrollwheel);
             UI.AddComponent(goback);
         }
 

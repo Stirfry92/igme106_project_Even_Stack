@@ -98,6 +98,11 @@ namespace ASTRA.Scenes
                     {
                         return new InfoScreen();
                     }
+
+                case MechanicsContextScreen.ID:
+                    {
+                        return new MechanicsContextScreen();
+                    }
             }
 
 
