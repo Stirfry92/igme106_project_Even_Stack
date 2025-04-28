@@ -20,6 +20,10 @@ namespace ASTRA.Scenes
 
         private bool ProperlyInitialized = false;
 
+        internal int MaxScrollDistance;
+
+        private MouseState PreviousMouseState;
+
         internal InfoScreen() : base()
         {
             ScrollValue = new Listener<int>(0);
@@ -31,9 +35,19 @@ namespace ASTRA.Scenes
 
             ScrollValue.OnValueChanged += () =>
             {
+                if (ScrollValue.Value < 0)
+                {
+                    ScrollValue.Value = 0;
+                }
+
+                if (ScrollValue.Value > MaxScrollDistance)
+                {
+                    ScrollValue.Value = MaxScrollDistance;
+                }
                 scrollwheel.SetText($"Scroll Value: {ScrollValue.Value}.");
             };
 
+            ScrollValue.OnValueChanged += UpdateSkillPosition;
 
             UI.AddComponent(scrollwheel);
             UI.AddComponent(goback);
@@ -89,17 +103,10 @@ namespace ASTRA.Scenes
                         }
 
                         (element as SkillElement).Learned.Value = args[2] == "1";
-                        UpdateSkillPosition(element as SkillElement);
                     }
                     else
                     {
                         element = new SkillElement(args[0], args[1], args[2] == "1", Position, ComponentOrigin.TopLeft);
-
-
-                        ScrollValue.OnValueChanged += () =>
-                        {
-                            UpdateSkillPosition((SkillElement)element);
-                        };
 
                         UI.AddComponent(element);
 
@@ -124,16 +131,19 @@ namespace ASTRA.Scenes
             UI.MoveToTop("scrollwheel");
             UI.MoveToTop("goback");
 
+            MaxScrollDistance = ((int)Position.Y + ref_buttonTexture.Height) * 4;
+
 
         }
 
         /// <summary>
-        /// Updates a singular skill's position
+        /// Updates every skill element's position.
         /// </summary>
         /// <param name="element"></param>
-        private void UpdateSkillPosition(SkillElement element)
+        private void UpdateSkillPosition()
         {
-            element.Position = element.DefaultPosition - new Vector2(0, ScrollValue.Value * 0.1f);
+            foreach (SkillElement element in UI.GetSubComponents<SkillElement>())
+                element.Position = element.DefaultPosition - new Vector2(0, ScrollValue.Value * 0.1f);
         }
 
         internal override void Draw(SpriteBatch batch)
@@ -146,11 +156,16 @@ namespace ASTRA.Scenes
 
         internal override void Update(GameTime gameTime)
         {
-            int scrollWheelValue = Mouse.GetState().ScrollWheelValue;
+            MouseState currentMouseState = Mouse.GetState();
+
+            //get the current difference (cannot directly store the scroll value).
+            int ScrollWheelValue = currentMouseState.ScrollWheelValue - PreviousMouseState.ScrollWheelValue;
 
 
-            ScrollValue.Value = scrollWheelValue;
+            ScrollValue.Value -= ScrollWheelValue;
             base.Update(gameTime);
+
+            PreviousMouseState = currentMouseState;
 
             
 
