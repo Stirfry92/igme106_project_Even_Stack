@@ -14,12 +14,29 @@ namespace ASTRA
         /// <summary>
         /// tells weather or not to press button
         /// </summary>
-        bool DrawButton = true;
+        Listener<bool> Pressed = new Listener<bool>(false);
+
+        private Color DrawColor;
+
+
         public GameButton(Vector2 position,Vector2 size, string textureName) : base(position, ComponentOrigin.Center)
         {
             LocalContentManager lcm = LocalContentManager.Shared;
             this.Size = size;
             Image = lcm.GetTexture(textureName);
+
+            DrawColor = Color.Red;
+            Pressed.OnValueChanged += () =>
+            {
+                if (Pressed.Value)
+                {
+                    DrawColor = Color.Green;
+                }
+                else
+                {
+                    DrawColor = Color.Red;
+                }
+            };
         }
 
         /// <summary>
@@ -35,10 +52,8 @@ namespace ASTRA
 
         public void Draw(SpriteBatch batch)
         {
-            if (DrawButton)
-            {
-                batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), Color.Red);
-            }
+            batch.Draw(Image, new Rectangle(TopLeftCorner.ToPoint(), Size.ToPoint()), DrawColor);
+            
         }
         public Rectangle CollisionBounds
         {
@@ -59,7 +74,7 @@ namespace ASTRA
             if (CollisionBounds.Intersects(playerLocation))
             {
                 IsPressed.Invoke(this, new EventArgs());
-                DrawButton = false;
+                Pressed.Value = true;
             }
         }
         internal override void Update(GameTime gameTime)
@@ -67,7 +82,7 @@ namespace ASTRA
 
         internal override void Reset()
         {
-            DrawButton = true;
+            Pressed.Value = false;
         }
     }
 }
