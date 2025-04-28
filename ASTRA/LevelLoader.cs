@@ -26,6 +26,8 @@ namespace ASTRA
         private Player player;
         public Player Player { get { return player; } }
 
+        private Vector2 PlayerPosition;
+
         public event Action<Rectangle> playerLocation;
         /// <summary>
         /// draws level from level array
@@ -111,11 +113,7 @@ namespace ASTRA
 
                             break;
                         case 'S'://start
-                            player = new Player(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize));
-                            player.AddToParent = add;
-                            player.RemoveFromParent = delete;
-
-                            level[j, i] = player;
+                            PlayerPosition = new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize);
                             break;
                     }
 
@@ -130,6 +128,13 @@ namespace ASTRA
                 data = reader.ReadLine().Split('+');
             } while (data[0] != "//");
             reader.Close();
+
+
+            player = new Player(PlayerPosition);
+            player.AddToParent = add;
+            player.RemoveFromParent = delete;
+
+            add(player);
         }
 
         public void button(object a, EventArgs e)
@@ -156,6 +161,19 @@ namespace ASTRA
                 
                 a.IsPressed += d.OpenDoor;
             }
+        }
+
+        internal void ResetCurrentLevel()
+        {
+            for (int i = 0; i < y; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    level[j,i]?.Reset();
+                }
+            }
+
+            Player.Position = PlayerPosition;
         }
     }
 }

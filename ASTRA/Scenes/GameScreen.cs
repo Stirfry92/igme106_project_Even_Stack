@@ -99,6 +99,13 @@ namespace ASTRA.Scenes
 
             UI.AddComponent(throwableCount);
 
+            TextComponent lives = new TextComponent("player_lives", $"Lives: {player.Lives.Value}.", "Mini", new Vector2(0, 20), ComponentOrigin.TopLeft);
+            player.Lives.OnValueChanged += () =>
+            {
+                lives.SetText($"Lives: {player.Lives.Value}.");
+            };
+
+            UI.AddComponent(lives);
             
 
         }
@@ -166,7 +173,10 @@ namespace ASTRA.Scenes
         internal override void Reset()
         {
             if (ResetGame)
+            {
                 base.Reset();
+                loader.ResetCurrentLevel();
+            }
 
             ResetGame = false;
         }
