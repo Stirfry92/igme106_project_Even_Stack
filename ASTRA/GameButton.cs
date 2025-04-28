@@ -64,5 +64,10 @@ namespace ASTRA
         }
         internal override void Update(GameTime gameTime)
         {}
+
+        internal override void Reset()
+        {
+            DrawButton = true;
+        }
     }
 }

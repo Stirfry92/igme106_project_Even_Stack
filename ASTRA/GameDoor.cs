@@ -88,5 +88,10 @@ namespace ASTRA
         {
             Active = false;
         }
+
+        internal override void Reset()
+        {
+            Active = true;
+        }
     }
 }
