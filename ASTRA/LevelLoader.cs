@@ -101,7 +101,7 @@ namespace ASTRA
                             // needs hole class
                             break;
                         case 'B'://button
-                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "playerButton");
                             break;
                         case 'D'://closed door
                             level[j, i] = new GameDoor(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
