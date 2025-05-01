@@ -110,7 +110,7 @@ namespace ASTRA
 
                             break;
                         case 'O'://obstacle
-                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                            level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Barrel");
                             break;
                         case '-'://open space
                             // add floor class
