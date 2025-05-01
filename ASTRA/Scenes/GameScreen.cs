@@ -51,6 +51,7 @@ namespace ASTRA.Scenes
             //TODO: make this a little more seamless
             loader = new LevelLoader();
             loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
+            loader.reset += base.Reset;
             Buttons += loader.button;
 
             player = loader.Player;

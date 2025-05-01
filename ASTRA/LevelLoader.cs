@@ -19,16 +19,20 @@ namespace ASTRA
         private GameObject[,] level;
         private StreamReader reader;
         private string name;
+        private string nextLevel;
         private int LevelNum;
         private int Timer;
         private int x;
         private int y;
+        private GameObjectDelegate Add;
+        private GameObjectDelegate Remove;
         private Player player;
         public Player Player { get { return player; } }
 
         private Vector2 PlayerPosition;
 
         public event Action<Rectangle> playerLocation;
+        public event Action reset;
         /// <summary>
         /// draws level from level array
         /// </summary>
@@ -68,6 +72,8 @@ namespace ASTRA
         /// </summary>
         public void LoadLevel(string file, GameObjectDelegate add, GameObjectDelegate delete)
         {
+            Add = add;
+            Remove = delete;
             Char[] asd;
             reader = new StreamReader(file);
             string[] data = reader.ReadLine().Split(',');
@@ -110,7 +116,12 @@ namespace ASTRA
                             // add floor class
                             break;
                         case 'E'://end
-
+                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                            if (level[j, i] is GameButton ending) 
+                            {
+                                ending.IsPressed += newLevel;
+                                playerLocation += ending.CollidesWithPlayer;
+                            }
                             break;
                         case 'S'://start
                             PlayerPosition = new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize);
@@ -127,8 +138,8 @@ namespace ASTRA
                 logic(data[0], data[1]);
                 data = reader.ReadLine().Split('+');
             } while (data[0] != "//");
+            nextLevel = reader.ReadLine();
             reader.Close();
-
 
             player = new Player(PlayerPosition);
             player.AddToParent = add;
@@ -141,6 +152,8 @@ namespace ASTRA
         {
             playerLocation.Invoke(player.CollisionBounds);
         }
+
+
 
         /// <summary>
         /// connects a button with doors (not done needs buttons)
@@ -174,6 +187,25 @@ namespace ASTRA
             }
 
             Player.Position = PlayerPosition;
+        }
+
+        public void newLevel(object a, EventArgs e)
+        {
+            for (int i = 0; i < y; i++)
+            {
+                for (int j = 0; j < x; j++)
+                {
+                    if (level[j, i] != null) 
+                    {
+                        Remove(level[j, i]);
+                    }
+                    
+                }
+            }
+            Remove(player);
+            reset.Invoke();
+            LoadLevel(nextLevel, Add, Remove);
+            
         }
     }
 }
