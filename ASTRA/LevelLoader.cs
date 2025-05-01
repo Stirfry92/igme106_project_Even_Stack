@@ -116,7 +116,7 @@ namespace ASTRA
                             // add floor class
                             break;
                         case 'E'://end
-                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Wall1");
+                            level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "brokenPanel");
                             if (level[j, i] is GameButton ending) 
                             {
                                 ending.IsPressed += newLevel;
