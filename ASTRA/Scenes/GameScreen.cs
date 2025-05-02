@@ -171,6 +171,11 @@ namespace ASTRA.Scenes
         {
             if (loader.OnNoNextLevel == null) 
                 loader.OnNoNextLevel = SetScene;
+
+            if (loader.HasPlayerWon)
+            {
+                loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
+            }
         }
 
         /// <summary>

@@ -32,6 +32,8 @@ namespace ASTRA
 
         internal SetSceneDelegate OnNoNextLevel;
 
+        internal bool HasPlayerWon { get; private set; } = false;
+
         private Vector2 PlayerPosition;
 
         public event Action<Rectangle> playerLocation;
@@ -177,7 +179,8 @@ namespace ASTRA
         {
             Add = add;
             Remove = delete;
-            this.OnNoNextLevel = OnNoNextLevel;
+
+            HasPlayerWon = false;
             LoadLocal(file);
         }
 
@@ -248,8 +251,8 @@ namespace ASTRA
             reset.Invoke();
             if (String.IsNullOrEmpty(nextLevel))
             {
-                Debug.WriteLine("Do we get here?");
                 OnNoNextLevel(WinScreen.ID);
+                HasPlayerWon = true;
             }
             else
             {
