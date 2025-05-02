@@ -113,7 +113,7 @@ namespace ASTRA
                             level[j, i] = new CollidableWall(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "Barrel");
                             break;
                         case '-'://open space
-                            // add floor class
+                            level[j, i] = new Floor(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "panel");
                             break;
                         case 'E'://end
                             level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "brokenPanel");
