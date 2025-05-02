@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,6 +104,11 @@ namespace ASTRA.Scenes
                     {
                         return new MechanicsContextScreen();
                     }
+
+                case WinScreen.ID:
+                    {
+                        return new WinScreen();
+                    }
             }
 
 
@@ -119,6 +125,8 @@ namespace ASTRA.Scenes
             CurrentScene = GetScene(sceneName);
             CurrentScene.Load();
             CurrentScene.Reset();
+
+            Debug.WriteLine("Scene has been set to " + sceneName);
         }
 
 

@@ -167,6 +167,12 @@ namespace ASTRA.Scenes
             Clean();
         }
 
+        internal override void Load()
+        {
+            if (loader.OnNoNextLevel == null) 
+                loader.OnNoNextLevel = SetScene;
+        }
+
         /// <summary>
         /// Resets the game
         /// TODO: Eventually add in the game logic to reset the player.

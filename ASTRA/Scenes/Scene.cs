@@ -154,7 +154,7 @@ namespace ASTRA.Scenes
                     //this ensures that each collidable doesn't collide with itself
                     
                     //DO NOT ADD Collidables[j].Collide(Collidables[i]); This can cause doublecounting.
-                    if (i != j && Collidables[i].CollidesWith(Collidables[j]))
+                    if (i != j && Collidables[i].CollidesWith(Collidables[j]) && Collidables[j].CollidesWith(Collidables[i]))
                     {
                         Collidables[i].Collide(Collidables[j]);
                     }

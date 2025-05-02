@@ -85,9 +85,9 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
-            if (other is CollidableWall wall)
+            if (other is CollidableWall || other is GameDoor door)
             {
-                Collide(wall);
+                CollideBounce(other);
             }
 
             if (other is Player && !JustThrown)
@@ -97,7 +97,7 @@ namespace ASTRA
             
             
         }
-        private void Collide(CollidableWall other)
+        private void CollideBounce(ICollidable other)
         {
             //TODO: add in base logic for collision (like walls).
             //Use an intersection rectangle to determine logic, in combination with the bounds of collision.

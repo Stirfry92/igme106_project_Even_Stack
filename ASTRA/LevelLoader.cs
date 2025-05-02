@@ -1,4 +1,5 @@
-﻿using ASTRA.UserInterface;
+﻿using ASTRA.Scenes;
+using ASTRA.UserInterface;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -29,10 +30,20 @@ namespace ASTRA
         private Player player = null;
         public Player Player { get { return player; } }
 
+        internal SetSceneDelegate OnNoNextLevel;
+
         private Vector2 PlayerPosition;
 
         public event Action<Rectangle> playerLocation;
         public event Action reset;
+        
+        internal LevelLoader()
+        {
+        }
+
+        
+        
+        
         /// <summary>
         /// draws level from level array
         /// </summary>
@@ -47,6 +58,11 @@ namespace ASTRA
                 }
             }
         }
+
+
+        
+
+
 
         /// <summary>
         /// loops through level array and draws
@@ -133,7 +149,8 @@ namespace ASTRA
                 logic(data[0], data[1]);
                 data = reader.ReadLine().Split('+');
             } while (data[0] != "//");
-            nextLevel = reader.ReadLine();
+
+            nextLevel = reader.ReadLine().Trim();
             reader.Close();
 
             if (player == null)
@@ -160,6 +177,7 @@ namespace ASTRA
         {
             Add = add;
             Remove = delete;
+            this.OnNoNextLevel = OnNoNextLevel;
             LoadLocal(file);
         }
 
@@ -186,7 +204,6 @@ namespace ASTRA
             if (level[buttonX, buttonY] is GameButton a && level[doorX, doorY] is GameDoor d)
             {
                 playerLocation += a.CollidesWithPlayer;
-                
                 a.IsPressed += d.OpenDoor;
             }
         }
@@ -229,8 +246,15 @@ namespace ASTRA
             Remove(player);
             // resets hammers 
             reset.Invoke();
-            //if (nextLevel == null) // call you win
-            LoadLocal(nextLevel);
+            if (String.IsNullOrEmpty(nextLevel))
+            {
+                Debug.WriteLine("Do we get here?");
+                OnNoNextLevel(WinScreen.ID);
+            }
+            else
+            {
+                LoadLocal(nextLevel);
+            }
             
         }
     }
