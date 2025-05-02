@@ -11,32 +11,24 @@ using System.Threading.Tasks;
 namespace ASTRA
 {
 
-    /// <summary>
-    /// Represents the player object.
-    /// 
-    /// NOTES:
-    /// Currently working on maping out the movement in a way that I understand
-    /// in combination with understanding the new code.
-    /// 
-    /// Most of the fields have no functionality but are there simply because I believe I will use them.
-    /// Until the functionality of all the interfaces is complete, the player is non-functional.
-    /// 
-    /// This class is currently FAR FROM COMPLETE.
-    /// YOU HAVE BEEN WARNED!
-    /// </summary>
-    /// 
-    ///
+    
+    
+    //Enum Defined here is utilized in determining player behavior in the main update method.
     public enum PlayerState
     {
         Grounded,
         Floating
     }
 
+    /// <summary>
+    /// Represents the player object.
+    /// Handles all controls, velocity, movement, and more for the player character.
+    /// </summary>
     internal class Player : GameObject, ICollidable, IDrawable
     {
         //Fields:
         private Vector2 dir;                            //Represents the direction the player "faces".
-        private const float MaximumPushSpeed = 8f;     //Represents the maximum speed attainable by pushing.
+        private const float MaximumPushSpeed = 8f;      //Represents the maximum speed attainable by pushing.
         private const float MinimumPushSpeed = 3f;      //Represents the minimum speed attainable by pushing.
         private float speed;                            //Represents the speed added to the direction when the player "pushes"
         private float pushChargeTime;                   //Represents the amount of time charging the push.
@@ -87,10 +79,6 @@ namespace ASTRA
 
         private Color DirectionImageRenderColor = Color.White;
 
-        
-
-        
-        
         /// <summary>
         /// Creates a new player object at the current position.
         /// </summary>
@@ -98,35 +86,28 @@ namespace ASTRA
         public Player(Vector2 position) : base(position, ComponentOrigin.Center)
         {
 
-            //get the local content manager instance
+            //Local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
-
-            //TODO: get a player asset. Comment this out if need be.
             Image = lcm.GetTexture("editedAstronaut");
 
-            //get the direction vector
+            //Arrow Image is loaded here.
             DirectionVectorImage = lcm.GetTexture("directionTriangle");
 
-
-            //Size = new Vector2(Image.Width, Image.Height);
-
-
-            //TODO: Change this, this is temporary for testing purposes.
-            this.Size = new Vector2(GameDetails.TileSize * 0.8f, GameDetails.TileSize * 0.8f);
-            //this.Size = new Vector2(50, 50);
+            //Determine the stats for the player:
+            this.Size = new Vector2(GameDetails.TileSize * 0.8f, GameDetails.TileSize * 0.8f);  //Player is 0.8x A tile (Small boy!)
             this.speed = 0f;
             this.velocity = new Vector2(0, 0);
             this.timeToReact = TotalTimeToReact;
 
-            //initialize all the listeners.
+            //Initialize all the listeners here:
             this.CurrentPlayerState = new Listener<PlayerState>(PlayerState.Grounded);
             this.Lives = new Listener<int>(GameDetails.GodMode ? int.MaxValue : 1);
 
+            //Deal with throwables here:
             ThrowableCount = new Listener<int>(2);
-            //TODO: This is temporary and should be set to zero for the game.
-
             KnownThrowables = new List<Throwable>();
 
+            //Setup Event to help with Arrow UI:
             CurrentPlayerState.OnValueChanged += UpdateDirectionColor;
         }
 
@@ -168,13 +149,16 @@ namespace ASTRA
             }
         }
 
-
         /// <summary>
         /// The image of the player.
         /// </summary>
         public Texture2D Image { get; }
 
-
+        /// <summary>
+        /// Resets the player to a "default"
+        /// (Since we don't know where the player's "default" position is for a level,
+        /// the player's position must later be overwritten).
+        /// </summary>
         internal override void Reset()
         {
             Position = GameDetails.CenterOfScreen;
@@ -185,13 +169,11 @@ namespace ASTRA
             {
                 RemoveFromParent(throwable);
             }
-
             KnownThrowables.Clear();
 
             ThrowableCount.Value = 2;
             Lives.Value = 1;
         }
-
 
         /// <summary>
         /// Handles all collisions (without updating the other object's status!).
@@ -201,21 +183,19 @@ namespace ASTRA
         /// <param name="other"></param>
         public void Collide(ICollidable other)
         {
-            
             if (other is Throwable t && !t.JustThrown)
             {
-                
-                //ensure that an object doesn't immediately collide
+                //Ensure that an object doesn't immediately collide
                 Collide(t);
                 KnownThrowables.Remove(t);
-                
             }
-            
+
             if (other is CollidableWall || (other is GameDoor d && d.Active.Value))
             {
                 StaticCollision(other);
             }
         }
+
         /// <summary>
         /// Private method called by base Collide method. Determines behavior for specifcially throwable objects.
         /// </summary>
@@ -231,7 +211,6 @@ namespace ASTRA
         /// <param name="other"></param>
         private void StaticCollision(ICollidable other)
         {
-            //TODO: add in base logic for collision (like walls).
             //Use an intersection rectangle to determine logic, in combination with the bounds of collision.
             Rectangle intersection = Rectangle.Intersect(CollisionBounds, other.CollisionBounds);
 
@@ -249,7 +228,6 @@ namespace ASTRA
                     velocity = Vector2.Zero;
                     CurrentPlayerState.Value = PlayerState.Grounded;
                 }
-
             }
             //Instance where the player is to the right of the collidable surface
             else if (intersection.Height > intersection.Width && CollisionBounds.X > other.CollisionBounds.X)
@@ -293,7 +271,6 @@ namespace ASTRA
                     CurrentPlayerState.Value = PlayerState.Grounded;
                 }
             }
-
             //Since the player collided, give them time to react to the collision (push off from the wall).
             timeToReact = TotalTimeToReact;
         }
@@ -304,26 +281,25 @@ namespace ASTRA
         /// <param name="gameTime"></param>
         internal override void Update(GameTime gameTime)
         {
-            //TODO: add update logic for the movement system here.
+            //Three Phases for Update:
 
-            //Three Phases.
-            //Collect Input:
+            //1.) Collect Input and Update Initial Requirements:
             //Set current states
             currentKBState = Keyboard.GetState();
             currentMState = Mouse.GetState();
 
-            //update the direction vector each frame
+            //Update the direction vector each frame.
             DirectionVector = currentMState.Position.ToVector2() - Position;
             DirectionVector.Normalize();
 
 
-            //Execute movement:
-            //First, reduce the amount of time the player has to react to a collision:
+            //2.) Execute movement:
+            //Reduce the amount of time the player has to react to a collision
             timeToReact -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Then utilize logic to determine what is applied to velocity and the player status.
             switch (CurrentPlayerState.Value)
             {
                 case PlayerState.Grounded:
-                    //Then, determine the keyboard state of the user and decide what to do from there:
                     //Player releases spacebar:
                     if (currentKBState.IsKeyUp(Keys.Space) && previousKBState.IsKeyDown(Keys.Space))
                     {
@@ -380,31 +356,6 @@ namespace ASTRA
                         pushChargeTime = 0;
                         speed = 0;
                     }
-
-                    /*
-                    //Player throws something
-                    if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && throwableCount > 0)
-                    {
-                        //create a new throwable
-                        Throwable newThrowable = new Throwable(Position);
-
-                        //Decrement the amount of things the player has to throw:
-                        throwableCount--;
-                        //Set a direction to where the mouse is pointing.
-                        dir = (currentMState.Position.ToVector2()) - Position;
-                        dir.Normalize();
-
-                        velocity = velocity - dir * 2;
-
-                        if (timeToReact < 0)
-                        {
-                            state = PlayerState.Floating;
-                            timeToReact = TotalTimeToReact;
-                        }
-                    }
-                    */
-
-                    
                     break;
                
                 case PlayerState.Floating:
@@ -422,47 +373,43 @@ namespace ASTRA
                     //Otherwise, the player can throw.
                     else if (currentMState.LeftButton == ButtonState.Released && previousMState.LeftButton == ButtonState.Pressed && ThrowableCount.Value > 0)
                     {
-
                         //Set a direction to where the mouse is pointing.
                         dir = (currentMState.Position.ToVector2()) - Position;
                         dir.Normalize();
 
-
-
-                        //create the new throwable
+                        //Create the new throwable
                         Throwable newThrowable = new Throwable(Position, dir * velocity.Length());
                         newThrowable.Remove = this.RemoveFromParent;
 
-                        //add the throwable to the parent
+                        //Add the throwable to the parent
                         AddToParent(newThrowable);
 
-                        //add reference to the known throwables
+                        //Add reference to the known throwables
                         KnownThrowables.Add(newThrowable);
 
-                        //Decrement the amount of things the player has to throw:
+                        //Decrement the amount of things the player has to throw
+                        //and adjust velocity accordingly:
                         ThrowableCount.Value--;
-
                         velocity = velocity - dir * 2;
                     }
                     break;
             }
 
-            //Once the input handling is done, apply whatever motion to the player's position here:
+            //Once the input handling/logic is complete, apply the changes to the player's position here:
             Position = Position + velocity;
 
-
+            //Godmode gives an additional check, allowing for teleportation.
             if (GameDetails.GodMode && currentMState.RightButton == ButtonState.Released && previousMState.RightButton == ButtonState.Pressed)
             {
                 Position = currentMState.Position.ToVector2();
             }
 
-
-            //Perform necessary "clean up" tasks:
+            //3.) Perform necessary "clean up" tasks:
             //Set Previous states
             previousKBState = currentKBState;
             previousMState = currentMState;
 
-            //update the throwables
+            //Update the throwables
             for (int i = 0; i < KnownThrowables.Count; i++)
             {
                 if (KnownThrowables[i].JustThrown && !CollidesWith(KnownThrowables[i]))
@@ -471,14 +418,11 @@ namespace ASTRA
                 }
             }
 
-            //check if out of bounds and kill player if too far
+            //Kill the player if out of bounds.
             if (!CollisionBounds.Intersects(GameDetails.GameBounds))
             {
                 Lives.Value = 0;
             }
-
-
-
         }
 
         /// <summary>
@@ -487,14 +431,22 @@ namespace ASTRA
         /// <param name="batch"></param>
         public void Draw(SpriteBatch batch)
         {
-            //batch.Draw(Image, TopLeftCorner, Color.White);
-            batch.Draw(Image, CollisionBounds, Color.White);
+            //Character
+            batch.Draw(Image, 
+                       CollisionBounds, 
+                       Color.White);
 
-            batch.Draw(DirectionVectorImage, Position, null, DirectionImageRenderColor, DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), new Vector2(0, DirectionVectorImage.Height*0.5f), Vector2.One, SpriteEffects.None, 0);
-            
-            
+            //Direction Arrow
+            batch.Draw(DirectionVectorImage, 
+                       Position, 
+                       null, 
+                       DirectionImageRenderColor, 
+                       DirectionVector.X > 0 ? MathF.Asin(DirectionVector.Y) : MathF.PI - MathF.Asin(DirectionVector.Y), 
+                       new Vector2(0, DirectionVectorImage.Height*0.5f), 
+                       Vector2.One, 
+                       SpriteEffects.None, 
+                       0);
         }
-
 
         /// <summary>
         /// Whether the player collides with another collidable.
