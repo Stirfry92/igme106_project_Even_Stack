@@ -341,6 +341,10 @@ namespace ASTRA
                             CurrentPlayerState.Value = PlayerState.Floating;
                             timeToReact = TotalTimeToReact;
                         }  
+                        else
+                        {
+                            CurrentPlayerState.Value = PlayerState.Floating;
+                        }
                     }
                     //Player holds spacebar for maximum time alaughted:
                     else if (pushChargeTime > 1 )
