@@ -124,6 +124,7 @@ namespace ASTRA
                             }
                             break;
                         case 'S'://start
+                            level[j, i] = new Floor(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "panel");
                             PlayerPosition = new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize);
                             break;
                     }
