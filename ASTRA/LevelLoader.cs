@@ -26,7 +26,7 @@ namespace ASTRA
         private int y;
         private GameObjectDelegate Add;
         private GameObjectDelegate Remove;
-        private Player player;
+        private Player player = null;
         public Player Player { get { return player; } }
 
         private Vector2 PlayerPosition;
@@ -66,14 +66,8 @@ namespace ASTRA
             }
         }
 
-        //level loading section
-        /// <summary>
-        /// loads a single level file
-        /// </summary>
-        public void LoadLevel(string file, GameObjectDelegate add, GameObjectDelegate delete)
+        private void LoadLocal(string file)
         {
-            Add = add;
-            Remove = delete;
             Char[] asd;
             reader = new StreamReader(file);
             string[] data = reader.ReadLine().Split(',');
@@ -117,7 +111,7 @@ namespace ASTRA
                             break;
                         case 'E'://end
                             level[j, i] = new GameButton(new Vector2(j * GameDetails.TileSize, i * GameDetails.TileSize), new Vector2(GameDetails.TileSize, GameDetails.TileSize), "brokenPanel");
-                            if (level[j, i] is GameButton ending) 
+                            if (level[j, i] is GameButton ending)
                             {
                                 ending.IsPressed += newLevel;
                                 playerLocation += ending.CollidesWithPlayer;
@@ -128,7 +122,7 @@ namespace ASTRA
                             break;
                     }
 
-                    add(level[j, i]);
+                    Add(level[j, i]);
                 }
             }
             // sets up the level logic
@@ -141,11 +135,31 @@ namespace ASTRA
             nextLevel = reader.ReadLine();
             reader.Close();
 
-            player = new Player(PlayerPosition);
-            player.AddToParent = add;
-            player.RemoveFromParent = delete;
+            if (player == null)
+            {
+                player = new Player(PlayerPosition);
+                player.AddToParent = Add;
+                player.RemoveFromParent = Remove;
+            }
+            else
+            {
+                player.Position = PlayerPosition;
+            }
 
-            add(player);
+            Add(player);
+            
+        }
+
+
+        //level loading section
+        /// <summary>
+        /// loads a single level file
+        /// </summary>
+        public void LoadLevel(string file, GameObjectDelegate add, GameObjectDelegate delete)
+        {
+            Add = add;
+            Remove = delete;
+            LoadLocal(file);
         }
 
         public void button(object a, EventArgs e)
@@ -209,11 +223,13 @@ namespace ASTRA
                     
                 }
             }
+
+
             Remove(player);
             // resets hammers 
             reset.Invoke();
             //if (nextLevel == null) // call you win
-            LoadLevel(nextLevel, Add, Remove);
+            LoadLocal(nextLevel);
             
         }
     }
