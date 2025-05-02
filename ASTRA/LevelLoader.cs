@@ -191,19 +191,28 @@ namespace ASTRA
 
         public void newLevel(object a, EventArgs e)
         {
+            // removes all the gameobjects in level
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
                 {
                     if (level[j, i] != null) 
                     {
+                        
+                        if (level[j, i] is GameButton ending)
+                        {
+                            ending.IsPressed -= newLevel;
+                            playerLocation -= ending.CollidesWithPlayer;
+                        }
                         Remove(level[j, i]);
                     }
                     
                 }
             }
             Remove(player);
+            // resets hammers 
             reset.Invoke();
+            //if (nextLevel == null) // call you win
             LoadLevel(nextLevel, Add, Remove);
             
         }
