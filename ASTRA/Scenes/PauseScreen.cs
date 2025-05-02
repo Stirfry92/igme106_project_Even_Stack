@@ -11,7 +11,6 @@ namespace ASTRA.Scenes
 {
     internal class PauseScreen : Scene
     {
-
         /// <summary>
         /// The string ID of the pause screen.
         /// </summary>
@@ -21,7 +20,6 @@ namespace ASTRA.Scenes
         /// A reference to the game screen.
         /// </summary>
         private GameScreen GameScreen;
-
 
         internal PauseScreen() : base()
         {
@@ -35,11 +33,9 @@ namespace ASTRA.Scenes
             TextComponent info = new TextComponent("info", "Keep playing?", "Standard", GameDetails.CenterOfScreen - new Vector2(0, 50), ComponentOrigin.BottomCenter);
             UI.AddComponent(info);
 
-
             Button cont = new Button("go_back", "Continue", GameDetails.CenterOfScreen + differenceInCenter, ComponentOrigin.TopLeft);
             cont.OnClick += () =>
             {
-
                 //make sure this happens first, dont want to reload again
                 GameScreen.ResetGame = GameScreen.IsGameOver;
                 SetScene(GameScreen.ID);
@@ -56,13 +52,10 @@ namespace ASTRA.Scenes
             };
 
             UI.AddComponent(mainmenu);
-
-            
         }
 
         internal override void Load()
         {
-
             //we already know this will be the game screen with this structure
             GameScreen = (GameScreen)GetScene(GameScreen.ID);
 
@@ -81,7 +74,6 @@ namespace ASTRA.Scenes
         internal override void Draw(SpriteBatch batch)
         {
             GameScreen.Draw(batch);
-
 
             base.Draw(batch);
         }

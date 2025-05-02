@@ -18,7 +18,6 @@ namespace ASTRA.Scenes
         public event EventHandler Buttons;
         internal new string ID = "Test Scene";
 
-
         /// <summary>
         /// An instance of the level loader.
         /// </summary>

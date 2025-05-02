@@ -9,7 +9,6 @@ namespace ASTRA.Scenes
 {
     internal class SceneManager
     {
-
         /// <summary>
         /// The loaded scenes.
         /// </summary>
@@ -25,7 +24,6 @@ namespace ASTRA.Scenes
         /// </summary>
         internal Scene CurrentScene { get; private set; }
 
-
         internal SceneManager(UpdateDelegate exit)
         {
             LoadedScenes = new Dictionary<string, Scene>();
@@ -37,14 +35,11 @@ namespace ASTRA.Scenes
             {
                 CurrentScene = new TestScene();
             }
-
             //THIS IS OK SINCE WE NEED TO CHANGE BOOL ANYWAYS TO ACCESS
             else
             {
                 SetScene(HomeScreen.ID);
-
             }
-            
         }
 
         /// <summary>
@@ -111,10 +106,8 @@ namespace ASTRA.Scenes
                     }
             }
 
-
             return null;
         }
-        
 
         /// <summary>
         /// Sets the next scene for the game.
@@ -128,9 +121,5 @@ namespace ASTRA.Scenes
 
             Debug.WriteLine("Scene has been set to " + sceneName);
         }
-
-
-
-
     }
 }

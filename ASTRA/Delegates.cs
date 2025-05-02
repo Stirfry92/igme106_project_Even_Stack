@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace ASTRA
 {
-
     /// <summary>
     /// This delegate should be used whenever an item needs to be updated in correspondence with another variable, such as a listener.
     /// </summary>
@@ -27,6 +26,4 @@ namespace ASTRA
     internal delegate Scene GetSceneDelegate(string sceneName);
 
     internal delegate void GameObjectDelegate(GameObject obj);
-
-
 }

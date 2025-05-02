@@ -38,8 +38,7 @@ namespace ASTRA
         /// <param name="position"></param>
         public Throwable(Vector2 position) : base(position, ComponentOrigin.Center)
         {
-
-            //get the local content manager instance
+            //Get the local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
 
             Image = lcm.GetTexture("hammer");
@@ -52,14 +51,13 @@ namespace ASTRA
 
         public Throwable(Vector2 position, Vector2 velocity) : base(position, ComponentOrigin.Center)
         {
-            //get the local content manager instance
+            //Get the local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
 
             Image = lcm.GetTexture("hammer");
 
             this.Size = new Vector2(GameDetails.TileSize * 0.8f, GameDetails.TileSize * 0.8f);
             this.velocity = velocity;
-            //this.canPickup = true;
         }
 
         /// <summary>
@@ -94,12 +92,9 @@ namespace ASTRA
             {
                 Remove(this);
             }
-            
-            
         }
         private void CollideBounce(ICollidable other)
         {
-            //TODO: add in base logic for collision (like walls).
             //Use an intersection rectangle to determine logic, in combination with the bounds of collision.
             Rectangle intersection = Rectangle.Intersect(CollisionBounds, other.CollisionBounds);
 
@@ -124,11 +119,6 @@ namespace ASTRA
                 Position = new Vector2(Position.X, Position.Y + intersection.Height);
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
-
-            /*
-            //Now that the object has struck a wall, we can pick it up again on the rebound:
-            canPickup = true;
-            */
         }
 
         /// <summary>
@@ -137,8 +127,6 @@ namespace ASTRA
         /// <param name="gameTime"></param>
         internal override void Update(GameTime gameTime)
         {
-            //TODO: add update logic for the movement system here.
-
             //Apply whatever motion to the object here:
             Position = Position + velocity;
         }
@@ -150,9 +138,7 @@ namespace ASTRA
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(Image, CollisionBounds, Color.White);
-            //batch.Draw(Image, TopLeftCorner, null, Color.White, Rotation, Size*0.5f, 2, SpriteEffects.None, 1);
         }
-
 
         /// <summary>
         /// Whether the throwable collides with another collidable.

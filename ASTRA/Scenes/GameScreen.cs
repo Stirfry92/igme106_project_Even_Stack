@@ -12,7 +12,6 @@ namespace ASTRA.Scenes
 {
     internal class GameScreen : Scene
     {
-
         /// <summary>
         /// The ID for the game sequence
         /// </summary>
@@ -47,8 +46,6 @@ namespace ASTRA.Scenes
 
         internal GameScreen() : base()
         {
-
-            //TODO: make this a little more seamless
             loader = new LevelLoader();
             loader.LoadLevel("..\\..\\..\\DemoLevel.txt", Add, Remove);
             loader.reset += base.Reset;
@@ -107,8 +104,6 @@ namespace ASTRA.Scenes
             };
 
             UI.AddComponent(lives);
-            
-
         }
 
         internal override void Update(GameTime gameTime)
@@ -116,6 +111,7 @@ namespace ASTRA.Scenes
             Buttons.Invoke(this, EventArgs.Empty);
             base.Update(gameTime);
 
+            //Old Version:
             /*
             for (int i = 0; i < GameObjects.Count; i++)
             {
@@ -145,7 +141,6 @@ namespace ASTRA.Scenes
                             actor.Collide(collidable);
                             collidable.Collide(actor);
                         }
-
                     }
                 }
             }
@@ -153,15 +148,11 @@ namespace ASTRA.Scenes
 
             KeyboardState kbstate = Keyboard.GetState();
 
-
             //single press of the escape keyboard
             if (PreviousKeyboardState.IsKeyDown(Keys.Escape) && kbstate.IsKeyUp(Keys.Escape) || IsGameOver)
             {
                 SetScene(PauseScreen.ID);
             }
-
-
-
 
             PreviousKeyboardState = kbstate;
             Clean();
@@ -180,7 +171,6 @@ namespace ASTRA.Scenes
 
         /// <summary>
         /// Resets the game
-        /// TODO: Eventually add in the game logic to reset the player.
         /// </summary>
         internal override void Reset()
         {
@@ -193,6 +183,4 @@ namespace ASTRA.Scenes
             ResetGame = false;
         }
     }
-
-    
 }

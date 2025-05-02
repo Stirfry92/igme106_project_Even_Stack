@@ -13,19 +13,14 @@ namespace ASTRA
     {
 
         /// <summary>
-        /// TODO: This class is temporary for playtesting. We should remove this an place in a more stable structure
+        /// Collidable Wall, designed to stop players, throwables, etc.
         /// </summary>
         /// <param name="position"></param>
         public CollidableWall(Vector2 position, Vector2 size, string textureName) : base(position, ComponentOrigin.Center)
         {
-
             LocalContentManager lcm = LocalContentManager.Shared;
 
-            //TODO: get a default asset. Comment this out if need be.
             Image = lcm.GetTexture(textureName);
-
-
-            //Size = new Vector2(Image.Width, Image.Height);
             this.Size = size;
         }
 
@@ -40,31 +35,23 @@ namespace ASTRA
             }
         }
 
-
-
         /// <summary>
-        /// The image of the player.
+        /// The image of the wall.
         /// </summary>
         public Texture2D Image { get; }
-
 
         /// <summary>
         /// Handles all collisions (without updating the other object's status!).
         /// Should be called by a manager class which checks the collision between the player and all other objects.
-        /// This way, the player knows how to react when it collides with something, but does not handle checking collision.
         /// </summary>
         /// <param name="other"></param>
-        public void Collide(ICollidable other)
-        {
-        }
+        public void Collide(ICollidable other) { }
 
         /// <summary>
         /// Updates the object. (Does nothing as a wall just kind of... sits there.)
         /// </summary>
         /// <param name="gameTime"></param>
-        internal override void Update(GameTime gameTime)
-        {
-        }
+        internal override void Update(GameTime gameTime) { }
 
         /// <summary>
         /// Draws out the asset

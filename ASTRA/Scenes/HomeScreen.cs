@@ -32,10 +32,5 @@ namespace ASTRA.Scenes
             skilltree.OnClick += () => { SetScene(InfoScreen.ID); };
             UI.AddComponent(skilltree);
         }
-
-        
-
-        
-
     }
 }

@@ -26,9 +26,6 @@ namespace ASTRA.Scenes
         internal override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-
         }
-
     }
 }

@@ -22,13 +22,16 @@ public class Game1 : Game
 
     /*********************
      *     TEST ZONE     *
-     * *******************/
-    //Using this variable to test player movement
+     * *******************
+     
     //-Sterling
     private Player player;
     private Player player2;
-    //Eason
+
+    //-Eason
     //LevelLoader level = new LevelLoader();
+
+    */
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -51,8 +54,6 @@ public class Game1 : Game
         LocalContentManager lcm = LocalContentManager.Shared;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        //FROM STERLING: Testing basic player requires a texture, I made a temporary texture right here: Remove if needed
-        //but preferably integrate it elsewhere.
 
         foreach (string texture in requiredTextures)
         {
@@ -74,7 +75,6 @@ public class Game1 : Game
     {
         if (GameDetails.TestingMode && Keyboard.GetState().IsKeyDown(Keys.Escape)) 
             Exit();
-
 
         sceneManager.CurrentScene.Update(gameTime);
         //level.Update(gameTime);

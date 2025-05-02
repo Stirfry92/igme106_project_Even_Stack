@@ -16,7 +16,6 @@ namespace ASTRA.Scenes
         /// </summary>
         internal const string ID = "base";
 
-
         /// <summary>
         /// This is a delegate for when scenes should be switched. This would be for stuff like:<br></br>
         /// Pressing escape during gameplay to pull up the pause menu.<br></br>
@@ -75,7 +74,6 @@ namespace ASTRA.Scenes
             ObjectsToRemove = new Queue<GameObject>();
         }
 
-
         /// <summary>
         /// Adds in a game object.
         /// </summary>
@@ -131,8 +129,6 @@ namespace ASTRA.Scenes
         /// <param name="gameTime"></param>
         internal virtual void Update(GameTime gameTime)
         {
-            
-
             //update each game object (which updates the position)
             for (int i = 0; i < GameObjects.Count; i++)
             {
@@ -144,7 +140,6 @@ namespace ASTRA.Scenes
                 UI.Update(gameTime);
                 return;
             }
-
 
             //handle each collision with the new positions
             for (int i = 0; i < Collidables.Count; i++)
@@ -159,7 +154,6 @@ namespace ASTRA.Scenes
                         Collidables[i].Collide(Collidables[j]);
                     }
                 }
-
             }
 
             UI.Update(gameTime);
@@ -168,8 +162,7 @@ namespace ASTRA.Scenes
         /// <summary>
         /// The events that should occur when the scene is loaded. Many scenes will not need to implement this, but the game screen will definitely need to implement this!
         /// </summary>
-        internal virtual void Load()
-        {}
+        internal virtual void Load() { }
 
         /// <summary>
         /// Clears out all objects that should be deleted. This should be called if Update() ever needs to delete objects!

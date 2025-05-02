@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ASTRA
 {
-
     /// <summary>
     /// The component origin. Each different type of origin is described using a pictogram, where # represents the origin placement.
     /// </summary>
@@ -75,9 +74,5 @@ namespace ASTRA
         /// *  *  #  
         /// </summary>
         BottomRight
-
-
-
-
     }
 }

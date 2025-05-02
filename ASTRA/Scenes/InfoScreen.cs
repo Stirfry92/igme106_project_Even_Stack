@@ -32,7 +32,6 @@ namespace ASTRA.Scenes
 
             //TextComponent scrollwheel = new TextComponent("scrollwheel", $"Scroll Value: {ScrollValue.Value}.", "Mini", new Vector2(5, 5), ComponentOrigin.TopLeft);
 
-
             ScrollValue.OnValueChanged += () =>
             {
                 if (ScrollValue.Value < 0)
@@ -76,9 +75,7 @@ namespace ASTRA.Scenes
                 {
                     Position.X += ref_buttonTexture.Width * 1.1f;
                 }
-
             };
-
 
             StreamReader rdr = null;
             string line = null;
@@ -86,8 +83,7 @@ namespace ASTRA.Scenes
             UIComponent element = null;
             try
             {
-
-                //read in the file
+                //Read the file:
                 rdr = new StreamReader("..\\..\\..\\player_skillTree.txt");
 
                 while ((line = rdr.ReadLine()) != null)
@@ -109,15 +105,11 @@ namespace ASTRA.Scenes
                         element = new SkillElement(args[0], args[1], args[2] == "1", Position, ComponentOrigin.TopLeft);
 
                         UI.AddComponent(element);
-
-                        
                     }
 
                     index.Value++;
                 }
-               
             }
-
             catch (Exception ex)
             {
                 ProperlyInitialized = false;
@@ -132,8 +124,6 @@ namespace ASTRA.Scenes
             UI.MoveToTop("goback");
 
             MaxScrollDistance = ((int)Position.Y + ref_buttonTexture.Height) * 4;
-
-
         }
 
         /// <summary>
@@ -161,19 +151,12 @@ namespace ASTRA.Scenes
             //get the current difference (cannot directly store the scroll value).
             int ScrollWheelValue = currentMouseState.ScrollWheelValue - PreviousMouseState.ScrollWheelValue;
 
-
             ScrollValue.Value -= ScrollWheelValue;
             base.Update(gameTime);
 
             PreviousMouseState = currentMouseState;
-
-            
-
         }
 
-        internal override void Reset()
-        {
-            
-        }
+        internal override void Reset() { }
     }
 }
