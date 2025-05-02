@@ -10,9 +10,6 @@ using System.Threading.Tasks;
 
 namespace ASTRA
 {
-
-    
-    
     //Enum Defined here is utilized in determining player behavior in the main update method.
     public enum PlayerState
     {
@@ -85,7 +82,6 @@ namespace ASTRA
         /// <param name="position"></param>
         public Player(Vector2 position) : base(position, ComponentOrigin.Center)
         {
-
             //Local content manager instance
             LocalContentManager lcm = LocalContentManager.Shared;
             Image = lcm.GetTexture("editedAstronaut");
