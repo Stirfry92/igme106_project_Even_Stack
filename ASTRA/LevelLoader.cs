@@ -162,7 +162,7 @@ namespace ASTRA
         {
             string[] Button = buttonSet.Split(',');
             int buttonX = int.Parse(Button[0]);
-            int buttonY = int.Parse(Button[1]);
+            int buttonY = int.Parse(Button[1]);   
             Button = doorSet.Split(',');
 
             int doorX = int.Parse(Button[0]);
